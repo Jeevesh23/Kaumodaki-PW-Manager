@@ -2,7 +2,7 @@
 
 $url = 'https://leak-lookup.com/api/search';
 
-$api_key = getenv('leak_lookup_api_key');
+$api_key = getenv('LEAK_LOOKUP_API_KEY');
 
 $data = array(
     'key' => $api_key,
