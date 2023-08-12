@@ -9,6 +9,35 @@
 </head>
 
 <body>
+    <h1>Register with our Password Manager!</h1>
+    <form name="register" method="post" action="./register.php">
+        <div class="HeaderContainer">
+            <h3>Register</h3>
+            <p>Enter your username and password.</p>
+        </div>
+        <div class="MainContainer">
+            <!-- Username -->
+            <label for="username">Your username:</label>
+            <input type="text" placeholder="Enter Username" name="username" id="username" required>
+            <br><br>
+            <!-- Password -->
+            <label for="password">Your password:</label>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+            <br><br>
+            <div class="Subcontainer">
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+            <br>
+
+            <!-- Submit button -->
+            <button type="submit">Register</button>
+
+            <!-- Sign in link -->
+            <p class="signin">Already have an account? <a href="">Sign In here!</a></p>
+        </div>
+    </form>
     <h1>Welcome back to our Password Manager!</h1>
     <form name="signin" method="post" action="./signin.php">
         <div class="HeaderContainer">
@@ -35,7 +64,7 @@
             <button type="submit">Login</button>
 
             <!-- Sign up link -->
-            <p class="register">Not a member? <a href="./register.html">Register here!</a></p>
+            <p class="register">Not a member? <a href="">Register here!</a></p>
         </div>
     </form>
 </body>

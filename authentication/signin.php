@@ -19,7 +19,7 @@ else if ($result->num_rows > 0) {
             echo "User signed in!";
     }
 } else {
-    echo "No user!Register now";
+    echo "No user! Register now";
 }
 
 $conn->close();
