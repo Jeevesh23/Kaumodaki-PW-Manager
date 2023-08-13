@@ -15,11 +15,15 @@ if (!$result)
 else if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $hasheddata = hash('sha512', $password . $row["Salt"]);
-        if ($row["Password"] == $hasheddata)
+        if ($row["Password"] == $hasheddata) {
             echo "User signed in!";
+            $conn->close();
+            exit();
+        }
     }
+    echo "No account! Register now.";
 } else {
-    echo "No user! Register now";
+    echo "No account! Register now.";
 }
 
 $conn->close();
