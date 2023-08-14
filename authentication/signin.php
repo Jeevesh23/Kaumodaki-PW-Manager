@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $conn = mysqli_connect('localhost', 'root', '', 'PM_1');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -7,7 +7,8 @@ if ($conn->connect_error) {
 
 $username = $_POST['username'];
 $password = $_POST['password'];
-$sql = "SELECT `Salt`,`Password` FROM `Credentials` WHERE `Username`='$username'";
+$otp = $_POST['otp'];
+$sql = "SELECT `Salt`,`Password`,`Secret_Key` FROM `Credentials` WHERE `Username`='$username'";
 $result = mysqli_query($conn, $sql);
 
 if (!$result)
@@ -16,8 +17,13 @@ else if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $hasheddata = hash('sha512', $password . $row["Salt"]);
         if ($row["Password"] == $hasheddata) {
-            echo "User signed in!";
+            $key = getenv('AES_KEY');
+            $method = "AES-256-CBC";
+            $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key);
+            $_SESSION['secret'] = $encrypted;
+            $_SESSION['otp'] = $otp;
             $conn->close();
+            header("Location:verify-otp.php");
             exit();
         }
     }
