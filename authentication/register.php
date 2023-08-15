@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$conn = mysqli_connect('localhost', 'root', '', 'PM_1');
+$conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }

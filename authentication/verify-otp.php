@@ -10,8 +10,8 @@ $result = $tfa->verifyCode($_SESSION['secret'], $_SESSION['otp']);
 if ($result === true) {
     echo "User successfully signed in!";
 } else {
+    header("Refresh:5, url= http://localhost:8000/authentication");
     echo "Error! 2FA problems.";
-    header("Refresh:5, url= http://localhost/DBMS-Lab-Project/authentication");
     exit();
 }
 ?>

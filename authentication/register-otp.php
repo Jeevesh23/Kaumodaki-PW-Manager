@@ -12,7 +12,7 @@ session_start();
 $verification = $_POST['otp'];
 $result = $tfa->verifyCode($_SESSION['secret'], $verification);
 
-$conn = mysqli_connect('localhost', 'root', '', 'PM_1');
+$conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -31,14 +31,14 @@ if ($result === true) {
     $sql1 = "INSERT INTO `Credentials` (`Username`, `Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$password','$salt','$encrypted','$iv')";
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
+        header("Refresh:5, url= http://localhost:8000/authentication");
         echo "Connection failed!";
-        header("Refresh:5, url= http://localhost/DBMS-Lab-Project/authentication/register-form.php");
         exit();
     } else
         echo "User successfully registered!";
 } else {
+    header("Refresh:5, url= http://localhost:8000/authentication");
     echo "Error! 2FA problems.";
-    header("Refresh:5, url= http://localhost/DBMS-Lab-Project/authentication/register-form.php");
     exit();
 }
 
