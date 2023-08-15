@@ -23,11 +23,12 @@ if ($result === true) {
     $password = $_SESSION['password'];
 
     $key = getenv('AES_KEY');
-    $method = "AES-256-CBC";
+    $method = "aes-256-cbc";
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
     $secret = $_SESSION['secret'];
-    $encrypted = openssl_encrypt($secret, $method, $key);
+    $encrypted = openssl_encrypt($secret, $method, $key, iv: $iv);
 
-    $sql1 = "INSERT INTO `Credentials` (`Username`, `Password`, `Salt`, `Secret_Key`) VALUES ('$username','$password','$salt','$encrypted')";
+    $sql1 = "INSERT INTO `Credentials` (`Username`, `Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$password','$salt','$encrypted','$iv')";
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
         echo "Connection failed!";

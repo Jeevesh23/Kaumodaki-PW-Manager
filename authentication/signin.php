@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 $username = $_POST['username'];
 $password = $_POST['password'];
 $otp = $_POST['otp'];
-$sql = "SELECT `Salt`,`Password`,`Secret_Key` FROM `Credentials` WHERE `Username`='$username'";
+$sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV` FROM `Credentials` WHERE `Username`='$username'";
 $result = mysqli_query($conn, $sql);
 
 if (!$result)
@@ -19,7 +19,8 @@ else if ($result->num_rows > 0) {
         if ($row["Password"] == $hasheddata) {
             $key = getenv('AES_KEY');
             $method = "AES-256-CBC";
-            $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key);
+            $iv = $row["IV"];
+            $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $iv);
             $_SESSION['secret'] = $encrypted;
             $_SESSION['otp'] = $otp;
             $conn->close();
