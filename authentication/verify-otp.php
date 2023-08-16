@@ -1,5 +1,8 @@
 <?php
-include_once(__DIR__ . './../vendor/autoload.php');
+include_once('/app/vendor/autoload.php');
+$newIncludePath = '/app/vendor';
+set_include_path($newIncludePath);
+
 use RobThree\Auth\TwoFactorAuth;
 use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
 

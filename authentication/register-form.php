@@ -1,7 +1,9 @@
 <?php
-use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
+include_once('/app/vendor/autoload.php');
+$newIncludePath = '/app/vendor';
+set_include_path($newIncludePath);
 
-include_once(__DIR__ . './../vendor/autoload.php');
+use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
 use RobThree\Auth\TwoFactorAuth;
 
 $tfa = new TwoFactorAuth(

@@ -14,3 +14,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 COPY entry-script.sh /usr/local/bin/
 RUN /bin/bash -c 'chmod +x /usr/local/bin/entry-script.sh'
 CMD ["/usr/local/bin/entry-script.sh"]
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+WORKDIR /app
+COPY composer.json .
+COPY composer.lock .
+RUN /bin/bash -c 'composer install --working-dir=/app'
+
+WORKDIR /var/www/html
