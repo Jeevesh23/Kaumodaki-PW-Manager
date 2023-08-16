@@ -8,4 +8,5 @@ RUN apt-get update && apt-get install -y \
 		libpng-dev \
 	    \
 	&& docker-php-ext-install -j$(nproc) gd
+RUN /bin/bash -c 'mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini'
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
