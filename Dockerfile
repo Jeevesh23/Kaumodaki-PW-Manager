@@ -11,10 +11,6 @@ RUN apt-get update && apt-get install -y \
 RUN /bin/bash -c 'mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini'
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-COPY entry-script.sh /usr/local/bin/
-RUN /bin/bash -c 'chmod +x /usr/local/bin/entry-script.sh'
-CMD ["/usr/local/bin/entry-script.sh"]
-
 ENV COMPOSER_ALLOW_SUPERUSER=1
 WORKDIR /app
 COPY composer.json .

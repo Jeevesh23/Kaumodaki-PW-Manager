@@ -11,6 +11,8 @@ services:
             - ./:/var/www/html
         ports:
             - 8000:80
+        env_file:
+            - .env
     db:
         container_name: db
         image: mariadb

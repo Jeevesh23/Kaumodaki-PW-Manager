@@ -1,10 +1,9 @@
-body  
-{  
-    margin: 0;  
-    padding: 0;  
-    background-color:#2ad49e;  
-    font-family: 'Arial';  
-}  
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #c4b01b;
+    font-family: 'Arial';
+}
 
 .MainContainer {
     width: 382px;
@@ -12,11 +11,11 @@ body
     margin: auto;
     margin: 20 0 0 450px;
     padding: 80px;
-    background: #32dce2;
-    border-radius: 15px ;
+    background: #9d0bb7;
+    border-radius: 15px;
 }
 
-h1{
+h1 {
     text-align: center;
     color: black;
     padding: 20px;
