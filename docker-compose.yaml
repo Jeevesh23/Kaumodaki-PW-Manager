@@ -13,6 +13,8 @@ services:
             - 8000:80
         env_file:
             - .env
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
     db:
         container_name: db
         image: mariadb
