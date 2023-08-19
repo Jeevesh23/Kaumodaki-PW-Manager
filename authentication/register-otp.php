@@ -1,16 +1,18 @@
 <?php
+session_start();
+if (!isset($_COOKIE[$_SESSION['username']]) || $_COOKIE[$_SESSION['username']] != 'register') {
+    header("Location:index.html");
+    exit();
+}
 include_once('/app/vendor/autoload.php');
 $newIncludePath = '/app/vendor';
 set_include_path($newIncludePath);
-
 use RobThree\Auth\TwoFactorAuth;
 use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
 
 $tfa = new TwoFactorAuth(
     qrcodeprovider: new EndroidQrCodeProvider()
 );
-
-session_start();
 
 $verification = $_POST['otp'];
 $result = $tfa->verifyCode($_SESSION['secret'], $verification);
@@ -34,13 +36,13 @@ if ($result === true) {
     $sql1 = "INSERT INTO `Credentials` (`Username`, `Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$password','$salt','$encrypted','$iv')";
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
-        header("Refresh:5, url= http://localhost:8000/authentication");
+        header("Refresh:3, url= http://localhost:8000/authentication");
         echo "Connection failed!";
         exit();
     } else
         echo "User successfully registered!";
 } else {
-    header("Refresh:5, url= http://localhost:8000/authentication");
+    header("Refresh:3, url= http://localhost:8000/authentication");
     echo "Error! 2FA problems.";
     exit();
 }

@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_COOKIE[$_SESSION['username']]) || $_COOKIE[$_SESSION['username']] != 'register') {
+    header("Location:index.html");
+    exit();
+}
 include_once('/app/vendor/autoload.php');
 $newIncludePath = '/app/vendor';
 set_include_path($newIncludePath);
@@ -10,7 +15,6 @@ $tfa = new TwoFactorAuth(
     qrcodeprovider: new EndroidQrCodeProvider()
 );
 $secret = $tfa->createSecret();
-session_start();
 $_SESSION['secret'] = $secret;
 
 ?>

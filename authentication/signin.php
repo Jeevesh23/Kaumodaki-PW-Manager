@@ -1,38 +1,47 @@
 <?php
-session_start();
-$conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$otp = $_POST['otp'];
-$sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV` FROM `Credentials` WHERE `Username`='$username'";
-$result = mysqli_query($conn, $sql);
-
-if (!$result)
-    echo "Connection failed";
-else if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $hasheddata = hash('sha512', $password . $row["Salt"]);
-        if ($row["Password"] == $hasheddata) {
-            $key = getenv('AES_KEY');
-            $method = "AES-256-CBC";
-            $iv = $row["IV"];
-            $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $iv);
-            $_SESSION['secret'] = $encrypted;
-            $_SESSION['otp'] = $otp;
-            $conn->close();
-            header("Location:verify-otp.php");
-            exit();
-        }
+    session_start();
+    $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-    echo "No account! Register now.";
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $otp = $_POST['otp'];
+    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV` FROM `Credentials` WHERE `Username`='$username'";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        header("Refresh:3, url= http://localhost:8000/authentication");
+        echo "Connection failed";
+        $conn->close();
+        exit();
+    } else if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $hasheddata = hash('sha512', $password . $row["Salt"]);
+            if ($row["Password"] == $hasheddata) {
+                $key = getenv('AES_KEY');
+                $method = "AES-256-CBC";
+                $iv = $row["IV"];
+                $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $iv);
+                $_SESSION['secret'] = $encrypted;
+                $_SESSION['otp'] = $otp;
+                setcookie($_SESSION['username'], 'signin', time() + 360, path: '/');
+                $conn->close();
+                header("Location:verify-otp.php");
+                exit();
+            }
+        }
+        echo "No account! Register now.";
+    } else {
+        echo "No account! Register now.";
+    }
+
+    $conn->close();
 } else {
-    echo "No account! Register now.";
+    header("Location: index.html");
+    exit();
 }
-
-$conn->close();
-
 ?>
