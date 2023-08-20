@@ -8,6 +8,11 @@ RUN apt-get update && apt-get install -y \
 	libpng-dev \
 	\
 	&& docker-php-ext-install -j$(nproc) gd
+RUN apt-get update && \
+	apt-get install -y \
+	libc-client-dev libkrb5-dev
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
+	docker-php-ext-install -j$(nproc) imap
 RUN /bin/bash -c 'mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini'
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
