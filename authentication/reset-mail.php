@@ -15,16 +15,16 @@ $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     $email = $_POST["email"];
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $hashemail = hash('md5', $email);
     $username = $_POST["username"];
     if (!$email) {
         $error .= "<p>Invalid email address!</p>";
     } else {
-        $sql = "SELECT * FROM `Credentials` WHERE `Username`='$username'";
+        $sql = "SELECT * FROM `Credentials` WHERE `Username`='$username' AND `Email`='$hashemail'";
         $results = mysqli_query($conn, $sql);
         $row = mysqli_num_rows($results);
         if ($row === 0) {

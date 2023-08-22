@@ -10,77 +10,81 @@
 </head>
 
 <body>
-        <form name="register" method="post" action="./register.php">
-            <div class="HeaderContainer">
-                <h1>Register with our Password Manager!</h1>
+    <form name="register" method="post" action="./register.php">
+        <div class="HeaderContainer">
+            <h1>Register with our Password Manager!</h1>
+        </div>
+        <div class="input-box">
+            <div class="MainContainer">
+                <!-- Email -->
+                <!-- <label for="email">Your email:</label> -->
+                <input type="email" placeholder="Email" name="email" id="email" required>
+                <br><br>
+                <!-- Username -->
+                <!-- <label for="username">Your username:</label> -->
+                <input type="text" placeholder="Username" name="username" id="username" required>
+                <br><br>
+                <!-- Password -->
+
+                <!-- <label for="password">Your password:</label> -->
+                <input type="password" placeholder="Password" name="password" id="password" required>
+                <div class="Subcontainer">
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
+                <br>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn">Register</button>
+
+                <!-- Sign in link -->
+                <p class="signin">
+                    Already have an account? <a href="">Sign In here!</a></p>
             </div>
-            <div class="input-box">
-                <div class="MainContainer">
-                    <!-- Username -->
-                    <!-- <label for="username">Your username:</label> -->
-                    <input type="text" placeholder="Username" name="username" id="username" required>
-                    <br><br>
-                    <!-- Password -->
-            
-                    <!-- <label for="password">Your password:</label> -->
-                    <input type="password" placeholder="Password" name="password" id="password" required>
-                    <div class="Subcontainer">
-                        <label>
-                            <input type="checkbox" checked="checked" name="remember"> Remember me
-                        </label>
-                    </div>
+        </div>
+    </form>
+
+
+    <form name="signin" method="post" action="./signin.php">
+        <div class="HeaderContainer">
+            <h1>Welcome back to our Password Manager!</h1>
+            <h3>Sign in</h3>
+            <p>Sign in with your username and password.</p>
+        </div>
+        <div class="input-box">
+            <div class="MainContainer">
+                <!-- Username -->
+                <!-- <label for="email">Your email:</label> -->
+                <span class="icon"><ion-icon name="person"></ion-icon></span>
+                <input type="email" placeholder="Email" name="email" id="email" required>
+                <br><br>
+                <!-- Password -->
+                <!-- <label for="password">Your password:</label> -->
+                <input type="password" placeholder="Password" name="password" id="password" required>
+
+                <br><br>
+
+                <!-- <label for="otp">Your 2FA OTP:</label> -->
+                <input type="otp" placeholder="OTP" name="otp" id="otp" required>
+                <br><br>
+                <div class="Subcontainer">
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
                     <br>
-
-                    <!-- Submit button -->
-                    <button type="submit" class="btn">Register</button>
-
-                    <!-- Sign in link -->
-                    <p class="signin">
-                        Already have an   account? <a href="">Sign In here!</a></p>
+                    <p class="forgotpwd"> <a href="reset-mail.php">Forgot Password?</a></p>
                 </div>
-            </div>
-        </form>
-    
-    
-        <form name="signin" method="post" action="./signin.php">
-            <div class="HeaderContainer">
-                <h1>Welcome back to our Password Manager!</h1>
-                <h3>Sign in</h3>
-                <p>Sign in with your username and password.</p>
-            </div>
-            <div class="input-box">
-                <div class="MainContainer">
-                    <!-- Username -->
-                    <!-- <label for="username">Your username:</label> -->
-                    <span class="icon"><ion-icon name="person"></ion-icon></span>
-                    <input type="text" placeholder="Username" name="username" id="username" required>
-                    <br><br>
-                    <!-- Password -->
-                    <!-- <label for="password">Your password:</label> -->      
-                    <input type="password" placeholder="Password" name="password" id="password" required>
-                
-                    <br><br>
-                
-                    <!-- <label for="otp">Your 2FA OTP:</label> -->
-                    <input type="otp" placeholder="OTP" name="otp" id="otp" required>
-                    <br><br>
-                    <div class="Subcontainer">
-                        <label>
-                            <input type="checkbox" checked="checked" name="remember"> Remember me
-                        </label>
-                        <br>
-                        <p class="forgotpwd"> <a href="#">Forgot Password?</a></p>
-                    </div>
 
-                    <!-- Submit button -->
-                    <button type="submit" class="btn">Login</button>
+                <!-- Submit button -->
+                <button type="submit" class="btn">Login</button>
 
-                    <!-- Sign up link -->
-                    <p class="register">Not a member? <a href="">Register here!</a></p>
-                </div>
+                <!-- Sign up link -->
+                <p class="register">Not a member? <a href="">Register here!</a></p>
             </div>
-        </form> 
-    
+        </div>
+    </form>
+
 </body>
 
 </html>

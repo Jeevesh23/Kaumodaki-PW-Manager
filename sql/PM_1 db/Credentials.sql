@@ -14,6 +14,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `Credentials` (
   `User_ID` int(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `Username` varchar(256),
+  `Email` varchar(256),
   `Password` varchar(1024),
   `Salt` varchar(256),
   `Secret_Key` varchar(64),

@@ -7,10 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $username = $_POST['username'];
+    $email = hash('md5', $_POST['email']);
     $password = $_POST['password'];
     $otp = $_POST['otp'];
-    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV` FROM `Credentials` WHERE `Username`='$username'";
+    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV` FROM `Credentials` WHERE `Email`='$email'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $iv);
                 $_SESSION['secret'] = $encrypted;
                 $_SESSION['otp'] = $otp;
-                setcookie($_SESSION['username'], 'signin', time() + 360, path: '/');
+                setcookie($_SESSION['email'], 'signin', time() + 360, path: '/');
                 $conn->close();
                 header("Location:verify-otp.php");
                 exit();

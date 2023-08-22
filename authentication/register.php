@@ -9,9 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 
 	$username = $_POST['username'];
+	$email = hash('md5', $_POST['email']);
 	$password = $_POST['password'];
-
-	$sql = "SELECT `Salt`,`Password` FROM `Credentials` WHERE `Username`='$username'";
+	$sql = "SELECT `Salt`,`Password` FROM `Credentials` WHERE `Email`='$email'";
 	$result = mysqli_query($conn, $sql);
 
 	if (!$result) {
@@ -24,21 +24,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			$hasheddata = hash('sha512', $password . $row["Salt"]);
 			if ($row["Password"] == $hasheddata) {
 				echo "User exists! Sign in instead.";
+				header("Refresh:3,url=index.html");
 				$conn->close();
 				exit();
 			}
 		}
+		header("Refresh:3,url=index.html");
+		echo "Email already taken! Use another one.";
+		$conn->close();
+		exit();
 	}
 	require_once('func.php');
 	$salt = getRandomStringRand();
 	$hasheddata = hash('sha512', $password . $salt);
 
 	$_SESSION['username'] = $username;
+	$_SESSION['email'] = $email;
 	$_SESSION['password'] = $hasheddata;
 	$_SESSION['salt'] = $salt;
 
 	$conn->close();
-	setcookie($_SESSION['username'], 'register', time() + 360, path: '/');
+	setcookie($_SESSION['email'], 'register', time() + 360, path: '/');
 	header("Location: register-form.php");
 	exit();
 } else {

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_COOKIE[$_SESSION['username']]) || $_COOKIE[$_SESSION['username']] != 'register') {
+if (!isset($_COOKIE[$_SESSION['email']]) || $_COOKIE[$_SESSION['email']] != 'register') {
     header("Location:index.html");
     exit();
 }
@@ -24,6 +24,7 @@ if ($conn->connect_error) {
 
 if ($result === true) {
     $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
     $salt = $_SESSION['salt'];
     $password = $_SESSION['password'];
 
@@ -33,7 +34,7 @@ if ($result === true) {
     $secret = $_SESSION['secret'];
     $encrypted = openssl_encrypt($secret, $method, $key, iv: $iv);
 
-    $sql1 = "INSERT INTO `Credentials` (`Username`, `Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$password','$salt','$encrypted','$iv')";
+    $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$email','$password','$salt','$encrypted','$iv')";
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
         header("Refresh:3, url= http://localhost:8000/authentication");
