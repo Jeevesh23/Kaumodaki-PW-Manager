@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_COOKIE[$_SESSION['email']]) || $_COOKIE[$_SESSION['email']] != 'signin') {
+if (!isset($_COOKIE[$_SESSION['hashemail']]) || $_COOKIE[$_SESSION['hashemail']] != 'signin') {
     header("Location:index.html");
     exit();
 }

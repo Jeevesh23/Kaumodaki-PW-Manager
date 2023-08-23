@@ -9,9 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 
 	$username = $_POST['username'];
-	$email = hash('md5', $_POST['email']);
+	$email = $_POST['email'];
+	$hashemail = hash('md5', $email);
 	$password = $_POST['password'];
-	$sql = "SELECT `Salt`,`Password` FROM `Credentials` WHERE `Email`='$email'";
+	$sql = "SELECT `Salt`,`Password` FROM `Credentials` WHERE `Email`='$hashemail'";
 	$result = mysqli_query($conn, $sql);
 
 	if (!$result) {
@@ -40,11 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 	$_SESSION['username'] = $username;
 	$_SESSION['email'] = $email;
+	$_SESSION['hashemail'] = $hashemail;
 	$_SESSION['password'] = $hasheddata;
 	$_SESSION['salt'] = $salt;
 
 	$conn->close();
-	setcookie($_SESSION['email'], 'register', time() + 360, path: '/');
+	setcookie($_SESSION['hashemail'], 'register', time() + 360, path: '/');
 	header("Location: register-form.php");
 	exit();
 } else {

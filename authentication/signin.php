@@ -7,10 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $email = hash('md5', $_POST['email']);
+    $hashemail = hash('md5', $_POST['email']);
     $password = $_POST['password'];
     $otp = $_POST['otp'];
-    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV` FROM `Credentials` WHERE `Email`='$email'";
+    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV` FROM `Credentials` WHERE `Email`='$hashemail'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -28,13 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $iv);
                 $_SESSION['secret'] = $encrypted;
                 $_SESSION['otp'] = $otp;
-                setcookie($_SESSION['email'], 'signin', time() + 360, path: '/');
+                setcookie($_SESSION['hashemail'], 'signin', time() + 360, path: '/');
                 $conn->close();
                 header("Location:verify-otp.php");
                 exit();
             }
         }
-        echo "No account! Register now.";
+        echo "Wrong credentials!";
     } else {
         echo "No account! Register now.";
     }
