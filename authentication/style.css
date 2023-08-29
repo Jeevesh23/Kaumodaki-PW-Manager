@@ -36,7 +36,7 @@ a {
 .nav_logo,
 .nav_link,
 .button {
-    color: #231919;
+    color: #fff;
 }
 
 .nav_logo {
@@ -68,7 +68,7 @@ a {
     position: relative;
     height: 100vh;
     width: 100%;
-    background-image: url("images/3.jpg");
+    background-image: url("images/bg.jpg");
     background-size: cover;
     background-position: center;
 }

@@ -36,17 +36,42 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             $ExpDate = $row['ExpDate'];
             if ($ExpDate >= $date) {
                 ?>
-                <br />
-                <form method="post" action="" name="update">
-                    <input type="hidden" name="action" value="update">
-                    <input type="hidden" name="userid" value="<?php echo $userid; ?>">
-                    <label>Enter New Password:</label>
-                    <input type="password" name="password" required><br><br>
-                    <label>Enter 2FA OTP:</label>
-                    <input type="password" name="otp" required>
-                    <br><br>
-                    <input type="submit" value="Reset Password">
-                </form>
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" href="style1.css">
+                    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+                    <title>Document</title>
+                </head>
+                <body>
+
+                    <div class="center">
+                        <h2>Reset Password</h2><br>
+                        <form method="post" action="" name="update">
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+
+                            <div class="input_box">
+                                <!-- <label>Enter New Password:</label> -->
+                                <i class="uil uil-lock password"></i>
+                                <input type="password" name="password" placeholder="Enter New Password"required><br><br>
+                                <span></span>
+                            </div>
+
+                            <div class="input_box">
+                                <!-- <label>Enter 2FA OTP:</label> -->
+                                <i class="uil uil-arrow point"></i>
+                                <input type="password" name="otp" placeholder="Enter OTP" required>
+                                <span></span>
+                            </div>
+                            <input type="submit" value="Reset Password">
+                        </form>
+                    </div>
+                </body>
+                </html>
+                
                 <?php
             } else {
                 $error .= "<h2>Link Expired</h2>

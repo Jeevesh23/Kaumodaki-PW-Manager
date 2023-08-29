@@ -99,24 +99,67 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
             echo "Mailer Error: " . $mail->ErrorInfo;
         } else {
             echo
-                "<div>
-                <p>An email has been sent to you with instructions on how to reset your password.</p>
-                </div>
-                <br><br><br>";
+                "
+                <!DOCTYPE html>
+                <html lang='en'>
+                <head>
+                    <meta charset='UTF-8'>
+                    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                    <title>Document</title>
+                    <link rel='stylesheet' href='style1.css'> 
+                </head>
+                <body>
+                    <div>
+                    <h1>An email has been sent to you with instructions on how to reset your password.</h1>
+                    </div>
+                </body>
+                </html>"
+            ;
         }
     }
 } else {
     ?>
-    <form method="post" name="reset"><br><br>
-        <label>Your username:</label>
-        <input type="text" name="username" placeholder="Enter username" required>
-        <br><br>
-        <label>Your Email Address:</label>
-        <input type="email" name="email" placeholder="username@email.com" required>
-        <br><br>
-        <label>Your 2FA OTP:</label>
-        <input type="password" name="otp" placeholder="Enter OTP" required>
-        <br><br>
-        <input type="submit" value="Reset Password">
-    </form>
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style1.css">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <div class="center">
+            <h2>Forgot Password?</h2>
+            <form method="post" name="reset"><br><br>
+                <div class="input_box">
+                    <!-- <label>Username:</label> -->
+                    <i class="uil uil-user body"></i>
+                    <input type="text" name="username" placeholder="Enter username" required>
+                    <span></span>
+                    <br><br>
+                </div>
+                <div class="input_box">
+                    <!-- <label>Email-ID:</label> -->
+                    <i class="uil uil-envelope-alt email"></i>
+                    <input type="email" name="email" placeholder="username@email.com" required>
+                    <span></span>
+                    <br><br>
+                </div>
+                <div class="input_box">
+                    <!-- <label>2FA-OTP:</label> -->
+                    <i class="uil uil-arrow point"></i>
+                    <input type="password" name="otp" placeholder="Enter OTP" required>
+                    <span></span>
+                    <br><br>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
+    </body>
+    </html>
+    
 <?php } ?>
