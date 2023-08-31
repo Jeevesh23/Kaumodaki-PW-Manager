@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-
+/* @import url("https://fonts.googleapis.com/css2?family=:wght@;300;400;500;600;700&display=swap"); */
+@import url("./../fonts/Poppins_200.woff2");
 * {
     margin: 0;
     padding: 0;
@@ -16,13 +16,15 @@ a {
     height: 80px;
     width: 100%;
     z-index: 100px;
-    padding: 0 20px;
+    /* padding: 0 20px; */
+    background: rgba(56, 55, 55, 0.615);
 }
 
 .nav {
     max-width: 1100px;
     width: 100%;
     margin: 0 auto;
+    
 }
 
 .nav,
