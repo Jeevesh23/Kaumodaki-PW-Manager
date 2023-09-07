@@ -41,7 +41,10 @@ if ($result === true) {
         echo "Connection failed!";
         exit();
     } else
-        echo "User successfully registered!";
+    {
+        header("Refresh:3,url= ./../vault/index.php");
+        echo "User successfully registered! Redirecting to vault!";
+    }
 } else {
     header("Refresh:3, url= http://localhost:8000/authentication");
     echo "Error! 2FA problems.";
