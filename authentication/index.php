@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Manager</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css"/>
     <!--Unicons-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 </head>
@@ -21,14 +21,17 @@
         
                 <ul class="nav_items">
                     <li class="nav_item">
-                        <a href="index.html" class="nav_link">Home</a>
+                        <a href="./../get_started/index.html" class="nav_link">Home</a>
                         <a href="#" class="nav_link">Product</a>
                         <a href="#" class="nav_link">Services</a>
                         <a href="contact.html" class="nav_link">Contact</a>
                     </li>
                 </ul>
-        
-                <button class="button" id="form-open">Login</button>
+                <div>
+                    <button class="button" id="form-open">Login</button>
+                    <button class="button" id="form-open">Signup</button>
+                </div>
+                
             </nav>
         </header>
 

@@ -114,7 +114,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             );
             mysqli_query($conn, "DELETE FROM `Password_Reset` WHERE `User_ID`='$userid'");
             $conn->close();
-            header("Refresh:3,Location:index.html");
+            header("Refresh:3,Location:index.php");
             echo '<div><p>Congratulations! Your password has been updated successfully.</p>';
         } else {
             echo "2FA failed. Re-enter the link or try requesting a new reset link.";

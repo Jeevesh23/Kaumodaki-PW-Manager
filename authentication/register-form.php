@@ -88,23 +88,5 @@ $_SESSION['secret'] = $secret;
         </form>
     </div>
     </div>
-    
-<!--My code which was not working-->
-    <!-- <div class="qr-code">
-        <div class="container">
-            <h2>Scan the following image with your authenticator app</h2><br><br>
-        </div>
-
-        <img src="<?php
-        echo $tfa->getQRCodeImageAsDataUri($_SESSION['username'] . '_' . $_SESSION['email'], $secret, 400); ?>">
-
-        <div class="Form">
-            <form method="post" action="./register-otp.php">
-                <label for="otp"><br>Enter OTP: </label>
-                <input type="text" placeholder=" Your OTP" name="otp" id="otp" required><br><br>
-                <button type="button" class="btn">Submit</button>
-            </form>
-        </div>
-    </div> -->
 </body>
 </html>

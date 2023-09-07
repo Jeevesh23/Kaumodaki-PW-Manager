@@ -1,70 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="contact.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-</head>
-<body class="home">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive Contact Us Form | CodingLab</title>
+    <link rel="stylesheet" href="contact.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Connect With Us</h1>
-        <p>We love to respond to your queries and help you succeed. Feel free to get in touch with us.</p>
-        <div class="contect-box">
-            <div class="contact-left">
-                <h3>Sent your request</h3>
-                <form>
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label>Name</label>
-                            <input type="text"> 
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <label>Phone</label>
-                            <input type="text"> 
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <label>Email</label>
-                            <input type="email"> 
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <label>Subject</label>
-                            <input type="text"> 
-                        </div>
-                        <br>
-                    </div>
-
-                    <label>Message</label>
-                    <textarea rows="5" placeholder="Your Message"></textarea>
-                
-                    <button id="btn" type="submit">SEND</button>
-                </form>
-            </div>
-            <div class="contact-right">
-                <h3>Reach Us</h3>
-
-                <tabel>
-                    <tr>
-                        <td>Email</td>
-                        <td>contactemail@.com</td>
-                    </tr>
-                    <tr>
-                        <td>Phone</td>
-                        <td>879884924988</td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td>Ponda-Goa</td>
-                    </tr>
-                </tabel>
-            </div>
-            <br> <br> <br>
+      <div class="content">
+        <div class="left-side">
+          <div class="address details">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="topic">Address</div>
+            <div class="text-one">Ponda</div>
+            <div class="text-two">Goa 4003-401</div>
+          </div>
+          <div class="phone details">
+            <i class="fas fa-phone-alt"></i>
+            <div class="topic">Phone</div>
+            <div class="text-one">+0098 9893 5647</div>
+            <div class="text-two">+0096 3434 5678</div>
+          </div>
+          <div class="email details">
+            <i class="fas fa-envelope"></i>
+            <div class="topic">Email</div>
+            <div class="text-one">abcd@gmail.com</div>
+            <div class="text-two">efgh@gmail.com</div>
+          </div>
         </div>
+        <div class="right-side">
+          <div class="topic-text">Send us a message</div>
+          <p>If you have any types of quries related to Password manager, you can send me message from here. It's my pleasure to help you.</p>
+          <form action="#">
+            <div class="input-box">
+              <input type="text" placeholder="Enter your name" />
+            </div>
+            <div class="input-box">
+              <input type="text" placeholder="Enter your email" />
+            </div>
+            <div class="input-box message-box">
+              <textarea placeholder="Enter your message"></textarea>
+            </div>
+            <div class="button">
+              <input type="button" value="Send Now" />
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
