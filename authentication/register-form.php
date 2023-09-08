@@ -32,7 +32,7 @@ $_SESSION['secret'] = $secret;
         }
 
         body {
-            background-image: linear-gradient(142deg, #9861c2, #5cc0de);
+            background-image: url("1.jpg");
             font-family: "Lato", sans-serif;
             height: 100vh;
             display: flex;
