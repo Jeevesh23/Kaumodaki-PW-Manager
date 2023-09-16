@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url("1.jpg");
+    background-color: #00a7a7;
     font-family: "Lato", sans-serif;
     height: 100vh;
     display: flex;
@@ -18,10 +18,16 @@ body {
     background-position: center;
 }
 
+div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
 h2 {
     font-size: 20px;
     border-radius: 10px;
-    max-width: 1000px; 
+    max-width: 1000px;
     text-align: center;
 }
 
@@ -91,10 +97,10 @@ h2 {
     left: 0;
 }
 
-.input_box input:focus ~ i.email,
-.input_box input:focus ~ i.body,
-.input_box input:focus ~ i.password,
-.input_box input:focus ~ i.point {
+.input_box input:focus~i.email,
+.input_box input:focus~i.body,
+.input_box input:focus~i.password,
+.input_box input:focus~i.point {
     color: #231919;
 }
 

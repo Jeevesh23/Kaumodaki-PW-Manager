@@ -98,6 +98,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         if (!$mail->send()) {
             echo "Mailer Error: " . $mail->ErrorInfo;
         } else {
+            header("Refresh:3,url=./index.php");
             echo
                 "
                 <!DOCTYPE html>
@@ -110,7 +111,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                 </head>
                 <body>
                     <div>
-                    <h1>An email has been sent to you with instructions on how to reset your password.</h1>
+                    <h3>An email has been sent to you with instructions on how to reset your password.</h3>
                     </div>
                 </body>
                 </html>"
@@ -122,6 +123,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
 
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -129,8 +131,9 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
         <title>Document</title>
     </head>
+
     <body>
-        
+
         <div class="center">
             <h2>Forgot Password?</h2>
             <form method="post" name="reset"><br><br>
@@ -144,7 +147,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                 <div class="input_box">
                     <!-- <label>Email-ID:</label> -->
                     <i class="uil uil-envelope-alt email"></i>
-                    <input type="email" name="email" placeholder="username@email.com" required>
+                    <input type="email" name="email" placeholder="Enter email" required>
                     <span></span>
                     <br><br>
                 </div>
@@ -158,8 +161,9 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                 <input type="submit" value="Submit">
             </form>
         </div>
-        
+
     </body>
+
     </html>
-    
+
 <?php } ?>

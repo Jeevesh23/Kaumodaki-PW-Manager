@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_COOKIE[$_SESSION['hashemail']]) || $_COOKIE[$_SESSION['hashemail']] != 'register') {
-    header("Location:index.html");
+    header("Location:index.php");
     exit();
 }
 include_once('/app/vendor/autoload.php');
@@ -32,7 +32,7 @@ $_SESSION['secret'] = $secret;
         }
 
         body {
-            background-image: url("1.jpg");
+            background: #00a7a7;
             font-family: "Lato", sans-serif;
             height: 100vh;
             display: flex;
@@ -43,10 +43,10 @@ $_SESSION['secret'] = $secret;
         }
 
         p {
-            background-color: rgba(255,255,255.0.3);
+            background-color: rgba(255, 255, 255, 0.3);
             font-size: 20px;
             border-radius: 10px;
-            max-width: 1000px; 
+            max-width: 1000px;
             text-align: center;
         }
 
@@ -74,19 +74,21 @@ $_SESSION['secret'] = $secret;
 
 <body>
     <div class="qr-code">
-        <br><br><p>Scan the following image with your authenticator app:</p><br><br>
+        <br><br>
+        <p>Scan the following image with your authenticator app:</p><br><br>
         <div class="qr-box">
             <img src="<?php
             echo $tfa->getQRCodeImageAsDataUri($_SESSION['username'] . '_' . $_SESSION['email'], $secret, 400); ?>">
         </div>
-        
+
         <div class="Form">
-        <form method="post" action="./register-otp.php">
-            <label for="otp"><br>Enter OTP: </label>
-            <input type="text" placeholder=" Your OTP" name="otp" id="otp" required><br>
-            <button type="submit" class="btn">Submit</button>
-        </form>
-    </div>
+            <form method="post" action="./register-otp.php">
+                <label for="otp"><br>Enter OTP: </label>
+                <input type="text" placeholder=" Your OTP" name="otp" id="otp" required><br>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>

@@ -14,13 +14,10 @@
 
 body {
     height: 100vh;
-    background: #0fc6c6;
+    background: #00a7a7;
     display: grid;
     place-content: center;
     font-family: 'Poppins', sans-serif;
-    /* background-image: url("images/1.jpg");
-    background-size: cover;
-    background-position: center; */
 }
 
 .container {
@@ -67,7 +64,7 @@ h1 {
     margin: 20px 0px;
 }
 
-.social-container a{
+.social-container a {
     border: 1px solid #ddd;
     border-radius: 50%;
     display: inline-flex;
@@ -107,7 +104,7 @@ label {
     transition: 0.3s;
 }
 
-input:focus ~ label {
+input:focus~label {
     width: 100%;
 }
 
@@ -144,6 +141,7 @@ button {
     background: #fff;
     color: var(--grad-ctr1);
 }
+
 .overlay-container {
     position: absolute;
     top: 0;
@@ -152,14 +150,14 @@ button {
     height: 100%;
     overflow: hidden;
     transition: transform 0.6s ease-in-out;
-    z-index:9;
+    z-index: 9;
 }
 
 #overlayBtn {
-    cursor: poiner;
+    cursor: pointer;
     position: absolute;
     left: 50%;
-    top: 304px;
+    top: 410px;
     transform: translateX(-50%);
     width: 143.67px;
     height: 40px;
@@ -194,6 +192,11 @@ button {
 .overlay-left {
     right: 60%;
     transform: translateX(-12%);
+}
+
+.overlay-left button {
+    position: relative;
+    top: 22px;
 }
 
 .overlay-right {
@@ -251,25 +254,33 @@ p {
 }
 
 @keyframes show {
-    0%, 50% {
+
+    0%,
+    50% {
         opacity: 0;
         z-index: 1;
     }
-    50.1%, 100% {
+
+    50.1%,
+    100% {
         opacity: 1;
         z-index: 5;
     }
 }
+
 .btnScaled {
     animation: scaleBtn 0.6s;
 }
+
 @keyframes scaleBtn {
     0% {
         width: 143.67px;
     }
+
     50% {
         width: 250px;
     }
+
     100% {
         width: 143.67px;
     }
