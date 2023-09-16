@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_COOKIE[$_SESSION['hashemail']]) || $_COOKIE[$_SESSION['hashemail']] != 'register') {
-    header("Location:index.html");
+    header("Location:test.php");
     exit();
 }
 include_once('/app/vendor/autoload.php');

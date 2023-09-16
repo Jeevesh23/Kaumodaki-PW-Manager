@@ -3,111 +3,99 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Manager</title>
-    <link rel="stylesheet" href="style.css"/>
-    <!--Unicons-->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <title>Sign in</title>
+     <!-- font awesome icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- css stylesheet -->
+    <link rel="stylesheet" href="test.css">
 </head>
 <body>
-    
-    <!--Home-->
-    <section class="home">
-        <!-- Header -->
-        <header class="header">
-            <nav class="nav">
-                <a href="#" class="nav_logo">PM</a>
-        
-                <ul class="nav_items">
-                    <li class="nav_item">
-                        <a href="./../get_started/index.html" class="nav_link">Home</a>
-                        <a href="#" class="nav_link">Product</a>
-                        <a href="#" class="nav_link">Services</a>
-                        <a href="contact.html" class="nav_link">Contact</a>
-                    </li>
-                </ul>
-                <div>
-                    <button class="button" id="form-open">Login</button>
-                    <button class="button" id="form-open">Signup</button>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="register.php" method="post">
+                <h1>Create Account</h1>
+                <!-- <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div> -->
+                <!-- <span>or use your email for registration</span> -->
+                <div class="infield">
+                    <input type="text" name="username" placeholder="Name" />
+                    <label></label>
                 </div>
-                
-            </nav>
-        </header>
-
-        <div class="form_container">
-            <i class="uil uil-times form_close"></i>
-            <!--Login Form-->
-            <div class="form login_form">
-                <form action="signin.php" method="post">
-                    <h2>Login</h2>
-                    
-                    <div class="input_box">
-                        <input type="email" name='email' placeholder="Enter your email" required />
-                        <i class="uil uil-envelope-alt email"></i>
-                    </div>
-                    <div class="input_box">
-                        <input type="password" name='password' placeholder="Enter your password" required/>
-                        <i class="uil uil-lock password"></i>
-                        <i class="uil uil-eye-slash pw_hide"></i>
-                    </div>
-                    <div class="input_box">
-                        <input type="otp" name='otp' placeholder="Enter OTP" />
-                        <i class="uil uil-arrow point"></i>
-                    </div>
-
-                    <div class="option_field">
-                        <span class="checkbox">
-                            <input type="checkbox" id="check">
-                            <label for="check">Remember me</label>
-                        </span>
-                        <a href="reset-mail.php" class="forgot_pw">Forgot password?</a>
-                    </div>
-
-                    <button class="button">Login</button>
-
-                    <div class="login_signup">
-                        Dont't have an account <a href="#" id="signup">Signup</a>
-                    </div>
-                </form>
-            </div>
-
-            <!--Sign up-->
-            <div class="form signup_form">
-                <form action="register.php" method="post">
-                    <h2>Signup</h2>
-
-                    <div class="input_box">
-                        <input type="text" name='username' placeholder="Enter Username" />
-                        <i class="uil uil-user body"></i>
-                    </div>
-                    <div class="input_box">
-                        <input type="email" name='email' placeholder="Enter your email" required />
-                        <i class="uil uil-envelope-alt email"></i>
-                    </div>
-                    <div class="input_box">
-                        <input type="password" name='password' placeholder="Enter your password" required/>
-                        <i class="uil uil-lock password"></i>
-                        <i class="uil uil-eye-slash pw_hide"></i>
-                    </div>
-
-                    <div class="option_field">
-                        <span class="checkbox">
-                            <input type="checkbox" id="check">
-                            <label for="check">Remember me</label>
-                        </span>
-                    </div>
-
-                    <button class="button">Signup</button>
-
-                    <div class="login_signup">
-                        Already have an account <a href="#" id="login">Login</a>
-                    </div>
-                </form>
-            </div>
+                <div class="infield">
+                    <input type="email" name='email' placeholder="Email" name="email"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" name='password' placeholder="Password" />
+                    <label></label>
+                </div>
+                <button>Sign Up</button>
+            </form>
         </div>
-    </section>
+        <div class="form-container sign-in-container">
+            <form action="signin.php">
+                <h1>Sign in</h1>
+                <!-- <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div> -->
+                <!-- <span>or use your account</span> -->
+                <div class="infield">
+                    <input type="email" name='email' placeholder="Email" name="email"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" name='password' placeholder="Password" />
+                    <label></label>
+                </div>
+                <div class="infield">
+                  <input type="otp" name='otp' placeholder="OTP" />
+                  <label></label>
+              </div>
+                <a href="reset-mail.php" class="forgot">Forgot your password?</a>
+                <button>Login</button>
+            </form>
+        </div>
+        <div class="overlay-container" id="overlayCon">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button>Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button>Sign Up</button>
+                </div>
+            </div>
+            <button id="overlayBtn"></button>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- js code -->
+    <script>
+      const container = document.getElementById('container');
+      const overlayCon = document.getElementById('overlayCon');
+      const overlayBtn = document.getElementById('overlayBtn');
+
+      overlayBtn.addEventListener('click', ()=> {
+        container.classList.toggle('right-panel-active');
+
+        overlayBtn.classList.remove('btnScaled');
+        window.requestAnimationFrame( ()=> {
+          overlayBtn.classList.add('btnScaled');
+        })
+      });
+
+    </script>
+
 </body>
 </html>

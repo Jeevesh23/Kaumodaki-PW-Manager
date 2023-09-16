@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			$hasheddata = hash('sha512', $password . $row["Salt"]);
 			if ($row["Password"] == $hasheddata) {
 				echo "User exists! Sign in instead.";
-				header("Refresh:3,url=index.html");
+				header("Refresh:3,url=index.php");
 				$conn->close();
 				exit();
 			}
 		}
-		header("Refresh:3,url=index.html");
+		header("Refresh:3,url=index.php");
 		echo "Email already taken! Use another one.";
 		$conn->close();
 		exit();
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	header("Location: register-form.php");
 	exit();
 } else {
-	header("Location: index.html");
+	header("Location: index.php");
 	exit();
 }
 
