@@ -1,4 +1,4 @@
-<?php include_once('./../db/db.php'); ?>
+<?php include_once(__DIR__ . '/../db/db.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,14 +12,14 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- css stylesheet -->
-    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="/authentication/test.css">
 </head>
 
 <body>
 
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="register.php" method="post">
+            <form action="register" method="post">
                 <h1>Create Account</h1>
                 <!-- <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -43,7 +43,7 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="signin.php">
+            <form action="signin">
                 <h1>Sign in</h1>
                 <!-- <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -63,7 +63,7 @@
                     <input type="otp" name='otp' placeholder="OTP" />
                     <label></label>
                 </div>
-                <a href="reset-mail.php" class="forgot">Forgot your password?</a>
+                <a href="reset-mail" class="forgot">Forgot your password?</a>
                 <button>Login</button>
             </form>
         </div>
@@ -71,13 +71,13 @@
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
                     <h1>Welcome, user! We have been expecting you!</h1>
-                    <img src="./images/the_emperor_icon.png" width="72" height="72">
+                    <img src="/authentication/images/the_emperor_icon.png" width="72" height="72">
                     <p>Continue your journey with us and enter your vault!</p>
                     <button>Sign In</button>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>Hello There! Come here friend, don't be afraid!</h1>
-                    <img src="./images/ben_kenobi_icon.png" width="64" height="64">
+                    <img src="/authentication/images/ben_kenobi_icon.png" width="64" height="64">
                     <p>Start your journey with us and secure your accounts!</p>
                     <button>Sign Up</button>
                 </div>

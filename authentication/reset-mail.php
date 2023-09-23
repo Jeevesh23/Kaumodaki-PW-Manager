@@ -1,5 +1,5 @@
 <?php
-include_once('./func.php');
+include_once(__DIR__ . '/func.php');
 include_once('/app/vendor/autoload.php');
 $newIncludePath = '/app/vendor';
 set_include_path($newIncludePath);
@@ -28,7 +28,6 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         $results = mysqli_query($conn, $sql);
         $row = mysqli_num_rows($results);
         if ($row === 0) {
-            header("Refresh:3, url=http://localhost:8000/authentication/reset-mail.php");
             $error .= "<p>No user is registered with this username!</p>";
         } else if ($results->num_rows > 0) {
             $key = getenv('AES_KEY');
@@ -44,11 +43,11 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         }
     }
     if ($error) {
-        header("Refresh:3, url=http://localhost:8000/authentication/reset-mail.php");
+        header("Refresh:3, url=/authentication/reset-mail");
         echo $error;
         exit();
     } else if ($tfa_result != true) {
-        header("Refresh:3, url=http://localhost:8000/authentication/reset-mail.php");
+        header("Refresh:3, url=/authentication/reset-mail");
         echo "2FA authentication problems!";
         exit();
     } else {
@@ -68,8 +67,8 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         $output = '<p>Dear user ' . $username . ', thanks for using our password manager!</p>';
         $output .= '<p>Please click on the following link to reset your password.</p>';
         $output .= '<p>-------------------------------------------------------------</p>';
-        $output .= '<p><a href="http://localhost:8000/authentication/reset-password.php?key=' . $key . '&email=' . $email . '&action=reset&userid=' . $userid . '" target="_blank">
-                    http://localhost:8000/authentication/reset-password.php?key=' . $key . '&email=' . $email . '&action=reset&userid=' . $userid . '</a></p>';
+        $output .= '<p><a href="http://localhost:8000/authentication/reset-password?key=' . $key . '&email=' . $email . '&action=reset&userid=' . $userid . '" target="_blank">
+                    http://localhost:8000/authentication/reset-password?key=' . $key . '&email=' . $email . '&action=reset&userid=' . $userid . '</a></p>';
         $output .= '<p>-------------------------------------------------------------</p>';
         $output .= '<p>Please be sure to copy the entire link into your browser.
                     The link will expire after 10 minutes for security reasons.</p>';
@@ -98,7 +97,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         if (!$mail->send()) {
             echo "Mailer Error: " . $mail->ErrorInfo;
         } else {
-            header("Refresh:3,url=./index.php");
+            header("Refresh:3,url=/authentication");
             echo
                 "
                 <!DOCTYPE html>
@@ -107,7 +106,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                     <meta charset='UTF-8'>
                     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                     <title>Document</title>
-                    <link rel='stylesheet' href='style1.css'> 
+                    <link rel='stylesheet' href='/authentication/style1.css'> 
                 </head>
                 <body>
                     <div>
@@ -116,6 +115,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                 </body>
                 </html>"
             ;
+            exit();
         }
     }
 } else {
@@ -127,9 +127,9 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style1.css">
+        <link rel="stylesheet" href="/authentication/style1.css">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
-        <title>Document</title>
+        <title>Forgot Password?</title>
     </head>
 
     <body>

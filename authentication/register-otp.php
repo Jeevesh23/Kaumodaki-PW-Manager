@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_COOKIE[$_SESSION['hashemail']]) || $_COOKIE[$_SESSION['hashemail']] != 'register') {
-    header("Location:test.php");
+    header("Location:/authentication");
     exit();
 }
 include_once('/app/vendor/autoload.php');
@@ -36,20 +36,20 @@ if ($result === true) {
 
     $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$hashemail','$password','$salt','$encrypted','$iv')";
     $result1 = mysqli_query($conn, $sql1);
+    $conn->close();
     if (!$result1) {
-        header("Refresh:3, url= http://localhost:8000/authentication");
+        header("Refresh:3, url= /authentication");
         echo "Connection failed!";
         exit();
-    } else
-    {
-        header("Refresh:3,url= ./../vault/index.php");
+    } else {
+        header("Refresh:3,url= /vault");
         echo "User successfully registered! Redirecting to vault!";
+        exit();
     }
 } else {
-    header("Refresh:3, url= http://localhost:8000/authentication");
+    header("Refresh:3, url= /authentication");
     echo "Error! 2FA problems.";
     exit();
 }
 
-$conn->close();
 ?>

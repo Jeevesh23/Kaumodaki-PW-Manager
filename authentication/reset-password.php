@@ -6,7 +6,7 @@ set_include_path($newIncludePath);
 use RobThree\Auth\TwoFactorAuth;
 use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
 
-require_once('./func.php');
+require_once(__DIR__ . '/func.php');
 
 if (isset($_GET["action"]) || isset($_POST["action"])) {
     $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
@@ -27,7 +27,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
         );
         $row = mysqli_num_rows($result);
         if ($row === 0) {
-            header("Refresh:3, url=http://localhost:8000/authentication");
+            header("Refresh:3, url=/authentication");
             $error .= '<h2>Invalid Link!</h2><p>The link is invalid!</p>';
             echo $error;
             exit();
@@ -38,13 +38,15 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
                 ?>
                 <!DOCTYPE html>
                 <html lang="en">
+
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link rel="stylesheet" href="style1.css">
+                    <link rel="stylesheet" href="/authentication/style1.css">
                     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
                     <title>Document</title>
                 </head>
+
                 <body>
 
                     <div class="center">
@@ -56,7 +58,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
                             <div class="input_box">
                                 <!-- <label>Enter New Password:</label> -->
                                 <i class="uil uil-lock password"></i>
-                                <input type="password" name="password" placeholder="Enter New Password"required><br><br>
+                                <input type="password" name="password" placeholder="Enter New Password" required><br><br>
                                 <span></span>
                             </div>
 
@@ -70,8 +72,9 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
                         </form>
                     </div>
                 </body>
+
                 </html>
-                
+
                 <?php
             } else {
                 $error .= "<h2>Link Expired</h2>
@@ -79,7 +82,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             }
         }
         if ($error) {
-            header("Refresh:3, url=http://localhost:8000/authentication");
+            header("Refresh:3, url=/authentication");
             echo "<div class='error'>" . $error . "</div><br>";
             exit();
         }
@@ -114,8 +117,9 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             );
             mysqli_query($conn, "DELETE FROM `Password_Reset` WHERE `User_ID`='$userid'");
             $conn->close();
-            header("Refresh:3,url= ./../vault/index.php");
+            header("Refresh:3,url= /vault");
             echo '<div><p>Congratulations! Your password has been updated successfully.</p>';
+            exit();
         } else {
             echo "2FA failed. Re-enter the link or try requesting a new reset link.";
             $conn->close();
@@ -123,7 +127,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
         }
     }
 } else {
-    header("Location:index.php");
+    header("Location:/authentication");
     exit();
 }
 ?>

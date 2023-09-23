@@ -27,4 +27,6 @@ COPY composer.json .
 COPY composer.lock .
 RUN /bin/bash -c 'composer install --working-dir=/app'
 
+RUN /bin/bash -c 'a2enmod rewrite && service apache2 restart'
+
 WORKDIR /var/www/html

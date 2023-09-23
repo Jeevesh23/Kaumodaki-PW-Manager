@@ -15,8 +15,9 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
   $name = $_POST["name"];
   $message = $_POST["message"];
   if (!$email) {
-    header("Refresh:3,url=../authentication/contact.php");
+    header("Refresh:3,url=/authentication/contact");
     echo "Invalid email address!";
+    exit();
   } else {
     $output = '<p>Message recieved from ' . $name . ' !</p>';
     $output .= '<p>Email: ' . $email . '</p>';
@@ -41,7 +42,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     if (!$mail->send()) {
       echo "Mailer Error: " . $mail->ErrorInfo;
     } else {
-      header("Refresh:3,url=../start/index.html");
+      header("Refresh:3,url=/");
       echo
         "
               <!DOCTYPE html>
@@ -59,6 +60,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
               </body>
               </html>"
       ;
+      exit();
     }
   }
 } else { ?>
@@ -68,7 +70,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
   <head>
     <meta charset="UTF-8" />
     <title>Contact Us Form | Password Manager</title>
-    <link rel="stylesheet" href="contact.css" />
+    <link rel="stylesheet" href="/authentication/contact.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>

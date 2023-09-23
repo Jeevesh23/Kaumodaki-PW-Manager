@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
-        header("Refresh:3, url= http://localhost:8000/authentication");
+        header("Refresh:3, url= /authentication");
         echo "Connection failed";
         $conn->close();
         exit();
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $conn->close();
 } else {
-    header("Location: index.php");
+    header("Location: /authentication");
     exit();
 }
 ?>

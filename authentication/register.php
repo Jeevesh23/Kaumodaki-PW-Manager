@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$result = mysqli_query($conn, $sql);
 
 	if (!$result) {
-		header("Refresh:3, url= http://localhost:8000/authentication");
+		header("Refresh:3, url= /authentication");
 		echo "Connection failed";
 		$conn->close();
 		exit();
@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			$hasheddata = hash('sha512', $password . $row["Salt"]);
 			if ($row["Password"] == $hasheddata) {
 				echo "User exists! Sign in instead.";
-				header("Refresh:3,url=index.php");
+				header("Refresh:3,url=/authentication");
 				$conn->close();
 				exit();
 			}
 		}
-		header("Refresh:3,url=index.php");
+		header("Refresh:3,url=/authentication");
 		echo "Email already taken! Use another one.";
 		$conn->close();
 		exit();
@@ -47,10 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 	$conn->close();
 	setcookie($_SESSION['hashemail'], 'register', time() + 360, path: '/');
-	header("Location: register-form.php");
+	header("Location: /authentication/otp");
 	exit();
 } else {
-	header("Location: index.php");
+	header("Location: /authentication");
 	exit();
 }
 

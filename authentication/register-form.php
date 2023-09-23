@@ -82,7 +82,7 @@ $_SESSION['secret'] = $secret;
         </div>
 
         <div class="Form">
-            <form method="post" action="./register-otp.php">
+            <form method="post" action="register-otp">
                 <label for="otp"><br>Enter OTP: </label>
                 <input type="text" placeholder=" Your OTP" name="otp" id="otp" required><br>
                 <button type="submit" class="btn">Submit</button>
