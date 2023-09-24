@@ -1,5 +1,6 @@
 /* @import url("https://fonts.googleapis.com/css2?family=:wght@;300;400;500;600;700&display=swap"); */
-@import url("./../fonts/Poppins_200.woff2");
+@import url("/fonts/Poppins_200.woff2");
+
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +25,7 @@ a {
     max-width: 1100px;
     width: 100%;
     margin: 0 auto;
-    
+
 }
 
 .nav,
@@ -181,11 +182,11 @@ a {
     left: 0;
 }
 
-.input_box input:focus ~ i.email,
-.input_box input:focus ~ i.password,
-.input_box input:focus ~ i.pw_hide,
-.input_box input:focus ~ i.body,
-.input_box input:focus ~ i.point {
+.input_box input:focus~i.email,
+.input_box input:focus~i.password,
+.input_box input:focus~i.pw_hide,
+.input_box input:focus~i.body,
+.input_box input:focus~i.point {
     color: #231919;
 }
 
