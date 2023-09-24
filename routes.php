@@ -19,5 +19,9 @@ any('/authentication/reset-password', 'authentication/reset-password.php');
 any('/authentication/contact', 'authentication/contact.php');
 
 get('/vault', 'vault/index.php');
+any('/vault/enter-password', 'vault/add.php');
+get('/vault/store-old', 'vault/storeold.php');
+
+get('/advanced-strength', '/password_strength_analysis/zxcvbn.php');
 
 any('/404', '404/404.php');

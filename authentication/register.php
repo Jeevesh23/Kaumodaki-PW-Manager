@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$conn->close();
 		exit();
 	}
-	require_once('func.php');
+	require_once(__DIR__ . '/func.php');
 	$salt = getRandomStringRand();
 	$hasheddata = hash('sha512', $password . $salt);
 
