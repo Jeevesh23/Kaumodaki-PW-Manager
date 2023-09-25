@@ -1,14 +1,16 @@
 <?php
-require_once('/vault/config/db.php');
+require_once(__DIR__ . '/config/db.php');
 $query = "select * from User_Info";
-$result = mysqli_query($con,$query);
+$result = mysqli_query($con, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <base href="http://localhost:8000/vault/">
+    <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
@@ -32,7 +34,7 @@ $result = mysqli_query($con,$query);
             </div>
 
             <div class="sidebar">
-                <a href="index.html" class="active">
+                <a href="/vault" class="active">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
@@ -83,18 +85,24 @@ $result = mysqli_query($con,$query);
                         </tr>
                         <tr>
                             <?php
-                                while($row = mysqli_fetch_assoc($result)) {
-                            ?>  
-            
-                                <td><?php echo $row['Description'];?></td>
-                                <td><?php echo $row['Link'];?></td>
-                                <td><?php echo $row['Password'];?></td> 
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                ?>
+
+                                <td>
+                                    <?php echo $row['Description']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['Link']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['Password']; ?>
+                                </td>
                                 <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                <td><a href="#" class="btn btn-danger">Delete</a></td>      
-            
+                                <td><a href="#" class="btn btn-danger">Delete</a></td>
+
                             </tr>
                             <?php
-                                } 
+                            }
                             ?>
                     </thead>
                     <tbody></tbody>

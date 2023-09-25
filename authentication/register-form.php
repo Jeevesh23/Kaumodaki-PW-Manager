@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_COOKIE[$_SESSION['hashemail']]) || $_COOKIE[$_SESSION['hashemail']] != 'register') {
-    header("Location:index.php");
+    header("Location:/authentication");
     exit();
 }
 include_once('/app/vendor/autoload.php');
@@ -82,7 +82,7 @@ $_SESSION['secret'] = $secret;
         </div>
 
         <div class="Form">
-            <form method="post" action="register-otp">
+            <form method="post" action="/authentication/register-otp">
                 <label for="otp"><br>Enter OTP: </label>
                 <input type="text" placeholder=" Your OTP" name="otp" id="otp" required><br>
                 <button type="submit" class="btn">Submit</button>

@@ -19,7 +19,7 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="register" method="post">
+            <form action="/authentication/register" method="post">
                 <h1>Create Account</h1>
                 <!-- <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -43,7 +43,7 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="signin">
+            <form action="/authentication/signin">
                 <h1>Sign in</h1>
                 <!-- <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
