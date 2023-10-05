@@ -163,7 +163,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
             .form .button {
             text-transform: uppercase;
             outline: 0;
-            background: #2CD0BC;
+            background: #259c8d;
             width: 100%;
             border: 0;
             padding: 15px;
@@ -222,7 +222,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
             color: #EF3B3A;
             }
             body {
-            background: #2CD0BC;
+            background: #259c8d;
             }
         </style>
     </head>

@@ -77,7 +77,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             .form .button {
             text-transform: uppercase;
             outline: 0;
-            background: #2CD0BC;
+            background: #259c8d;
             width: 100%;
             border: 0;
             padding: 15px;
@@ -136,7 +136,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             color: #EF3B3A;
             }
             body {
-            background: #2CD0BC;
+            background: #259c8d;
             }
         </style>
                 </head>
