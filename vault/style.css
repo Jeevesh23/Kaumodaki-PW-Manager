@@ -706,3 +706,70 @@ main .passwords a{
     }
 
 }
+
+
+
+
+/* Style for the container div for add password */
+.A_passwords {
+    text-align: center;
+}
+
+/* Style for the form */
+.add_password {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+/* Style for the form heading */
+.add_password .heading h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Style for input boxes */
+.input-box {
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* Style for labels inside input boxes */
+.input-box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style for text area */
+.input-box textarea,
+.input-box input[type="text"],
+.input-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+/* Style for buttons */
+.button_R,
+.button_C {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Style for buttons on hover */
+.button_R:hover,
+.button_C:hover {
+    background-color: #0056b3;
+}
