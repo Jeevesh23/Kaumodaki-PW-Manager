@@ -40,19 +40,19 @@ $result = mysqli_query($con, $query);
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <!-- <a href="#">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
                     <h3>User</h3>
-                </a>
+                </a> -->
                 <a href="#">
                     <span class="material-icons-sharp">
                         settings
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="add_password.html">
+                <a href="#">
                     <span class="material-icons-sharp">
                         add
                     </span>
