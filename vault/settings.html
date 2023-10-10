@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="http://localhost:8000/vault/">
-    <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Vault</title>
+    <title>Vault_Settings</title>
+    <link rel="icon" type="image/png" href="./dist/images/favicon.png" />
+
+		<!-- Icon Fonts -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+		<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
     <style>
         main {
             padding: 0;
@@ -91,7 +98,6 @@
             <div class="toggle">
                 <div class="logo">
                     <!-- <img src="images/profile.jpg"> -->
-                    <!-- <i class='bx bxl-netlify'></i> -->
                     <h2>Password<br><span class="danger">Manager</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -102,25 +108,25 @@
             </div>
 
             <div class="sidebar">
-                <a href="/vault" class="active">
+                <a href="#">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <!-- <a href="#">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
                     <h3>User</h3>
-                </a>
-                <a href="#">
+                </a> -->
+                <a href="#" class="active">
                     <span class="material-icons-sharp">
                         settings
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="add_password.html">
+                <a href="#">
                     <span class="material-icons-sharp">
                         add
                     </span>
@@ -213,11 +219,9 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-    <!-- <script src="orders.js"></script> -->
+
+
     <script src="index.js"></script>
 </body>
-
 </html>
