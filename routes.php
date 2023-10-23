@@ -21,6 +21,8 @@ any('/authentication/contact', 'authentication/contact.php');
 get('/vault', 'vault/index.php');
 any('/vault/enter-password', 'vault/add.php');
 get('/vault/store-old', 'vault/storeold.php');
+get('/vault/password', 'vault/randpwd.php');
+get('/vault/passphrase', 'vault/randphr.php');
 
 get('/advanced-strength', '/password_strength_analysis/zxcvbn.php');
 

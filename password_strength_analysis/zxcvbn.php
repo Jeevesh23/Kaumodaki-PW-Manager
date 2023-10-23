@@ -2,15 +2,19 @@
 $newIncludePath = '/app/vendor/';
 set_include_path($newIncludePath);
 include_once('autoload.php');
+
 use ZxcvbnPhp\Zxcvbn;
 
 $userData = [
     'Marco',
     'marco@example.com'
 ];
-
+//$pass is the password or passphrase.
+//$type indicates whether password(0) or passphrase(1)
 $zxcvbn = new Zxcvbn();
-$weak = $zxcvbn->passwordStrength('1eetcode Mary', $userData);
+$pass = 'Grievous-Commodore4-Starlight-Guide-Scoff';
+$type = 1;
+$weak = $zxcvbn->passwordStrength($pass, $userData);
 function display_array($arr)
 {
     foreach ($arr as $key => $val) {
@@ -53,7 +57,7 @@ echo 'score is an integer from 0-4, 0 indicating the very most guessable passwor
 echo 'calc_time is how long it took zxcvbn to calculate an answer, in milliseconds.<br><br>';
 display_array($weak);
 echo '<br>';
-echo 'crack_times_display is crack time estimations, based on a few scenarios:-<br>';
+echo 'The following parameters show crack time estimations, based on a few scenarios:-<br>';
 echo 'online_throttling_100_per_hour is online attack on a service that ratelimits password auth attempts.<br>';
 echo 'online_no_throttling_10_per_second is online attack on a service that doesn\'t ratelimit, or where an attacker has outsmarted ratelimiting.<br>';
 echo 'offline_slow_hashing_1e4_per_second is an offline attack. Assumes multiple attackers, proper user-unique salting, and a slow hash function w/ moderate work factor, such as bcrypt, scrypt, PBKDF2.<br>';
@@ -63,8 +67,8 @@ echo '<br>';
 echo 'feedback shows warning and suggestions about password when score <=2. <br><br>';
 display_array_rec($weak['feedback']);
 echo '<br>';
-echo 'sequence is the list of patterns that zxcvbn based the guess calculation on.<br><br>';
-display_sequence_arr($weak['sequence']);
-xdebug_break();
-echo '<br>';
-?>
+if (!$type) {
+    echo 'sequence denotes whether the password could be easily bruteforced or is a part of a common dictionary.<br><br>';
+    display_sequence_arr($weak['sequence']);
+    echo '<br>';
+}

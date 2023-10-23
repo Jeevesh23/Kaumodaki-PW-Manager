@@ -3,7 +3,7 @@ class passwordGenerator
 {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
     const DIGITS = '0123456789';
-    const SPECIAL_CHARS = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~';
+    const SPECIAL_CHARS = '!#$%&*@^';
     // The maximum similarity percentage
     const MAX_SIMILARITY_PERC = 5;
     // The password minimum length
@@ -70,4 +70,3 @@ class passwordGenerator
 $passwordGenerator = new passwordGenerator(16, 16, ['old_password', 'myUsername']);
 echo htmlspecialchars($passwordGenerator->generate());
 echo '<br>';
-?>
