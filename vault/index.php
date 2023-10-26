@@ -86,7 +86,7 @@ $result = mysqli_query($con, $query);
                         <tr>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
-                                ?>
+                            ?>
 
                                 <td>
                                     <?php echo $row['Description']; ?>
@@ -100,10 +100,10 @@ $result = mysqli_query($con, $query);
                                 <td><a href="#" class="btn btn-primary">Edit</a></td>
                                 <td><a href="#" class="btn btn-danger">Delete</a></td>
 
-                            </tr>
-                            <?php
+                        </tr>
+                    <?php
                             }
-                            ?>
+                    ?>
                     </thead>
                     <tbody></tbody>
                 </table>

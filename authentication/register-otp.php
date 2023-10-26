@@ -7,6 +7,7 @@ if (!isset($_COOKIE[$_SESSION['hashemail']]) || $_COOKIE[$_SESSION['hashemail']]
 include_once('/app/vendor/autoload.php');
 $newIncludePath = '/app/vendor';
 set_include_path($newIncludePath);
+
 use RobThree\Auth\TwoFactorAuth;
 use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
 
@@ -36,12 +37,20 @@ if ($result === true) {
 
     $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$hashemail','$password','$salt','$encrypted','$iv')";
     $result1 = mysqli_query($conn, $sql1);
-    $conn->close();
     if (!$result1) {
+        $conn->close();
         header("Refresh:3, url= /authentication");
         echo "Connection failed!";
         exit();
     } else {
+        $sql2 = "SELECT `User_ID` FROM `Credentials` WHERE `Email`='$hashemail'";
+        $result2 = mysqli_query($conn, $sql2);
+        $conn->close();
+        if ($result2->num_rows > 0) {
+            while ($row = $result2->fetch_assoc()) {
+                $_SESSION['User_ID'] = $row["User_ID"];
+            }
+        }
         header("Refresh:3,url= /vault");
         echo "User successfully registered! Redirecting to vault!";
         exit();
@@ -51,5 +60,3 @@ if ($result === true) {
     echo "Error! 2FA problems.";
     exit();
 }
-
-?>

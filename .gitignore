@@ -63,3 +63,4 @@ dkms.conf
 
 vendor/**
 !Dockerfile
+vault/Files/

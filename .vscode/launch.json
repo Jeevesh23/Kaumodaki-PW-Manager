@@ -2,11 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
-            "type": "php",
-            "request": "launch",
+            "name": "Listen for Xdebug",
             "port": 9003,
+            "type": "php",
             "log": true,
+            "request": "launch",
             "pathMappings": {
                 "/var/www/html": "${workspaceFolder}"
             },

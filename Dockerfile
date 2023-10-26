@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
 	libpng-dev \
 	\
 	&& docker-php-ext-install -j$(nproc) gd
+RUN docker-php-ext-install pdo pdo_mysql
 RUN apt-get update && \
 	apt-get install -y \
 	libc-client-dev libkrb5-dev
@@ -15,6 +16,9 @@ RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
 	docker-php-ext-install -j$(nproc) imap
 RUN /bin/bash -c 'mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini'
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY ./scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["sh","/usr/local/bin/entrypoint.sh"]
 
 RUN pecl install xdebug
 COPY ./php_config/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

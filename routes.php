@@ -23,6 +23,8 @@ any('/vault/enter-password', 'vault/add.php');
 get('/vault/store-old', 'vault/storeold.php');
 get('/vault/password', 'vault/randpwd.php');
 get('/vault/passphrase', 'vault/randphr.php');
+any('/vault/uploads', 'vault/upload_files.php');
+get('/vault/filecontrol', 'vault/filecontrol.php');
 
 get('/advanced-strength', '/password_strength_analysis/zxcvbn.php');
 

@@ -1,11 +1,11 @@
 <?php
 $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD');
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+  die("Connection failed: " . $conn->connect_error);
 }
 $dbmake = mysqli_query($conn, 'CREATE DATABASE IF NOT EXISTS PM_1');
 if (!$dbmake) {
-    die("Database could not be created! " . $conn->connect_error);
+  die("Database could not be created! " . $conn->connect_error);
 }
 $dbconn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
 $sql = "CREATE TABLE IF NOT EXISTS `Credentials`(
@@ -19,7 +19,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `Credentials`(
   )";
 $tbconn = mysqli_query($dbconn, $sql);
 if (!$tbconn) {
-    die("Table could not be created! " . $conn->connect_error);
+  die("Table could not be created! " . $dbconn->connect_error);
 }
 $sql = "CREATE TABLE IF NOT EXISTS `Password_Reset` (
     `User_ID` int(8) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -31,7 +31,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `Password_Reset` (
   )";
 $tbconn = mysqli_query($dbconn, $sql);
 if (!$tbconn) {
-    die("Table could not be created! " . $conn->connect_error);
+  die("Table could not be created! " . $dbconn->connect_error);
 }
 $sql = "CREATE TABLE IF NOT EXISTS `User_Info` (
     `User_ID` int(8) NOT NULL,
@@ -46,7 +46,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `User_Info` (
   )";
 $tbconn = mysqli_query($dbconn, $sql);
 if (!$tbconn) {
-    die("Table could not be created! " . $conn->connect_error);
+  die("Table could not be created! " . $dbconn->connect_error);
 }
 $sql = "CREATE TABLE IF NOT EXISTS `Old_Passwords` (
     `User_ID` int(8) NOT NULL,
@@ -58,8 +58,19 @@ $sql = "CREATE TABLE IF NOT EXISTS `Old_Passwords` (
   )";
 $tbconn = mysqli_query($dbconn, $sql);
 if (!$tbconn) {
-    die("Table could not be created! " . $conn->connect_error);
+  die("Table could not be created! " . $dbconn->connect_error);
+}
+$sql = "CREATE TABLE IF NOT EXISTS `Files` (
+  `User_ID` int(8) NOT NULL AUTO_INCREMENT,
+  `File_Name` varchar(256) NOT NULL,
+  `Upload_Date` datetime NOT NULL,
+  `Size` int(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`User_ID`,`File_Name`),
+  FOREIGN KEY(`User_ID`) REFERENCES `Credentials`(`User_ID`)
+)";
+$tbconn = mysqli_query($dbconn, $sql);
+if (!$tbconn) {
+  die("Table could not be created! " . $dbconn->connect_error);
 }
 $dbconn->close();
 $conn->close();
-?>
