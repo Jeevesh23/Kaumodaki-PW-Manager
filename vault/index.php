@@ -1,7 +1,28 @@
 <?php
+session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
+
 require_once(__DIR__ . '/config/db.php');
-$query = "select * from User_Info";
+$namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'];
+$nameres = mysqli_query($con, $namequery);
+$namerow = $nameres->fetch_row();
+
+$query = "SELECT * FROM `User_Info` WHERE `User_ID`=" . $_SESSION['User_ID'];
 $result = mysqli_query($con, $query);
+if (isset($_POST['logout']) && $_POST['logout'] == 1) {
+    echo '<script>
+            var confirmLogout = window.confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                window.location.href = "/vault/logout";
+            } else {
+                window.history.back();
+            }
+          </script>';
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -58,12 +79,15 @@ $result = mysqli_query($con, $query);
                     </span>
                     <h3>Add Password</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        logout
-                    </span>
-                    <h3>Logout</h3>
-                </a>
+                <form method="post">
+                    <input type="hidden" name="logout" value="1">
+                    <button type="submit">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </button>
+                </form>
             </div>
         </aside>
         <!-- End of Sidebar Section -->
@@ -77,10 +101,12 @@ $result = mysqli_query($con, $query);
                 <table>
                     <thead>
                         <tr>
-                            <th>Description</th>
+                            <th>Website</th>
                             <th>Link</th>
-                            <th>User_ID</th>
+                            <th>Add Date</th>
                             <th>Password</th>
+                            <th>Word/Phrase</th>
+                            <th>Reset Reminder</th>
                             <th></th>
                         </tr>
                         <tr>
@@ -95,7 +121,28 @@ $result = mysqli_query($con, $query);
                                     <?php echo $row['Link']; ?>
                                 </td>
                                 <td>
+                                    <?php echo $row['Add_Date']; ?>
+                                </td>
+                                <td>
                                     <?php echo $row['Password']; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($row['Wrd/Phr'] == 1) echo 'P';
+                                    else echo 'W';
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($row['RST'] == 1) echo
+                                    '<span class="material-icons-sharp">
+                                        check
+                                    </span>';
+                                    else echo
+                                    '<span class="material-icons-sharp">
+                                        close
+                                    </span>';
+                                    ?>
                                 </td>
                                 <td><a href="#" class="btn btn-primary">Edit</a></td>
                                 <td><a href="#" class="btn btn-danger">Delete</a></td>
@@ -133,10 +180,10 @@ $result = mysqli_query($con, $query);
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Jeevesh</b></p>
+                        <p>Hey, <b><?php echo $namerow[0] ?></b></p>
                     </div>
                     <div class="profile-photo">
-                        <img src="images/profile-1.jpg">
+                        <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
                     </div>
                 </div>
 

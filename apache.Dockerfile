@@ -14,8 +14,12 @@ RUN apt-get update && \
 	libc-client-dev libkrb5-dev
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
 	docker-php-ext-install -j$(nproc) imap
+
+RUN apt install -y cron
+
 RUN /bin/bash -c 'mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini'
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
 COPY ./scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["sh","/usr/local/bin/entrypoint.sh"]

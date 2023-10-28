@@ -4,7 +4,7 @@ services:
         container_name: php-apache
         build:
             context: ./
-            dockerfile: Dockerfile
+            dockerfile: apache.Dockerfile
         depends_on:
             - db
         volumes:
@@ -31,6 +31,7 @@ services:
             - mariadb-data:/var/lib/mysql
 
     phpmyadmin:
+        container_name: phpmyadmin
         image: phpmyadmin/phpmyadmin
         ports:
             - '8080:80'
@@ -39,5 +40,6 @@ services:
             PMA_HOST: db
         depends_on:
             - db
+
 volumes:
     mariadb-data:

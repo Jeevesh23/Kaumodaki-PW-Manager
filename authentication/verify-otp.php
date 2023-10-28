@@ -14,12 +14,11 @@ use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
 $tfa = new TwoFactorAuth(qrcodeprovider: new EndroidQrCodeProvider());
 $result = $tfa->verifyCode($_SESSION['secret'], $_SESSION['otp']);
 if ($result === true) {
-    header("Refresh:3,url= vault");
+    header("Refresh:3,url= /vault");
     echo "User successfully signed in! Redirecting to vault!";
     exit();
 } else {
-    header("Refresh:3, url= authentication");
+    header("Refresh:3, url= /authentication");
     echo "Error! 2FA problems.";
     exit();
 }
-?>

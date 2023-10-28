@@ -41,6 +41,8 @@ $sql = "CREATE TABLE IF NOT EXISTS `User_Info` (
     `Password` varchar(256) DEFAULT NULL,
     `IV` binary(16) DEFAULT NULL,
     `Add_Date` datetime,
+    `Wrd/Phr` tinyint(1) NOT NULL DEFAULT 0,
+    `RST` tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY(`User_ID`,`Link`),
     FOREIGN KEY(`User_ID`) REFERENCES `Credentials`(`User_ID`)
   )";

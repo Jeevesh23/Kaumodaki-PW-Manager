@@ -1,5 +1,5 @@
 <?php
-function generatePassphrase($wordlistFile, $numWords = 5, $delimiter = '-')
+function generatePassphrase($wordlistFile = __DIR__ . '/eff_large_wordlist.txt', $numWords = 5, $delimiter = '-')
 {
     //Read file into an array
     $words = file($wordlistFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -26,7 +26,3 @@ function generatePassphrase($wordlistFile, $numWords = 5, $delimiter = '-')
     $passphrase = ucwords($passphrase, '-');
     return $passphrase;
 }
-
-$wordlistFile = __DIR__ . '/eff_large_wordlist.txt';
-$passphrase = generatePassphrase($wordlistFile);
-echo $passphrase;

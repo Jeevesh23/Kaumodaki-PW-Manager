@@ -64,3 +64,4 @@ dkms.conf
 vendor/**
 !Dockerfile
 vault/Files/
+vault/Icons/
