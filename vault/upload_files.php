@@ -1,6 +1,10 @@
 <?php
 include_once(__DIR__ . '/config/db.php');
-
+session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
 date_default_timezone_set('Asia/Kolkata');
 $statusMsg = '';
 define('SITE_ROOT', realpath(dirname(__FILE__)));
@@ -11,17 +15,17 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         $targetFilePath = $targetDir . $fileName;
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-        $size = $con->query("SELECT SUM(`Size`) FROM `Files` WHERE `User_ID`= 9");
+        $size = $con->query("SELECT SUM(`Size`) FROM `Files` WHERE `User_ID`=" . $_SESSION['User_ID']);
         $row = mysqli_fetch_row($size);
         $sum = is_null($row[0]) ? "0" : $row[0];
-        $search = $con->query("SELECT * FROM `Files` WHERE `User_ID`= 9 AND `File_Name`='$fileName'");
+        $search = $con->query("SELECT * FROM `Files` WHERE `User_ID`= " . $_SESSION['User_ID'] . " AND `File_Name`='$fileName'");
         if ($search->num_rows === 0) {
             $allowTypes = array('pdf', 'txt', 'jpg', 'png', 'jpeg', 'docx');
             if (in_array($fileType, $allowTypes)) {
                 $fileSize = $_FILES["file"]["size"];
                 if ($sum + $fileSize < 16700000) {
                     if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
-                        $insert = $con->query("INSERT INTO `Files` (`User_ID`,`File_Name`, `Upload_Date`,`Size`) VALUES ('9','" . $fileName . "', CONVERT_TZ(NOW(), 'UTC',  'Asia/Kolkata'), $fileSize)");
+                        $insert = $con->query("INSERT INTO `Files` (`User_ID`,`File_Name`, `Upload_Date`,`Size`) VALUES ('" . $_SESSION['User_ID'] . "','" . $fileName . "', CONVERT_TZ(NOW(), 'UTC',  'Asia/Kolkata'), $fileSize)");
                         if ($insert) {
                             $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
                         } else {
@@ -53,7 +57,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     <body>
         <h1>List of Files</h1>
         <?php
-        $size = $con->query("SELECT SUM(`Size`) FROM `Files` WHERE `User_ID`= 9");
+        $size = $con->query("SELECT SUM(`Size`) FROM `Files` WHERE `User_ID`= " . $_SESSION['User_ID']);
         $row = mysqli_fetch_row($size);
         $sum = is_null($row[0]) ? "0" : $row[0];
         $avail = 16700000 - $sum;
@@ -77,7 +81,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             if (is_dir($folderPath)) {
                 if ($handle = opendir($folderPath)) {
                     while (false !== ($file = readdir($handle))) {
-                        if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == "9") {
+                        if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
                             // To remove trivial file pointers
                             if ($file != "." && $file != "..") {
                                 $fileParam = urlencode($file);
@@ -107,10 +111,10 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     <body>
         <h1>Delete Files</h1>
         <?php
-        $files = $con->query("SELECT `File_Name`,`Size` FROM `Files` WHERE `User_ID`= 9");
-        $row = mysqli_fetch_row($files);
-        foreach ($row as $filename => $size)
-            $sum = is_null($size) ? "0" : $size;
+        $sum = 0;
+        $files = $con->query("SELECT `File_Name`,`Size` FROM `Files` WHERE `User_ID`=" . $_SESSION['User_ID']);
+        while ($row = $files->fetch_assoc())
+            $sum = is_null($row['Size']) ? "0" : $sum + $row['Size'];
         $avail = 16700000 - $sum;
         ?>
         <h3>Available space:<?php echo $avail / 1000000; ?> MB</h3>
@@ -132,17 +136,17 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             if (is_dir($folderPath)) {
                 if ($handle = opendir($folderPath)) {
                     echo '<form method="post" action="/vault/uploads">';
+                    echo "<table>";
+                    echo "<tr><th>File Name</th><th>File Size (KB)</th></tr>";
                     while (false !== ($file = readdir($handle))) {
-                        if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == "9") {
-                            echo "<table>";
-                            echo "<tr><th>File Name</th><th>File Size (KB)</th></tr>";
+                        if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
                             // To remove trivial file pointers
                             if ($file != "." && $file != "..") {
-                                echo "<tr><td><input type='checkbox' name='files[]' value='$file'>$file</td><td>" . ($size / 1000) . "</td></tr>";
+                                echo "<tr><td><input type='checkbox' name='files[]' value='$file'>$file</td><td>" . (filesize($folderPath . $file) / 1000) . "</td></tr>";
                             }
-                            echo "</table>";
                         }
                     }
+                    echo "</table>";
                     closedir($handle);
                 }
             } else {
@@ -159,7 +163,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 } else if (isset($_POST["submit"]) && $_POST["submit"] === "Delete Selected Files") {
     $filesToDelete = isset($_POST['files']) ? $_POST['files'] : [];
 
-    $user = 9;
+    $user = $_SESSION['User_ID'];
 
     foreach ($filesToDelete as $file) {
         $sql = "SELECT * FROM `Files` WHERE `File_Name` = '$file' AND `User_ID` = '$user'";
