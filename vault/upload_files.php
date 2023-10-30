@@ -52,50 +52,158 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
     <head>
         <title>List of Files</title>
+        <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <h1>List of Files</h1>
-        <?php
-        $size = $con->query("SELECT SUM(`Size`) FROM `Files` WHERE `User_ID`= " . $_SESSION['User_ID']);
-        $row = mysqli_fetch_row($size);
-        $sum = is_null($row[0]) ? "0" : $row[0];
-        $avail = 16700000 - $sum;
-        ?>
-        <h3>Available space:<?php echo $avail / 1000000; ?> MB</h3>
-        <ul>
-            <?php
-            $folderPath = SITE_ROOT . '/Files/';
-            $sql = "SELECT `File_Name`, `User_ID` FROM `Files`";
-            $result = $con->query($sql);
+    <div class="container">
+            <!-- Sidebar Section -->
+            <aside>
+                <div class="toggle">
+                    <div class="logo">
+                        <!-- <img src="images/profile.jpg"> -->
+                        <!-- <i class='bx bxl-netlify'></i> -->
+                        <h2>Password<br><span class="danger">Manager</span></h2>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
+                    </div>
+                </div>
 
-            $allowedFiles = [];
+                <div class="sidebar">
+                    <a href="/vault">
+                        <span class="material-icons-sharp">
+                            dashboard
+                        </span>
+                        <h3>Dashboard</h3>
+                    </a>
+                    <!-- <a href="#">
+                        <span class="material-icons-sharp">
+                            person_outline
+                        </span>
+                        <h3>User</h3>
+                    </a> -->
+                    <a href="/settings.html">
+                        <span class="material-icons-sharp">
+                            settings
+                        </span>
+                        <h3>Settings</h3>
+                    </a>
+                    <a href="/add_password.html">
+                        <span class="material-icons-sharp">
+                            add
+                        </span>
+                        <h3>Add Password</h3>
+                    </a>
+                    <a href="" class="active">
+                        <span class="material-icons-sharp">
+                            upload
+                        </span>
+                        <h3>Upload</h3>
+                    </a>
+                    <form method="post">
+                        <input type="hidden" name="logout" value="1">
+                        <button type="submit">
+                            <span class="material-icons-sharp">
+                                logout
+                            </span>
+                            <h3>Logout</h3>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+            <!-- End of Sidebar Section -->
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $file = $row["File_Name"];
-                    $user = $row["User_ID"];
-                    $allowedFiles[$file] = $user;
-                }
-            }
-            if (is_dir($folderPath)) {
-                if ($handle = opendir($folderPath)) {
-                    while (false !== ($file = readdir($handle))) {
-                        if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
-                            // To remove trivial file pointers
-                            if ($file != "." && $file != "..") {
-                                $fileParam = urlencode($file);
-                                echo "<li><a href='/vault/filecontrol?file=$fileParam'>$file</a></li>";
-                            }
+            <!-- Main Content -->
+            <main>
+                <h1>List of Files</h1>
+                <?php
+                $size = $con->query("SELECT SUM(`Size`) FROM `Files` WHERE `User_ID`= " . $_SESSION['User_ID']);
+                $row = mysqli_fetch_row($size);
+                $sum = is_null($row[0]) ? "0" : $row[0];
+                $avail = 16700000 - $sum;
+                ?>
+                <h3>Available space:<?php echo $avail / 1000000; ?> MB</h3>
+                <ul>
+                    <?php
+                    $folderPath = SITE_ROOT . '/Files/';
+                    $sql = "SELECT `File_Name`, `User_ID` FROM `Files`";
+                    $result = $con->query($sql);
+
+                    $allowedFiles = [];
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $file = $row["File_Name"];
+                            $user = $row["User_ID"];
+                            $allowedFiles[$file] = $user;
                         }
                     }
-                    closedir($handle);
-                }
-            } else {
-                echo "The folder does not exist.";
-            }
-            ?>
-        </ul>
+                    if (is_dir($folderPath)) {
+                        if ($handle = opendir($folderPath)) {
+                            while (false !== ($file = readdir($handle))) {
+                                if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
+                                    // To remove trivial file pointers
+                                    if ($file != "." && $file != "..") {
+                                        $fileParam = urlencode($file);
+                                        echo "<li><a href='/vault/filecontrol?file=$fileParam'>$file</a></li>";
+                                    }
+                                }
+                            }
+                            closedir($handle);
+                        }
+                    } else {
+                        echo "The folder does not exist.";
+                    }
+                    ?>
+                </ul>
+            </main>
+            <!-- End of Main Content -->
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="nav">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">
+                            menu
+                        </span>
+                    </button>
+                    <div class="dark-mode">
+                        <span class="material-icons-sharp active">
+                            light_mode
+                        </span>
+                        <span class="material-icons-sharp">
+                            dark_mode
+                        </span>
+                    </div>
+
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b><?php echo $namerow[0] ?></b></p>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End of Nav -->
+
+                <div class="user-profile">
+                    <div class="logo">
+                        <!-- <img src="images/profile.jpg"> -->
+                        <h2>Password<br>Manager</h2>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- <script src="orders.js"></script> -->
+        <script src="index.js"></script>
     </body>
 
     </html>
@@ -106,56 +214,164 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
     <head>
         <title>Delete Files</title>
+        <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <h1>Delete Files</h1>
-        <?php
-        $sum = 0;
-        $files = $con->query("SELECT `File_Name`,`Size` FROM `Files` WHERE `User_ID`=" . $_SESSION['User_ID']);
-        while ($row = $files->fetch_assoc())
-            $sum = is_null($row['Size']) ? "0" : $sum + $row['Size'];
-        $avail = 16700000 - $sum;
-        ?>
-        <h3>Available space:<?php echo $avail / 1000000; ?> MB</h3>
-        <ul>
-            <?php
-            $folderPath = SITE_ROOT . '/Files/';
-            $sql = "SELECT `File_Name`, `User_ID` FROM `Files`";
-            $result = $con->query($sql);
+    <div class="container">
+            <!-- Sidebar Section -->
+            <aside>
+                <div class="toggle">
+                    <div class="logo">
+                        <!-- <img src="images/profile.jpg"> -->
+                        <!-- <i class='bx bxl-netlify'></i> -->
+                        <h2>Password<br><span class="danger">Manager</span></h2>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
+                    </div>
+                </div>
 
-            $allowedFiles = [];
+                <div class="sidebar">
+                    <a href="/vault">
+                        <span class="material-icons-sharp">
+                            dashboard
+                        </span>
+                        <h3>Dashboard</h3>
+                    </a>
+                    <!-- <a href="#">
+                        <span class="material-icons-sharp">
+                            person_outline
+                        </span>
+                        <h3>User</h3>
+                    </a> -->
+                    <a href="/settings.html">
+                        <span class="material-icons-sharp">
+                            settings
+                        </span>
+                        <h3>Settings</h3>
+                    </a>
+                    <a href="/add_password.html">
+                        <span class="material-icons-sharp">
+                            add
+                        </span>
+                        <h3>Add Password</h3>
+                    </a>
+                    <a href="" class="active">
+                        <span class="material-icons-sharp">
+                            upload
+                        </span>
+                        <h3>Upload</h3>
+                    </a>
+                    <form method="post">
+                        <input type="hidden" name="logout" value="1">
+                        <button type="submit">
+                            <span class="material-icons-sharp">
+                                logout
+                            </span>
+                            <h3>Logout</h3>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+            <!-- End of Sidebar Section -->
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $file = $row["File_Name"];
-                    $user = $row["User_ID"];
-                    $allowedFiles[$file] = $user;
-                }
-            }
-            if (is_dir($folderPath)) {
-                if ($handle = opendir($folderPath)) {
-                    echo '<form method="post" action="/vault/uploads">';
-                    echo "<table>";
-                    echo "<tr><th>File Name</th><th>File Size (KB)</th></tr>";
-                    while (false !== ($file = readdir($handle))) {
-                        if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
-                            // To remove trivial file pointers
-                            if ($file != "." && $file != "..") {
-                                echo "<tr><td><input type='checkbox' name='files[]' value='$file'>$file</td><td>" . (filesize($folderPath . $file) / 1000) . "</td></tr>";
-                            }
+            <!-- Main Content -->
+            <main>
+                <h1>Delete Files</h1>
+                <?php
+                $sum = 0;
+                $files = $con->query("SELECT `File_Name`,`Size` FROM `Files` WHERE `User_ID`=" . $_SESSION['User_ID']);
+                while ($row = $files->fetch_assoc())
+                    $sum = is_null($row['Size']) ? "0" : $sum + $row['Size'];
+                $avail = 16700000 - $sum;
+                ?>
+                <h3>Available space:<?php echo $avail / 1000000; ?> MB</h3>
+                <ul>
+                    <?php
+                    $folderPath = SITE_ROOT . '/Files/';
+                    $sql = "SELECT `File_Name`, `User_ID` FROM `Files`";
+                    $result = $con->query($sql);
+
+                    $allowedFiles = [];
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $file = $row["File_Name"];
+                            $user = $row["User_ID"];
+                            $allowedFiles[$file] = $user;
                         }
                     }
-                    echo "</table>";
-                    closedir($handle);
-                }
-            } else {
-                echo "The folder does not exist.";
-            }
-            echo '<input type="submit" name="submit" value="Delete Selected Files">';
-            echo '</form>';
-            ?>
-        </ul>
+                    if (is_dir($folderPath)) {
+                        if ($handle = opendir($folderPath)) {
+                            echo '<form method="post" action="/vault/uploads">';
+                            echo "<table>";
+                            echo "<tr><th>File Name</th><th>File Size (KB)</th></tr>";
+                            while (false !== ($file = readdir($handle))) {
+                                if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
+                                    // To remove trivial file pointers
+                                    if ($file != "." && $file != "..") {
+                                        echo "<tr><td><input type='checkbox' name='files[]' value='$file'>$file</td><td>" . (filesize($folderPath . $file) / 1000) . "</td></tr>";
+                                    }
+                                }
+                            }
+                            echo "</table>";
+                            closedir($handle);
+                        }
+                    } else {
+                        echo "The folder does not exist.";
+                    }
+                    echo '<input type="submit" name="submit" value="Delete Selected Files">';
+                    echo '</form>';
+                    ?>
+                </ul>
+            </main>
+            <!-- End of Main Content -->
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="nav">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">
+                            menu
+                        </span>
+                    </button>
+                    <div class="dark-mode">
+                        <span class="material-icons-sharp active">
+                            light_mode
+                        </span>
+                        <span class="material-icons-sharp">
+                            dark_mode
+                        </span>
+                    </div>
+
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b><?php echo $namerow[0] ?></b></p>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End of Nav -->
+
+                <div class="user-profile">
+                    <div class="logo">
+                        <!-- <img src="images/profile.jpg"> -->
+                        <h2>Password<br>Manager</h2>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- <script src="orders.js"></script> -->
+        <script src="index.js"></script>
     </body>
 
     </html>
@@ -200,22 +416,130 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Upload Files to our Password Manager</title>
+        <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()">
-            Upload PDF, TXT, JPG, JPEG, PNG, or DOCX Files:-
-            <input type="file" name="file" id="file">
-            <input type="submit" name="submit" value="Upload">
-        </form>
-        <form>
-            Get Files From Storage:-
-            <input type="submit" name="submit" value="Retrieve">
-        </form>
-        <form>
-            Delete Files From Storage:-
-            <input type="submit" name="submit" value="Delete">
-        </form>
+    <div class="container">
+            <!-- Sidebar Section -->
+            <aside>
+                <div class="toggle">
+                    <div class="logo">
+                        <!-- <img src="images/profile.jpg"> -->
+                        <!-- <i class='bx bxl-netlify'></i> -->
+                        <h2>Password<br><span class="danger">Manager</span></h2>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <a href="/vault">
+                        <span class="material-icons-sharp">
+                            dashboard
+                        </span>
+                        <h3>Dashboard</h3>
+                    </a>
+                    <!-- <a href="#">
+                        <span class="material-icons-sharp">
+                            person_outline
+                        </span>
+                        <h3>User</h3>
+                    </a> -->
+                    <a href="/settings.html">
+                        <span class="material-icons-sharp">
+                            settings
+                        </span>
+                        <h3>Settings</h3>
+                    </a>
+                    <a href="/add_password.html">
+                        <span class="material-icons-sharp">
+                            add
+                        </span>
+                        <h3>Add Password</h3>
+                    </a>
+                    <a href="" class="active">
+                        <span class="material-icons-sharp">
+                            upload
+                        </span>
+                        <h3>Upload</h3>
+                    </a>
+                    <form method="post">
+                        <input type="hidden" name="logout" value="1">
+                        <button type="submit">
+                            <span class="material-icons-sharp">
+                                logout
+                            </span>
+                            <h3>Logout</h3>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+            <!-- End of Sidebar Section -->
+
+            <!-- Main Content -->
+            <main>
+                <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()">
+                    Upload PDF, TXT, JPG, JPEG, PNG, or DOCX Files:-
+                    <input type="file" name="file" id="file">
+                    <input type="submit" name="submit" value="Upload">
+                </form>
+                <form>
+                    Get Files From Storage:-
+                    <input type="submit" name="submit" value="Retrieve">
+                </form>
+                <form>
+                    Delete Files From Storage:-
+                    <input type="submit" name="submit" value="Delete">
+                </form>
+            </main>
+            <!-- End of Main Content -->
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="nav">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">
+                            menu
+                        </span>
+                    </button>
+                    <div class="dark-mode">
+                        <span class="material-icons-sharp active">
+                            light_mode
+                        </span>
+                        <span class="material-icons-sharp">
+                            dark_mode
+                        </span>
+                    </div>
+
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b><?php echo $namerow[0] ?></b></p>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End of Nav -->
+
+                <div class="user-profile">
+                    <div class="logo">
+                        <!-- <img src="images/profile.jpg"> -->
+                        <h2>Password<br>Manager</h2>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- <script src="orders.js"></script> -->
+        <script src="index.js"></script>
     </body>
 
     <script>
