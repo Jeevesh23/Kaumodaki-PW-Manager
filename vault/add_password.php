@@ -56,7 +56,7 @@ $namerow = $nameres->fetch_row();
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="/vault/add_password.php" class="active">
+                <a href="/vault/add-password" class="active">
                     <span class="material-icons-sharp">
                         add
                     </span>

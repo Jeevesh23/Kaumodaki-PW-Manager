@@ -6,6 +6,10 @@ if (!isset($_SESSION['User_ID'])) {
     die();
 }
 date_default_timezone_set('Asia/Kolkata');
+require_once(__DIR__ . '/config/db.php');
+$namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'];
+$nameres = mysqli_query($con, $namequery);
+$namerow = $nameres->fetch_row();
 $statusMsg = '';
 define('SITE_ROOT', realpath(dirname(__FILE__)));
 $targetDir = SITE_ROOT . '/Files/';
@@ -57,7 +61,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     </head>
 
     <body>
-    <div class="container">
+        <div class="container">
             <!-- Sidebar Section -->
             <aside>
                 <div class="toggle">
@@ -219,7 +223,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     </head>
 
     <body>
-    <div class="container">
+        <div class="container">
             <!-- Sidebar Section -->
             <aside>
                 <div class="toggle">
@@ -415,13 +419,13 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Upload Files to our Password Manager</title>
+        <title>Upload Files</title>
         <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-    <div class="container">
+        <div class="container">
             <!-- Sidebar Section -->
             <aside>
                 <div class="toggle">
