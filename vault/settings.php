@@ -146,6 +146,12 @@ $namerow = $nameres->fetch_row();
                     </span>
                     <h3>Add Password</h3>
                 </a>
+                <a href="/vault/uploads">
+                    <span class="material-icons-sharp">
+                        upload
+                    </span>
+                    <h3>Upload</h3>
+                </a>
                 <form method="post">
                     <input type="hidden" name="logout" value="1">
                     <button type="submit">

@@ -86,19 +86,19 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         </span>
                         <h3>User</h3>
                     </a> -->
-                    <a href="/settings.html">
+                    <a href="/vault/settings">
                         <span class="material-icons-sharp">
                             settings
                         </span>
                         <h3>Settings</h3>
                     </a>
-                    <a href="/add_password.html">
+                    <a href="/vault/add-password">
                         <span class="material-icons-sharp">
                             add
                         </span>
                         <h3>Add Password</h3>
                     </a>
-                    <a href="" class="active">
+                    <a href="/vault/uploads" class="active">
                         <span class="material-icons-sharp">
                             upload
                         </span>
@@ -248,19 +248,19 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         </span>
                         <h3>User</h3>
                     </a> -->
-                    <a href="/settings.html">
+                    <a href="/vault/settings">
                         <span class="material-icons-sharp">
                             settings
                         </span>
                         <h3>Settings</h3>
                     </a>
-                    <a href="/add_password.html">
+                    <a href="/vault/add-password">
                         <span class="material-icons-sharp">
                             add
                         </span>
                         <h3>Add Password</h3>
                     </a>
-                    <a href="" class="active">
+                    <a href="/vault/uploads" class="active">
                         <span class="material-icons-sharp">
                             upload
                         </span>
@@ -450,19 +450,19 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         </span>
                         <h3>User</h3>
                     </a> -->
-                    <a href="/settings.html">
+                    <a href="/vault/settings">
                         <span class="material-icons-sharp">
                             settings
                         </span>
                         <h3>Settings</h3>
                     </a>
-                    <a href="/add_password.html">
+                    <a href="/vault/add-password">
                         <span class="material-icons-sharp">
                             add
                         </span>
                         <h3>Add Password</h3>
                     </a>
-                    <a href="" class="active">
+                    <a href="/vault/uploads" class="active">
                         <span class="material-icons-sharp">
                             upload
                         </span>
