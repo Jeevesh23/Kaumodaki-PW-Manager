@@ -487,12 +487,12 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
             <!-- Main Content -->
             <main>
-                <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()">
+                <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()" id="dropArea">
                     Upload PDF, TXT, JPG, JPEG, PNG, or DOCX Files:-
                     <input type="file" name="file" id="file">
                     <input type="submit" name="submit" value="Upload">
                 </form>
-                <form>
+                <form id="fileList">
                     Get Files From Storage:-
                     <input type="submit" name="submit" value="Retrieve">
                 </form>
@@ -547,6 +547,37 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     </body>
 
     <script>
+        const dropArea = document.getElementById('dropArea');
+        const fileList = document.getElementById('fileList');
+        const fileInput = document.getElementById('file');
+
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('active');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('active');
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('active');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', () => {
+            const files = fileInput.files;
+            handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            fileList.innerHTML = '';
+            for (const file of files) {
+                fileList.innerHTML += `<p>${file.name}</p>`;
+            }
+        }
         function checkFileSize() {
             var fileInput = document.getElementById('file');
             var fileSize = file.fileSize;
