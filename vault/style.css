@@ -404,11 +404,52 @@ main table tbody tr:last-child td {
     border: none;
 }
 
+@keyframes blinkBackground {
+    0% {
+        background-color: initial;
+    }
+
+    50% {
+        background-color: red;
+    }
+
+    100% {
+        background-color: initial;
+    }
+}
+
+main .passwords table {
+    border-collapse: collapse;
+}
+
+main .passwords table th {
+    padding: 16px 10px;
+}
+
+main .passwords table td {
+    padding: 8px 20px;
+}
+
+main .passwords table .remind-color td {
+    background-color: #d71a1a;
+    color: var(--color-dark);
+    animation: blinkBackground 2s infinite;
+}
+
+main .passwords table .remind-color a {
+    color: #ddd016;
+}
+
 main .passwords a {
     text-align: center;
     display: block;
     margin: 1rem auto;
     color: var(--color-primary);
+}
+
+main .A_passwords form {
+    color: #000000;
+    font-size: 14px;
 }
 
 .right-section {

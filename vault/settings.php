@@ -8,6 +8,17 @@ require_once(__DIR__ . '/config/db.php');
 $namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'];
 $nameres = mysqli_query($con, $namequery);
 $namerow = $nameres->fetch_row();
+if (isset($_POST['logout']) && $_POST['logout'] == 1) {
+    echo '<script>
+            var confirmLogout = window.confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                window.location.href = "/vault/logout";
+            } else {
+                window.history.back();
+            }
+          </script>';
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

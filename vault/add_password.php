@@ -8,6 +8,17 @@ require_once(__DIR__ . '/config/db.php');
 $namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'];
 $nameres = mysqli_query($con, $namequery);
 $namerow = $nameres->fetch_row();
+if (isset($_POST['logout']) && $_POST['logout'] == 1) {
+    echo '<script>
+            var confirmLogout = window.confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                window.location.href = "/vault/logout";
+            } else {
+                window.history.back();
+            }
+          </script>';
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,21 +100,32 @@ $namerow = $nameres->fetch_row();
                 <div class="heading">
                     <h2>Add new Password</h2>
                     <form class="add_password" action="/vault/enter-password" method="post">
-                        <div class="input-box message-box">
-                            Description
-                            <textarea placeholder="Website" name="Description" required></textarea><br>
+                        <div class="input-box">
+                            <input type="text" placeholder="Website" name="Website" required><br>
                         </div>
                         <div class="input-box">
-                            Link
                             <input type="text" placeholder="Link" name="Link" required><br>
                         </div>
                         <div class="input-box">
-                            Username
                             <input type="text" placeholder="Username" name="Username" required><br>
                         </div>
                         <div class="input-box">
-                            Password
                             <input type="password" placeholder="Password" name="Password" required><br>
+                        </div>
+                        <div class="input-box">
+                            Type:<br>
+                            Password
+                            <input type="radio" name="Type" value="0" required>
+                            Passphrase
+                            <input type="radio" name="Type" value="1" required>
+                        </div>
+                        <div class="input-box">
+                            Reset Reminder:
+                            <input type="checkbox" name="Reset" value="1">
+                            <br>(Every 180 days from new password entry.)
+                        </div>
+                        <div class="input-box message-box">
+                            <textarea placeholder="Description" name="Description" rows="5" cols="40" required></textarea><br>
                         </div>
                         <input type="hidden" value=<?php echo $_SESSION['User_ID']; ?> name="User_ID">
                         <input type="reset" value="Reset Changes" class="button_R" />

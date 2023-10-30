@@ -5,14 +5,17 @@ if (!isset($_SESSION['User_ID'])) {
     die();
 }
 date_default_timezone_set('Asia/Kolkata');
-if (isset($_POST['UserID'])) {
+if (isset($_POST['User_ID'])) {
     $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    $website = $_POST['Website'];
     $desc = $_POST['Description'];
     $user = $_POST['Username'];
     $_SESSION['link'] = $link = $_POST['Link'];
+    $type = $_POST['Type'];
+    $reset = isset($_POST['Reset']) ? 1 : 0;
     $sql = "SELECT * FROM `User_Info` WHERE `Link`='$link'";
     $result = mysqli_query($conn, $sql);
     if ($result->num_rows > 0) {
@@ -28,8 +31,8 @@ if (isset($_POST['UserID'])) {
     $addformat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
     $_SESSION['adddate'] = $adddate = date("Y-m-d H:i:s", $addformat);
     $_SESSION['hash'] = password_hash($_POST['Password'], PASSWORD_DEFAULT);
-    $userid = $_POST['UserID'];
-    $sql1 = "INSERT INTO `User_Info` VALUES('$userid','$desc','$user','$link','$encrypted','$iv','$adddate')";
+    $userid = $_POST['User_ID'];
+    $sql1 = "INSERT INTO `User_Info`(`User_ID`, `Website`, `Description`, `Username`, `Link`, `Password`, `IV`, `Add_Date`, `Wrd/Phr`, `RST`) VALUES('$userid','$website', '$desc','$user','$link','$encrypted','$iv','$adddate','$type','$reset')";
     try {
         $result1 = mysqli_query($conn, $sql1);
         if (!$result1) {

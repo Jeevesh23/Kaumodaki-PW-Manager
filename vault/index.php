@@ -10,7 +10,7 @@ $namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION
 $nameres = mysqli_query($con, $namequery);
 $namerow = $nameres->fetch_row();
 
-$query = "SELECT * FROM `User_Info` WHERE `User_ID`=" . $_SESSION['User_ID'];
+$query = "SELECT * FROM `User_Info` WHERE `User_ID`=" . $_SESSION['User_ID'] . " ORDER BY `Description` ASC";
 $result = mysqli_query($con, $query);
 if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     echo '<script>
@@ -110,7 +110,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <th>Website</th>
                             <th>Link</th>
                             <th>Add Date</th>
-                            <th>Password</th>
                             <th>Word/Phrase</th>
                             <th>Reset Reminder</th>
                             <th></th>
@@ -118,19 +117,18 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         <tr>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
+                                $changeColour = (strtotime(date("Y-m-d")) > strtotime($row['Add_Date']) + 86400 * 180);
+                                $rowClass = $changeColour ? 'remind-color' : '';
+                                echo '<tr class="' . $rowClass . '">';
                             ?>
-
                                 <td>
-                                    <?php echo $row['Description']; ?>
+                                    <?php echo $row['Website']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['Link']; ?>
                                 </td>
                                 <td>
                                     <?php echo $row['Add_Date']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['Password']; ?>
                                 </td>
                                 <td>
                                     <?php
@@ -150,8 +148,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     </span>';
                                     ?>
                                 </td>
-                                <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                <td><a href="#" class="btn btn-danger">Delete</a></td>
+                                <td><a href="#">Edit</a></td>
+                                <td><a href="#">Delete</a></td>
 
                         </tr>
                     <?php

@@ -5,6 +5,17 @@ if (!isset($_SESSION['User_ID'])) {
     header("Location: /authentication");
     die();
 }
+if (isset($_POST['logout']) && $_POST['logout'] == 1) {
+    echo '<script>
+            var confirmLogout = window.confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                window.location.href = "/vault/logout";
+            } else {
+                window.history.back();
+            }
+          </script>';
+    exit();
+}
 date_default_timezone_set('Asia/Kolkata');
 require_once(__DIR__ . '/config/db.php');
 $namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'];
@@ -423,21 +434,23 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <style>
-            main { 
-                box-sizing: border-box; 
+            main {
+                box-sizing: border-box;
                 font-size: 16px;
-                height: 100%; 
+                height: 100%;
                 text-align: center;
-                padding: 2rem; 
+                padding: 2rem;
                 /* background: #f8f8f8; */
                 border-color: black;
             }
+
             main h2 {
                 font-size: 26px;
                 line-height: 1;
                 color: #454cad;
                 margin-bottom: 0;
             }
+
             main img {
                 text-align: center;
                 margin: 0 auto .5rem auto;
@@ -445,6 +458,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                 height: auto;
                 max-width: 60px;
             }
+
             main .btn {
                 margin: .5rem .5rem 1rem .5rem;
                 font-weight: 700;
@@ -526,7 +540,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                 <h2>File & Image Upload</h2>
                 <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()" id="dropArea">
                     Upload PDF, TXT, JPG, JPEG, PNG, or DOCX Files:-
-                    <img src="cloud.png">
+                    <img src="/vault/Images/cloud.png">
                     <input type="file" name="file" id="file" class="btn"><br>
                     <input type="submit" name="submit" value="Upload" class="btn">
                 </form>
@@ -616,6 +630,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                 fileList.innerHTML += `<p>${file.name}</p>`;
             }
         }
+
         function checkFileSize() {
             var fileInput = document.getElementById('file');
             var fileSize = file.fileSize;

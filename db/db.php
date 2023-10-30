@@ -35,12 +35,13 @@ if (!$tbconn) {
 }
 $sql = "CREATE TABLE IF NOT EXISTS `User_Info` (
     `User_ID` int(8) NOT NULL,
-    `Description` varchar(512) DEFAULT NULL,
+    `Website` varchar(512) DEFAULT NULL,
     `Username` varchar(512) DEFAULT NULL,
     `Link` varchar(512) NOT NULL,
     `Password` varchar(256) DEFAULT NULL,
     `IV` binary(16) DEFAULT NULL,
     `Add_Date` datetime,
+    `Description` varchar(512) DEFAULT NULL,
     `Wrd/Phr` tinyint(1) NOT NULL DEFAULT 0,
     `RST` tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY(`User_ID`,`Link`),

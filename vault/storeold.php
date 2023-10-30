@@ -1,6 +1,10 @@
 <?php
-$userid = 11;
 session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
+$userid = $_SESSION['User_ID'];
 $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -37,4 +41,3 @@ if (!$res3) {
     header("Location:/vault");
     exit();
 }
-?>
