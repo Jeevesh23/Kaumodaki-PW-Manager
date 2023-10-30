@@ -422,6 +422,42 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         <title>Upload Files</title>
         <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
+        <style>
+            main { 
+                box-sizing: border-box; 
+                font-size: 16px;
+                height: 100%; 
+                text-align: center;
+                padding: 2rem; 
+                /* background: #f8f8f8; */
+                border-color: black;
+            }
+            main h2 {
+                font-size: 26px;
+                line-height: 1;
+                color: #454cad;
+                margin-bottom: 0;
+            }
+            main img {
+                text-align: center;
+                margin: 0 auto .5rem auto;
+                width: auto;
+                height: auto;
+                max-width: 60px;
+            }
+            main .btn {
+                margin: .5rem .5rem 1rem .5rem;
+                font-weight: 700;
+                font-size: 14px;
+                border-radius: .7rem;
+                outline: none;
+                padding: 0 1rem;
+                height: 36px;
+                line-height: 36px;
+                color: #fff;
+                background: #454cad;
+            }
+        </style>
     </head>
 
     <body>
@@ -487,18 +523,20 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
             <!-- Main Content -->
             <main>
+                <h2>File & Image Upload</h2>
                 <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()" id="dropArea">
                     Upload PDF, TXT, JPG, JPEG, PNG, or DOCX Files:-
-                    <input type="file" name="file" id="file">
-                    <input type="submit" name="submit" value="Upload">
+                    <img src="cloud.png">
+                    <input type="file" name="file" id="file" class="btn"><br>
+                    <input type="submit" name="submit" value="Upload" class="btn">
                 </form>
                 <form id="fileList">
-                    Get Files From Storage:-
-                    <input type="submit" name="submit" value="Retrieve">
+                    Get Files From Storage<br>
+                    <input type="submit" name="submit" value="Retrieve" class="btn">
                 </form>
                 <form>
-                    Delete Files From Storage:-
-                    <input type="submit" name="submit" value="Delete">
+                    Delete Files From Storage<br>
+                    <input type="submit" name="submit" value="Delete" class="btn">
                 </form>
             </main>
             <!-- End of Main Content -->
