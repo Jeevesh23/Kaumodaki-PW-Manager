@@ -14,7 +14,10 @@ use RobThree\Auth\TwoFactorAuth;
 $tfa = new TwoFactorAuth(
     qrcodeprovider: new EndroidQrCodeProvider()
 );
-$secret = $tfa->createSecret();
+$pattern = '#^(?:[A-Z2-7]{8})*(?:[A-Z2-7]{2}={6}|[A-Z2-7]{4}={4}|[A-Z2-7]{5}={3}|[A-Z2-7]{7}=)?$#';
+do {
+    $secret = $tfa->createSecret();
+} while (!preg_match($pattern, $secret));
 $_SESSION['secret'] = $secret;
 
 ?>
@@ -78,7 +81,7 @@ $_SESSION['secret'] = $secret;
         <p>Scan the following image with your authenticator app:</p><br><br>
         <div class="qr-box">
             <img src="<?php
-            echo $tfa->getQRCodeImageAsDataUri($_SESSION['username'] . '_' . $_SESSION['email'], $secret, 400); ?>">
+                        echo $tfa->getQRCodeImageAsDataUri($_SESSION['username'] . '_' . $_SESSION['email'], $secret, 400); ?>">
         </div>
 
         <div class="Form">

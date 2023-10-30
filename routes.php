@@ -26,6 +26,8 @@ get('/vault/passphrase', 'vault/randphr.php');
 any('/vault/uploads', 'vault/upload_files.php');
 get('/vault/filecontrol', 'vault/filecontrol.php');
 get('/vault/logout', 'vault/logout.php');
+any('/vault/add-password', 'vault/add_password.php');
+any('/vault/settings', 'vault/settings.php');
 
 get('/advanced-strength', '/password_strength_analysis/zxcvbn.php');
 

@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
+require_once(__DIR__ . '/config/db.php');
+$namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'];
+$nameres = mysqli_query($con, $namequery);
+$namerow = $nameres->fetch_row();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,13 +20,13 @@
     <title>Vault_Settings</title>
     <link rel="icon" type="image/png" href="./dist/images/favicon.png" />
 
-		<!-- Icon Fonts -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Icon Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-		<!-- Google Fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
     <style>
         main {
             padding: 0;
@@ -23,7 +34,7 @@
             box-sizing: border-box;
         }
 
-        .main_container{
+        .main_container {
             display: flex;
             /* padding-top: 10%; */
             /* align-items: center; */
@@ -34,17 +45,17 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        .accordion_tab{
+        .accordion_tab {
             max-width: 640px;
             padding: 10px;
         }
 
-        .accordion_tab_wrapper{
+        .accordion_tab_wrapper {
             display: flex;
             gap: 20px;
         }
 
-        .accordion_tab_group .tab{
+        .accordion_tab_group .tab {
             cursor: pointer;
             padding: 10px 20px;
             margin: 8px 2px;
@@ -56,36 +67,39 @@
             box-shadow: 0 0.5rem 0.8rem #eadad81e;
             border: 2px solid #bc6c2520;
         }
-        .accordion_tab_group .tab:hover{
+
+        .accordion_tab_group .tab:hover {
             background: #000000;
             color: #fff;
         }
 
-        #one:checked ~ .accordion_tab_group #one-tab,
-        #two:checked ~ .accordion_tab_group #two-tab,
-        #three:checked ~ .accordion_tab_group #three-tab,
-        #four:checked ~ .accordion_tab_group #four-tab
-        {
+        #one:checked~.accordion_tab_group #one-tab,
+        #two:checked~.accordion_tab_group #two-tab,
+        #three:checked~.accordion_tab_group #three-tab,
+        #four:checked~.accordion_tab_group #four-tab {
             background: #d8d5d5;
             color: #0b0a0a;
         }
-        .accordion_tab_wrapper input[type="radio"]{
+
+        .accordion_tab_wrapper input[type="radio"] {
             display: none;
         }
-        .accordion_tab_contents{
+
+        .accordion_tab_contents {
             background: #f0eeec;
             color: black;
             padding: 20px;
             border-radius: 10px;
         }
-        #one:checked ~ .accordion_tab_contents #one-tab-content,
-        #two:checked ~ .accordion_tab_contents #two-tab-content,
-        #three:checked ~ .accordion_tab_contents #three-tab-content,
-        #four:checked ~ .accordion_tab_contents #four-tab-content
-        {
+
+        #one:checked~.accordion_tab_contents #one-tab-content,
+        #two:checked~.accordion_tab_contents #two-tab-content,
+        #three:checked~.accordion_tab_contents #three-tab-content,
+        #four:checked~.accordion_tab_contents #four-tab-content {
             display: block;
         }
-        .accordion_tab_contents .accordion_tab_content{
+
+        .accordion_tab_contents .accordion_tab_content {
             display: none;
         }
     </style>
@@ -108,7 +122,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="#">
+                <a href="/vault">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
@@ -126,18 +140,21 @@
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="#">
+                <a href="/vault/add-password">
                     <span class="material-icons-sharp">
                         add
                     </span>
                     <h3>Add Password</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        logout
-                    </span>
-                    <h3>Logout</h3>
-                </a>
+                <form method="post">
+                    <input type="hidden" name="logout" value="1">
+                    <button type="submit">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </button>
+                </form>
             </div>
         </aside>
         <!-- End of Sidebar Section -->
@@ -202,10 +219,10 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Jeevesh</b></p>
+                        <p>Hey, <b><?php echo $namerow[0] ?></b></p>
                     </div>
                     <div class="profile-photo">
-                        <img src="images/profile-1.jpg">
+                        <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
                     </div>
                 </div>
 
@@ -224,4 +241,5 @@
 
     <script src="index.js"></script>
 </body>
+
 </html>

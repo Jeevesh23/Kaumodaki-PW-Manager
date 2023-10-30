@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
+require_once(__DIR__ . '/config/db.php');
+$namequery = "SELECT `Username` FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'];
+$nameres = mysqli_query($con, $namequery);
+$namerow = $nameres->fetch_row();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +38,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="#">
+                <a href="/vault">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
@@ -39,7 +50,7 @@
                     </span>
                     <h3>User</h3>
                 </a> -->
-                <a href="#">
+                <a href="/vault/settings">
                     <span class="material-icons-sharp">
                         settings
                     </span>
@@ -51,12 +62,15 @@
                     </span>
                     <h3>Add Password</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        logout
-                    </span>
-                    <h3>Logout</h3>
-                </a>
+                <form method="post">
+                    <input type="hidden" name="logout" value="1">
+                    <button type="submit">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </button>
+                </form>
             </div>
         </aside>
         <!-- End of Sidebar Section -->
@@ -66,31 +80,30 @@
             <h1>Add New Password</h1>
             <!-- passwords -->
             <div class="A_passwords">
-                <form class="add_password">
-                    <div class="heading">
-                      <h2>Add new Password</h2>
-                      <form action="" method="post">
+                <div class="heading">
+                    <h2>Add new Password</h2>
+                    <form class="add_password" action="/vault/enter-password" method="post">
                         <div class="input-box message-box">
                             Description
-                            <textarea placeholder="Description" required></textarea><br>
+                            <textarea placeholder="Website" name="Description" required></textarea><br>
                         </div>
                         <div class="input-box">
                             Link
-                            <input type="text" placeholder="Link" required><br>
+                            <input type="text" placeholder="Link" name="Link" required><br>
                         </div>
                         <div class="input-box">
                             Username
-                            <input type="text" placeholder="Username" required><br>
+                            <input type="text" placeholder="Username" name="Username" required><br>
                         </div>
                         <div class="input-box">
                             Password
-                            <input type="password" placeholder="Password" required><br>
+                            <input type="password" placeholder="Password" name="Password" required><br>
                         </div>
-                        <input type="reset" value="Reset Changes" class="button_R"/>
-                        <input type="submit" value="Create" class="button_C"/>
-                      </form>
-                    </div>
-                  </form>
+                        <input type="hidden" value=<?php echo $_SESSION['User_ID']; ?> name="User_ID">
+                        <input type="reset" value="Reset Changes" class="button_R" />
+                        <input type="submit" value="Create" class="button_C" />
+                    </form>
+                </div>
             </div>
         </main>
         <!-- End of Main Content -->
@@ -114,10 +127,10 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Jeevesh</b></p>
+                        <p>Hey, <b><?php echo $namerow[0] ?></b></p>
                     </div>
                     <div class="profile-photo">
-                        <img src="images/profile-1.jpg">
+                        <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
                     </div>
                 </div>
 

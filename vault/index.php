@@ -67,13 +67,13 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                     </span>
                     <h3>User</h3>
                 </a> -->
-                <a href="/settings.html">
+                <a href="/vault/settings">
                     <span class="material-icons-sharp">
                         settings
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="/add_password.html">
+                <a href="/vault/add-password">
                     <span class="material-icons-sharp">
                         add
                     </span>

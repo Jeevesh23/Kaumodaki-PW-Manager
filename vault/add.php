@@ -1,35 +1,17 @@
 <?php
 session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
 date_default_timezone_set('Asia/Kolkata');
-if (!isset($_POST['UserID'])) { ?>
-    <!DOCTYPE html>
-    <html>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Password Vault</title>
-    </head>
-
-    <body>
-        <form method="post" action="">
-            <input type="text" name="Description" placeholder="Description" required></input>
-            <br><br>
-            <input type="url" name="Link" placeholder="Link" required></input>
-            <br><br>
-            <input type="password" name="Password" placeholder="Password" required></input>
-            <br><br>
-            <input type="hidden" name="UserID" required value="<?php echo "11"; ?>"></input>
-            <input type="submit" value="Send Request"></input>
-    </body>
-
-    </html>
-<?php } else if (isset($_POST['UserID'])) {
+if (isset($_POST['UserID'])) {
     $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
     $desc = $_POST['Description'];
+    $user = $_POST['Username'];
     $_SESSION['link'] = $link = $_POST['Link'];
     $sql = "SELECT * FROM `User_Info` WHERE `Link`='$link'";
     $result = mysqli_query($conn, $sql);
@@ -47,7 +29,7 @@ if (!isset($_POST['UserID'])) { ?>
     $_SESSION['adddate'] = $adddate = date("Y-m-d H:i:s", $addformat);
     $_SESSION['hash'] = password_hash($_POST['Password'], PASSWORD_DEFAULT);
     $userid = $_POST['UserID'];
-    $sql1 = "INSERT INTO `User_Info` VALUES('$userid','$desc','$link','$encrypted','$iv','$adddate')";
+    $sql1 = "INSERT INTO `User_Info` VALUES('$userid','$desc','$user','$link','$encrypted','$iv','$adddate')";
     try {
         $result1 = mysqli_query($conn, $sql1);
         if (!$result1) {
@@ -66,4 +48,3 @@ if (!isset($_POST['UserID'])) { ?>
         exit();
     }
 }
-?>
