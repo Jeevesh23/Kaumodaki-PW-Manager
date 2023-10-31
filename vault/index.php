@@ -36,19 +36,36 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
     <style>
+        /* Style the dropdown button */
+
+        /* Style the dropdown content (hidden by default) */
         .dropdown-content {
-        display: none;
-        background-color: #f1f1f1;
-        min-width: 160px;
-        overflow: auto;
-        border: 2em;
-        position: bottom;
-        border-radius: 30px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 10px;
         }
 
-        .show {display: block;}
+        /* Style the dropdown links */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Show the dropdown content when hovering over the dropdown button */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 
@@ -163,7 +180,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     </span>';
                                     ?>
                                 </td>
-                                <td><span class="material-icons-sharp" onclick="myFunction()" id="dropbtn">arrow_drop_down</span><td>
+                                <!-- <td><span class="material-icons-sharp" onclick="myFunction()" id="dropbtn">arrow_drop_down</span><td>
                                 <td><span class="material-icons-sharp" onclick="myFunction()" id="dropbtn">edit</span></td>
                                 <td><span class="material-icons-sharp" >delete</span></td>
                                 <div id="myDropdown" class="dropdown-content">
@@ -173,7 +190,18 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     <span class="material-icons-sharp" >person</span>Username<br>
                                     <span class="material-icons-sharp" >visibility</span>Password<br>
                                     <span class="material-icons-sharp" ></span>Expiry<br>
-                                </div>
+                                </div> -->
+                                <td>
+                                    <div class="dropdown">
+                                        <!-- <button class="dropdown-btn">Options</button> -->
+                                        <span class="material-icons-sharp">more_vert</span>
+                                        <div class="dropdown-content">
+                                            <a href="#"><span class="material-icons-sharp">arrow_drop_down</span>View</a>
+                                            <a href="#"><span class="material-icons-sharp">edit</span>Edit</a>
+                                            <a href="#"><span class="material-icons-sharp">delete</span>Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
                                 
 
                         </tr>
@@ -224,7 +252,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     </div>
     <!-- <script src="orders.js"></script> -->
     <script src="index.js"></script>
-    <script>
+    <!-- <script>
         /* When the user clicks on the button, 
         toggle between hiding and showing the dropdown content */
         function myFunction() {
@@ -244,7 +272,23 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             }
         }
         }
-    </script>
+    </script> -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+        dropdownBtns.forEach((btn) => {
+            btn.addEventListener("click", function () {
+                const dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 
 </html>
