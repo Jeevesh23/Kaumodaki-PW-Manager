@@ -206,13 +206,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
                 </div>
                 <!-- End of Nav -->
-
-                <div class="user-profile">
-                    <div class="logo">
-                        <!-- <img src="images/profile.jpg"> -->
-                        <h2>Password<br>Manager</h2>
-                    </div>
-                </div>
             </div>
 
 
@@ -374,13 +367,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
                 </div>
                 <!-- End of Nav -->
-
-                <div class="user-profile">
-                    <div class="logo">
-                        <!-- <img src="images/profile.jpg"> -->
-                        <h2>Password<br>Manager</h2>
-                    </div>
-                </div>
             </div>
 
 
@@ -583,13 +569,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
                 </div>
                 <!-- End of Nav -->
-
-                <div class="user-profile">
-                    <div class="logo">
-                        <!-- <img src="images/profile.jpg"> -->
-                        <h2>Password<br>Manager</h2>
-                    </div>
-                </div>
             </div>
 
 

@@ -193,13 +193,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
             </div>
             <!-- End of Nav -->
-
-            <div class="user-profile">
-                <div class="logo">
-                    <!-- <img src="images/profile.jpg"> -->
-                    <h2>Password<br>Manager</h2>
-                </div>
-            </div>
         </div>
 
 
