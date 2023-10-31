@@ -35,6 +35,21 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
+    <style>
+        .dropdown-content {
+        display: none;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        overflow: auto;
+        border: 2em;
+        position: bottom;
+        border-radius: 30px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        }
+
+        .show {display: block;}
+    </style>
 </head>
 
 <body>
@@ -148,8 +163,18 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     </span>';
                                     ?>
                                 </td>
-                                <td><a href="#">Edit</a></td>
-                                <td><a href="#">Delete</a></td>
+                                <td><span class="material-icons-sharp" onclick="myFunction()" id="dropbtn">arrow_drop_down</span><td>
+                                <td><span class="material-icons-sharp" onclick="myFunction()" id="dropbtn">edit</span></td>
+                                <td><span class="material-icons-sharp" >delete</span></td>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <br>
+                                    <h2>Password</h2>
+                                    <span class="material-icons-sharp" >link</span>Link<br>
+                                    <span class="material-icons-sharp" >person</span>Username<br>
+                                    <span class="material-icons-sharp" >visibility</span>Password<br>
+                                    <span class="material-icons-sharp" ></span>Expiry<br>
+                                </div>
+                                
 
                         </tr>
                     <?php
@@ -199,6 +224,27 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     </div>
     <!-- <script src="orders.js"></script> -->
     <script src="index.js"></script>
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+        if (!event.target.matches('#dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+            }
+        }
+        }
+    </script>
 </body>
 
 </html>
