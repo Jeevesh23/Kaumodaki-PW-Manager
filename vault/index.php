@@ -146,6 +146,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <th>Reset Reminder</th>
                             <th></th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
@@ -196,20 +198,27 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                         <!-- <button class="dropdown-btn">Options</button> -->
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
-                                            <a href="#"><span class="material-icons-sharp">arrow_drop_down</span>View</a>
+                                            <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             <a href="#"><span class="material-icons-sharp">edit</span>Edit</a>
                                             <a href="#"><span class="material-icons-sharp">delete</span>Delete</a>
                                         </div>
                                     </div>
                                 </td>
-                                
-
+                        </tr>
+                        <tr id=<?php echo $row['Link']; ?> class="dropdown">
+                            <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span>Link<br></td>
+                            <td><span class="material-icons-sharp">person</span>Username<br></td>
+                            <td><span class="material-icons-sharp">visibility</span>Password<br></td>
+                            <td><span class="material-icons-sharp"></span>Expiry<br></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     <?php
                             }
                     ?>
-                    </thead>
-                    <tbody></tbody>
+                    </tbody>
                 </table>
                 <!-- <a href="#">Show All</a> -->
             </div>
@@ -287,6 +296,18 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             });
         });
     });
+
+     /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction(elem) {
+            var currentElem = document.getElementById(elem.id);
+            var dropdownContent = currentElem.parentElement.parentElement.nextElementSibling;
+            if (dropdownContent.style.display === 'table-row') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'table-row';
+            }
+        }
 </script>
 
 </body>
