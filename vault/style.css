@@ -315,6 +315,14 @@ main .passwords table td {
     padding: 8px 20px;
 }
 
+main .passwords table tr:nth-last-child(2) td:first-child {
+    border-bottom-left-radius: 2rem;
+}
+
+main .passwords table tr:nth-last-child(2) td:last-child {
+    border-bottom-right-radius: 2rem;
+}
+
 main .passwords table .remind-color td {
     background-color: #d71a1a;
     color: var(--color-dark);

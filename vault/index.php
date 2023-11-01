@@ -147,12 +147,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="dashboard-body">
                         <tr>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $changeColour = (strtotime(date("Y-m-d")) > strtotime($row['Add_Date']) + 86400 * 180);
-                                $rowClass = $changeColour ? 'remind-color' : '';
+                                $rowClass = $changeColour && $row['RST'] ? 'remind-color' : '';
                                 echo '<tr class="' . $rowClass . '">';
                             ?>
                                 <td>
@@ -212,8 +212,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <td><span class="material-icons-sharp"></span>Expiry<br></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+
                         </tr>
                     <?php
                             }
@@ -300,13 +299,32 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         /* When the user clicks on the button, 
            toggle between hiding and showing the dropdown content */
         function myFunction(elem) {
-            var dropdownContent = elem.closest('.dropdownrow').parentElement.nextElementSibling;
+            var dropdownContent = elem.closest('td').parentElement.nextElementSibling;
             if (dropdownContent.style.display === 'table-row') {
                 dropdownContent.style.display = 'none';
             } else {
                 dropdownContent.style.display = 'table-row';
             }
         }
+
+        document.getElementById("dashboard-body").addEventListener("click", function(event) {
+            var clickedElement = event.target;
+            var clickedparElement = event.target.closest('td').parentElement;
+            var reqelem = document.getElementById('dashboard-body');
+            if (clickedparElement === reqelem.children[reqelem.children.length - 2]) {
+                var table = document.querySelector("main .passwords table");
+                var rows = table.querySelectorAll("tr");
+                var secondToLastRow = rows[rows.length - 2];
+                var tds = secondToLastRow.querySelectorAll("td");
+                if (tds[0].style.borderBottomLeftRadius != "0px") {
+                    tds[0].style.borderBottomLeftRadius = "0px";
+                    tds[tds.length - 1].style.borderBottomRightRadius = "0px";
+                } else {
+                    tds[0].style.borderBottomLeftRadius = "2rem";
+                    tds[tds.length - 1].style.borderBottomRightRadius = "2rem";
+                }
+            }
+        });
     </script>
 
 </body>
