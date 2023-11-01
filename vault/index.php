@@ -44,7 +44,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             position: absolute;
             background-color: #f9f9f9;
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
             border-radius: 10px;
         }
@@ -199,13 +199,13 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
                                             <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
-                                            <a href="#"><span class="material-icons-sharp">edit</span>Edit</a>
-                                            <a href="#"><span class="material-icons-sharp">delete</span>Delete</a>
+                                            <a><span class="material-icons-sharp">edit</span>Edit</a>
+                                            <a><span class="material-icons-sharp">delete</span>Delete</a>
                                         </div>
                                     </div>
                                 </td>
                         </tr>
-                        <tr id=<?php echo $row['Link']; ?> class="dropdown">
+                        <tr id=<?php echo $row['Link']; ?> class="dropdownrow">
                             <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span>Link<br></td>
                             <td><span class="material-icons-sharp">person</span>Username<br></td>
                             <td><span class="material-icons-sharp">visibility</span>Password<br></td>
@@ -283,32 +283,31 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         }
     </script> -->
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const dropdownBtns = document.querySelectorAll(".dropdown-btn");
-        dropdownBtns.forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
+        document.addEventListener("DOMContentLoaded", function() {
+            const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+            dropdownBtns.forEach((btn) => {
+                btn.addEventListener("click", function() {
+                    const dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
             });
         });
-    });
 
-     /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
+        /* When the user clicks on the button, 
+           toggle between hiding and showing the dropdown content */
         function myFunction(elem) {
-            var currentElem = document.getElementById(elem.id);
-            var dropdownContent = currentElem.parentElement.parentElement.nextElementSibling;
+            var dropdownContent = elem.closest('.dropdownrow').parentElement.nextElementSibling;
             if (dropdownContent.style.display === 'table-row') {
                 dropdownContent.style.display = 'none';
             } else {
                 dropdownContent.style.display = 'table-row';
             }
         }
-</script>
+    </script>
 
 </body>
 

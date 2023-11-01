@@ -337,6 +337,10 @@ main .A_passwords form {
     font-size: 14px;
 }
 
+main .dropdownrow {
+    display: none;
+}
+
 .right-section {
     margin-top: 1.4rem;
 }
