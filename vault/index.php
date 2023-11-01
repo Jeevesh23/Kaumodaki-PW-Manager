@@ -35,38 +35,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
-    <style>
-        /* Style the dropdown button */
-
-        /* Style the dropdown content (hidden by default) */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            border-radius: 10px;
-        }
-
-        /* Style the dropdown links */
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        /* Change color of dropdown links on hover */
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Show the dropdown content when hovering over the dropdown button */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
 </head>
 
 <body>
@@ -159,7 +127,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     <?php echo $row['Website']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Link']; ?>
+                                    <a href="<?php echo $row['Link']; ?>"><?php echo $row['Link']; ?></a>
                                 </td>
                                 <td>
                                     <?php echo $row['Add_Date']; ?>
