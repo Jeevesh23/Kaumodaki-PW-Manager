@@ -35,38 +35,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
-    <style>
-        /* Style the dropdown button */
-
-        /* Style the dropdown content (hidden by default) */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 10px;
-        }
-
-        /* Style the dropdown links */
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        /* Change color of dropdown links on hover */
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Show the dropdown content when hovering over the dropdown button */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
 </head>
 
 <body>
@@ -147,19 +115,19 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="dashboard-body">
                         <tr>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $changeColour = (strtotime(date("Y-m-d")) > strtotime($row['Add_Date']) + 86400 * 180);
-                                $rowClass = $changeColour ? 'remind-color' : '';
+                                $rowClass = $changeColour && $row['RST'] ? 'remind-color' : '';
                                 echo '<tr class="' . $rowClass . '">';
                             ?>
                                 <td>
                                     <?php echo $row['Website']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['Link']; ?>
+                                    <a href="<?php echo $row['Link']; ?>"><?php echo $row['Link']; ?></a>
                                 </td>
                                 <td>
                                     <?php echo $row['Add_Date']; ?>
@@ -199,21 +167,20 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
                                             <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
-                                            <a href="#"><span class="material-icons-sharp">edit</span>Edit</a>
-                                            <a href="#"><span class="material-icons-sharp">delete</span>Delete</a>
+                                            <a><span class="material-icons-sharp">edit</span>Edit</a>
+                                            <a><span class="material-icons-sharp">delete</span>Delete</a>
                                         </div>
                                     </div>
                                 </td>
                         </tr>
-                        <tr id=<?php echo $row['Link']; ?> class="dropdown">
+                        <tr id=<?php echo $row['Link']; ?> class="dropdownrow">
                             <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span>Link<br></td>
                             <td><span class="material-icons-sharp">person</span>Username<br></td>
                             <td><span class="material-icons-sharp">visibility</span>Password<br></td>
                             <td><span class="material-icons-sharp"></span>Expiry<br></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+
                         </tr>
                     <?php
                             }
@@ -283,32 +250,50 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         }
     </script> -->
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const dropdownBtns = document.querySelectorAll(".dropdown-btn");
-        dropdownBtns.forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
+        document.addEventListener("DOMContentLoaded", function() {
+            const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+            dropdownBtns.forEach((btn) => {
+                btn.addEventListener("click", function() {
+                    const dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
             });
         });
-    });
 
-     /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
+        /* When the user clicks on the button, 
+           toggle between hiding and showing the dropdown content */
         function myFunction(elem) {
-            var currentElem = document.getElementById(elem.id);
-            var dropdownContent = currentElem.parentElement.parentElement.nextElementSibling;
+            var dropdownContent = elem.closest('td').parentElement.nextElementSibling;
             if (dropdownContent.style.display === 'table-row') {
                 dropdownContent.style.display = 'none';
             } else {
                 dropdownContent.style.display = 'table-row';
             }
         }
-</script>
+
+        document.getElementById("dashboard-body").addEventListener("click", function(event) {
+            var clickedElement = event.target;
+            var clickedparElement = event.target.closest('td').parentElement;
+            var reqelem = document.getElementById('dashboard-body');
+            if (clickedparElement === reqelem.children[reqelem.children.length - 2]) {
+                var table = document.querySelector("main .passwords table");
+                var rows = table.querySelectorAll("tr");
+                var secondToLastRow = rows[rows.length - 2];
+                var tds = secondToLastRow.querySelectorAll("td");
+                if (tds[0].style.borderBottomLeftRadius != "0px") {
+                    tds[0].style.borderBottomLeftRadius = "0px";
+                    tds[tds.length - 1].style.borderBottomRightRadius = "0px";
+                } else {
+                    tds[0].style.borderBottomLeftRadius = "2rem";
+                    tds[tds.length - 1].style.borderBottomRightRadius = "2rem";
+                }
+            }
+        });
+    </script>
 
 </body>
 
