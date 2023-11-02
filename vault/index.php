@@ -127,7 +127,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     <?php echo $row['Website']; ?>
                                 </td>
                                 <td>
-                                    <a href="<?php echo $row['Link']; ?>"><?php echo $row['Link']; ?></a>
+                                    <a href="<?php echo $row['Link']; ?>" target="_blank"><?php echo $row['Link']; ?></a>
                                 </td>
                                 <td>
                                     <?php echo $row['Add_Date']; ?>

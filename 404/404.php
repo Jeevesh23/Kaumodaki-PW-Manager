@@ -1,3 +1,2 @@
 <?php
-echo 'PAGE DOES NOT EXIST!';
-?>
+echo 'Guru Meditation Error!';

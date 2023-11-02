@@ -28,6 +28,7 @@ get('/vault/filecontrol', 'vault/filecontrol.php');
 get('/vault/logout', 'vault/logout.php');
 any('/vault/add-password', 'vault/add_password.php');
 any('/vault/settings', 'vault/settings.php');
+post('/vault/contact', 'vault/contact.php');
 
 get('/advanced-strength', '/password_strength_analysis/zxcvbn.php');
 
