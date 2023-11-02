@@ -72,6 +72,11 @@ $_SESSION['secret'] = $secret;
             padding: 10px 0;
             border-radius: 10px;
         }
+
+        .qr-box img {
+            width: 15rem;
+            height: 15rem;
+        }
     </style>
 </head>
 
