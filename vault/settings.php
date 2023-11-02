@@ -249,15 +249,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f7f7f7;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Style the form heading */
         .contact-heading {
             font-size: 24px;
-            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -301,37 +298,112 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         }
 
 
-        /* Style the form container */
-        .form-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f7f7f7;
+        /* user profile */
+        .user_container .title {
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .user_container .title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background: #0074d9;
         }
 
-        /* Style the form heading */
-        .form-heading {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 20px;
+        .content form .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
         }
 
-        /* Style the form labels */
+        form .user-details .input-box {
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+
+        form .input-box span.details {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .user-details .input-box input {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid {
+            border-color: #9b59b6;
+        }
+
+        form .button {
+            height: 45px;
+            margin: 35px 0
+        }
+
+        form .button input {
+            height: 100%;
+            width: 40%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #0074d9;
+        }
+
+        @media(max-width: 584px) {
+            .container {
+                max-width: 100%;
+            }
+
+            form .user-details .input-box {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+
+            form .category {
+                width: 100%;
+            }
+
+            .content form .user-details {
+                max-height: 300px;
+                overflow-y: scroll;
+            }
+
+            .user-details::-webkit-scrollbar {
+                width: 5px;
+            }
+        }
+
+        @media(max-width: 459px) {
+            .container .content .category {
+                flex-direction: column;
+            }
+        }
+
         .form-label {
             display: block;
             margin: 10px 0;
             font-weight: bold;
-        }
-
-        /* Style the form input fields */
-        .form-input {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 3px;
         }
 
         /* Style the form select input (Country) */
@@ -341,20 +413,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 3px;
-        }
-
-        /* Style the form submit button */
-        .form-submit {
-            background-color: #0074d9;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .form-submit:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
@@ -446,67 +504,91 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
                 <ul>
                     <li class="tab-content tab-content-first typography">
-
-                        <div class="form-container">
-                            <h2 class="form-heading">User Information</h2>
+                        <div class="user_container">
+                            <h2 class="form-heading">User Information</h2><br>
                             <div class="profile-photo">
                                 <img src=<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>>
                             </div>
-                            <form action="#" method="post">
-                                <label for="username" class="form-label">Username:</label>
-                                <input type="text" id="username" name="username" class="form-input">
-
-                                <label for="phone" class="form-label">Phone Number:</label>
-                                <input type="tel" id="phone" name="phone" class="form-input">
-
-                                <label for="email" class="form-label">Email:</label>
-                                <input type="email" id="email" name="email" class="form-input">
-
-                                <label for="address" class="form-label">Address:</label>
-                                <input type="text" id="address" name="address" class="form-input">
-
-                                <label for="country" class="form-label">Country:</label>
-                                <select id="country" name="country" class="form-select">
-                                    <option value="india">India</option>
-                                    <option value="usa">USA</option>
-                                    <option value="other">Other</option>
-                                </select>
-
-                                <button type="submit" class="form-submit">Submit</button>
-                            </form>
+                            <div class="content">
+                                <form action="#">
+                                    <div class="user-details">
+                                        <div class="input-box">
+                                            <span class="details">Full Name</span>
+                                            <input type="text" placeholder="Enter your name" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Username</span>
+                                            <input type="text" placeholder="Enter your username" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Email</span>
+                                            <input type="text" placeholder="Enter your email" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Phone Number</span>
+                                            <input type="text" placeholder="Enter your number" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Country</span>
+                                            <select id="country" name="country" class="form-select">
+                                                <option value="usa">India</option>
+                                                <option value="canada">USA</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="button">
+                                        <input type="reset" value="Reset Changes">
+                                        <input type="submit" value="Change">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </li>
 
                     <li class="tab-content tab-content-2 typography">
-                        <h4>Reset Master-Password</h4>
+                        <h2 class="form-heading">Reset Master-Password</h2>
                         <div class="reset_password">
                             <form action="#" method="post">
-                                <label for="newPassword">Enter new Password</label>
-                                <input type="password" id="newPassword" name="newPassword">
-                                <br>
-                                <label for="confirmPassword">Confirm new Password</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword">
+                                <div class="input-box">
+                                    <span class="details">Password</span>
+                                    <input type="text" placeholder="Enter your password" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Confirm Password</span>
+                                    <input type="text" placeholder="Confirm your password" required>
+                                </div>
                                 <br>
                                 <input class="reset" type="reset" value="Reset Changes">
                                 <button type="submit">Submit</button>
                             </form>
                         </div>
-
-
                     </li>
 
                     <li class="tab-content tab-content-3 typography">
                         <div class="contact-container">
-                            <h2 class="contact-heading">Contact Us</h2>
-                            <form action="/vault/contact" method="post">
-                                <label for="name" class="contact-label">Name:</label>
-                                <input type="text" id="name" name="name" class="contact-input">
-
-                                <label for="email" class="contact-label">Email:</label>
-                                <input type="email" id="email" name="email" class="contact-input">
-
-                                <label for="message" class="contact-label">Message:</label>
-                                <textarea id="message" name="message" rows="4" class="contact-textarea"></textarea>
+                            <h2 class="form-heading">Contact Us</h2>
+                            <form action="#" method="post">
+                                <div class="input-box">
+                                    <span class="details">Name</span>
+                                    <input type="text" placeholder="Enter your password" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Email</span>
+                                    <input type="text" placeholder="Enter your password" required>
+                                </div>
+                                <div class="input-box">
+                                    <span class="details">Message</span>
+                                    <textarea id="message" name="message" rows="4" class="contact-textarea"></textarea>
+                                </div>
+                                <!-- <label for="name" class="contact-label">Name:</label>
+                              <input type="text" id="name" name="name" class="contact-input">
+                              
+                              <label for="email" class="contact-label">Email:</label>
+                              <input type="email" id="email" name="email" class="contact-input">
+                              
+                              <label for="message" class="contact-label">Message:</label>
+                              <textarea id="message" name="message" rows="4" class="contact-textarea"></textarea> -->
 
                                 <button type="submit" class="contact-submit">Submit</button>
                             </form>
