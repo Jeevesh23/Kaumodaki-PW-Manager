@@ -420,14 +420,21 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <style>
-            main {
-                box-sizing: border-box;
+            main .upload-file{
                 font-size: 16px;
-                height: 100%;
+                height: 80%;
                 text-align: center;
-                padding: 2rem;
-                /* background: #f8f8f8; */
+                position: relative;
+                
+            }
+
+            .upload-file .upload {
+                border: 5px dotted black;
                 border-color: black;
+                border-radius: 20px;
+                padding: 30px;
+                box-sizing: border-box;
+                padding: 2rem;
             }
 
             main h2 {
@@ -523,21 +530,27 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
             <!-- Main Content -->
             <main>
-                <h2>File & Image Upload</h2>
-                <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()" id="dropArea">
-                    Upload PDF, TXT, JPG, JPEG, PNG, or DOCX Files:-
-                    <img src="/vault/Images/cloud.png">
-                    <input type="file" name="file" id="file" class="btn"><br>
-                    <input type="submit" name="submit" value="Upload" class="btn">
-                </form>
-                <form id="fileList">
-                    Get Files From Storage<br>
-                    <input type="submit" name="submit" value="Retrieve" class="btn">
-                </form>
-                <form>
-                    Delete Files From Storage<br>
-                    <input type="submit" name="submit" value="Delete" class="btn">
-                </form>
+                <div class="upload-file">
+                    <h2>File & Image Upload</h2><br><br>
+                    <div class="upload" id="upload">
+                        <form method="post" enctype="multipart/form-data" onsubmit="return checkFileSize()" id="dropArea">
+                            <br>Upload PDF, TXT, JPG, JPEG, PNG, or DOCX Files:-
+                            <img src="/vault/Images/cloud.png">
+                            <input type="file" name="file" id="file" class="btn"><br>
+                            <input type="submit" name="submit" value="Upload" class="btn">
+                        </form>
+                    </div><br>
+                    <div class="delete_retrive">
+                        <form id="fileList">
+                            Get Files From Storage<br>
+                            <input type="submit" name="submit" value="Retrieve" class="btn">
+                        </form>
+                        <form>
+                            Delete Files From Storage<br>
+                            <input type="submit" name="submit" value="Delete" class="btn">
+                        </form>
+                    </div>
+                </div>
             </main>
             <!-- End of Main Content -->
 
@@ -578,7 +591,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     </body>
 
     <script>
-        const dropArea = document.getElementById('dropArea');
+        const dropArea = document.getElementById('upload');
         const fileList = document.getElementById('fileList');
         const fileInput = document.getElementById('file');
 
