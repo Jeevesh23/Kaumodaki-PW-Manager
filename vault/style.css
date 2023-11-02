@@ -283,7 +283,7 @@ main .passwords .dropdown-content a {
 
 /* Change color of dropdown links on hover */
 main .passwords .dropdown-content a:hover {
-    background-color: #ffffff;
+    background-color: var(--color-dark);
 }
 
 /* Show the dropdown content when hovering over the dropdown button */
@@ -373,6 +373,11 @@ main .passwords a {
 main .A_passwords form {
     color: #000000;
     font-size: 14px;
+}
+
+main .dropdown {
+    width: 40px;
+    height: 30px;
 }
 
 main .dropdownrow {

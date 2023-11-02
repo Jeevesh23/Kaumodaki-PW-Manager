@@ -6,12 +6,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
+    $_SESSION['email'] = $_POST['email'];
     $hashemail = hash('md5', $_POST['email']);
     $_SESSION['hashemail'] = $hashemail;
     $password = $_POST['password'];
     $otp = $_POST['otp'];
-    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV`,`User_ID` FROM `Credentials` WHERE `Email`='$hashemail'";
+    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV`,`User_ID`,`Username` FROM `Credentials` WHERE `Email`='$hashemail'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['secret'] = $encrypted;
                 $_SESSION['otp'] = $otp;
                 $_SESSION['User_ID'] = $row['User_ID'];
+                $_SESSION['Username'] = $row['Username'];
                 setcookie($_SESSION['hashemail'], 'signin', time() + 360, path: '/');
                 $conn->close();
                 header("Location:/authentication/verify-otp");

@@ -14,8 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $latitude = $_POST["latitude"];
     $longitude = $_POST["longitude"];
     $result = $geocoder->geocode($latitude . ',' . $longitude);
-
+    $email = $_SESSION['email'];
+    $userid = $_SESSION['User_ID'];
     $username = $_SESSION['Username'];
+
     $output .= '<p>Dear user ' . $username . ', thanks for using our password manager!</p>';
     $output .= '<p>A new sign in attempt was successful.</p>';
     $output .= '<p>-------------------------------------------------------------</p>';
@@ -45,23 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!$mail->send()) {
         echo "Mailer Error: " . $mail->ErrorInfo;
     } else {
-        header("Refresh:3,url=/authentication");
-        echo
-        "
-                <!DOCTYPE html>
-                <html lang='en'>
-                <head>
-                    <meta charset='UTF-8'>
-                    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                    <title>Document</title>
-                    <link rel='stylesheet' href='/authentication/style1.css'> 
-                </head>
-                <body>
-                    <div>
-                    <h3>An email has been sent to you with instructions on how to reset your password.</h3>
-                    </div>
-                </body>
-                </html>";
+        echo "Redirecting...";
         exit();
     }
 }

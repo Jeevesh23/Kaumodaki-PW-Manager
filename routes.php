@@ -12,11 +12,13 @@ get('/authentication', 'authentication/index.php');
 post('/authentication/register', 'authentication/register.php');
 get('/authentication/otp', 'authentication/register-form.php');
 post('/authentication/register-otp', 'authentication/register-otp.php');
+any('/authentication/location', 'authentication/location.php');
 post('/authentication/signin', 'authentication/signin.php');
 get('/authentication/verify-otp', 'authentication/verify-otp.php');
 any('/authentication/reset-mail', 'authentication/reset-mail.php');
 any('/authentication/reset-password', 'authentication/reset-password.php');
 any('/authentication/contact', 'authentication/contact.php');
+get('/authentication/kill-session', 'authentication/kill-session.php');
 
 any('/vault', 'vault/index.php');
 any('/vault/enter-password', 'vault/add.php');
