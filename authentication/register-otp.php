@@ -53,6 +53,7 @@ if ($result === true) {
         }
         require(__DIR__ . '/../vault/genicon.php');
         createIconAndStoreInDB($username, $_SESSION['User_ID']);
+        $_SESSION['PREMIUM'] = 0;
         header("Refresh:3,url= /vault");
         echo "User successfully registered! Redirecting to vault!";
         exit();

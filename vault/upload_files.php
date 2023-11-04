@@ -420,12 +420,12 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <style>
-            main .upload-file{
+            main .upload-file {
                 font-size: 16px;
                 height: 80%;
                 text-align: center;
                 position: relative;
-                
+
             }
 
             .upload-file .upload {
@@ -582,6 +582,25 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
                 </div>
                 <!-- End of Nav -->
+                <div class="user-profile">
+                    <div class="flip-card" id="myFlipCard">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="logo" id="logo">
+                                    <?php
+                                    if ($_SESSION['Premium'])
+                                        echo "<img src=/logos/password_manager_premium.jpg>";
+                                    else
+                                        echo "<img src=/logos/password_manager.jpg>";
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="flip-card-back" id="text">
+                                <p>When you say, "I have nothing to hide", you're saying, "I don't care about this right". <br>- Edward Snowden</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -636,6 +655,13 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
             return true;
         }
+        const card = document.querySelector('.user-profile');
+
+        card.addEventListener('click', () => {
+            const cardInner = document.querySelector('.flip-card-inner');
+            cardInner.classList.toggle('flipped');
+            card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        });
     </script>
 
     </html>

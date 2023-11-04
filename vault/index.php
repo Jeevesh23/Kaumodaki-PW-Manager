@@ -202,6 +202,9 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         menu
                     </span>
                 </button>
+                <div class="premium-buy">
+                    <a href="/payment" class="material-icons-sharp">monetization_on</span></a>
+                </div>
                 <div class="dark-mode">
                     <span class="material-icons-sharp active">
                         light_mode
@@ -222,6 +225,25 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
             </div>
             <!-- End of Nav -->
+            <div class="user-profile" id="user-profile-card">
+                <div class="flip-card" id="myFlipCard">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="logo" id="logo">
+                                <?php
+                                if ($_SESSION['Premium'])
+                                    echo "<img src=/logos/password_manager_premium.jpg>";
+                                else
+                                    echo "<img src=/logos/password_manager.jpg>";
+                                ?>
+                            </div>
+                        </div>
+                        <div class="flip-card-back" id="text">
+                            <p>When you say, "I have nothing to hide", you're saying, "I don't care about this right". <br>- Edward Snowden</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -292,6 +314,13 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                     tds[tds.length - 1].style.borderBottomRightRadius = "2rem";
                 }
             }
+        });
+        const card = document.querySelector('.user-profile');
+
+        card.addEventListener('click', () => {
+            const cardInner = document.querySelector('.flip-card-inner');
+            cardInner.classList.toggle('flipped');
+            card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
     </script>
 

@@ -14,6 +14,16 @@ use RobThree\Auth\Providers\Qr\EndroidQrCodeProvider;
 $tfa = new TwoFactorAuth(qrcodeprovider: new EndroidQrCodeProvider());
 $result = $tfa->verifyCode($_SESSION['secret'], $_SESSION['otp']);
 if ($result === true) {
+    $conn = mysqli_connect('db', 'root', 'MYSQL_ROOT_PASSWORD', 'PM_1');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "SELECT * FROM `Credentials` WHERE `User_ID`=" . $_SESSION['User_ID'] . " AND `Order_ID`!='0'";
+    $req = mysqli_query($conn, $sql);
+    if ($req->num_rows > 0)
+        $_SESSION['Premium'] = 1;
+    else
+        $_SESSION['Premium'] = 0;
 ?>
     <html>
 

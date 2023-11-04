@@ -15,7 +15,8 @@ $sql = "CREATE TABLE IF NOT EXISTS `Credentials`(
     `Password` varchar(1024),
     `Salt` varchar(256),
     `Secret_Key` varchar(64),
-    `IV` binary(16)
+    `IV` binary(16),
+    `Order_ID` varchar(32) DEFAULT '0'
   )";
 $tbconn = mysqli_query($dbconn, $sql);
 if (!$tbconn) {

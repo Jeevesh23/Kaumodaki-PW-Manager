@@ -53,6 +53,10 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             text-decoration: none;
         }
 
+        main .tab-content {
+            color: #000000;
+        }
+
         /**/
         /* main styles */
         /**/
@@ -364,7 +368,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             color: #fff;
             font-size: 18px;
             font-weight: 500;
-            letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
             background: #0074d9;
@@ -631,11 +634,39 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
             </div>
             <!-- End of Nav -->
+            <div class="user-profile">
+                <div class="flip-card" id="myFlipCard">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="logo" id="logo">
+                                <?php
+                                if ($_SESSION['Premium'])
+                                    echo "<img src=/logos/password_manager_premium.jpg>";
+                                else
+                                    echo "<img src=/logos/password_manager.jpg>";
+                                ?>
+                            </div>
+                        </div>
+                        <div class="flip-card-back" id="text">
+                            <p>When you say, "I have nothing to hide", you're saying, "I don't care about this right". <br>- Edward Snowden</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
 
     <script src="index.js"></script>
+    <script>
+        const card = document.querySelector('.user-profile');
+
+        card.addEventListener('click', () => {
+            const cardInner = document.querySelector('.flip-card-inner');
+            cardInner.classList.toggle('flipped');
+            card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        });
+    </script>
 </body>
 
 </html>

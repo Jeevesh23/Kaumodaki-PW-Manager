@@ -20,6 +20,10 @@ any('/authentication/reset-password', 'authentication/reset-password.php');
 any('/authentication/contact', 'authentication/contact.php');
 get('/authentication/kill-session', 'authentication/kill-session.php');
 
+get('/payment', 'payment/checkout_form.php');
+post('/payment/checkout', 'payment/checkout.php');
+any('/payment/success', 'payment/success.php');
+
 any('/vault', 'vault/index.php');
 any('/vault/enter-password', 'vault/add.php');
 get('/vault/store-old', 'vault/storeold.php');
