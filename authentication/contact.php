@@ -19,6 +19,8 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     echo "Invalid email address!";
     exit();
   } else {
+    $DEV_1 = 'bWFoZXByaW9sMTMxMw==';
+    $DEV_2 = 'amVldmVzaC5uYWlkdTIzMDQ=';
     $output = '<p>Message recieved from ' . $name . ' !</p>';
     $output .= '<p>Email: ' . $email . '</p>';
     $output .= "<p>$message</p>";
@@ -35,8 +37,8 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     $mail->Password = getenv('EMAIL_APP_PASSWORD');
     $mail->IsHTML(true);
     $mail->setFrom(getenv('EMAIL'), 'Password Contact Bot');
-    $mail->addCC(getenv('DEV_EMAIL_1'), 'SorcierMaheP');
-    $mail->addCC(getenv('DEV_EMAIL_2'), 'P Jeevesh');
+    $mail->addCC(base64_decode($DEV_1) . '@gmail.com', 'SorcierMaheP');
+    $mail->addCC(base64_decode($DEV_2) . '@gmail.com', 'P Jeevesh');
     $mail->Subject = $subject;
     $mail->Body = $body;
     if (!$mail->send()) {
@@ -44,7 +46,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     } else {
       header("Refresh:3,url=/");
       echo
-        "
+      "
               <!DOCTYPE html>
               <html lang='en'>
               <head>
@@ -58,8 +60,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                   <h2>Feedback email has been sent!</h2>
                   </div>
               </body>
-              </html>"
-      ;
+              </html>";
       exit();
     }
   }

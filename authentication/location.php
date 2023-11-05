@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $userid = $_SESSION['User_ID'];
     $username = $_SESSION['Username'];
 
-    $output .= '<p>Dear user ' . $username . ', thanks for using our password manager!</p>';
+    $output = '<p>Dear user ' . $username . ', thanks for using our password manager!</p>';
     $output .= '<p>A new sign in attempt was successful.</p>';
     $output .= '<p>-------------------------------------------------------------</p>';
     $output .= '<p>Latitude: ' . $latitude . ' Longitude: ' . $longitude . '</p>';

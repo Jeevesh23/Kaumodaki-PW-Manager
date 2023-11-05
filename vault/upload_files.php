@@ -562,6 +562,9 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             menu
                         </span>
                     </button>
+                    <div class="premium-buy">
+                        <a href="/payment" class="material-icons-sharp">monetization_on</span></a>
+                    </div>
                     <div class="dark-mode">
                         <span class="material-icons-sharp active">
                             light_mode
