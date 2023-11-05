@@ -35,6 +35,64 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
+    <style>
+        .toggle-container {
+            display: none;
+        }
+        .dropdown-content {
+            cursor: pointer;
+        }
+
+        /* Styling for the heading */
+        .heading {
+            text-align: center;
+        }
+
+        /* Styling for the form and its elements */
+        .add_password {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .input-box {
+            margin: 10px 0;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            /* background-color: var(--color-white); */
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        /* Styling for buttons */
+        .button_R,
+        .button_C {
+            background-color: #0074d9;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button_R {
+            background-color: #d9534f;
+        }
+
+        .button_C {
+            background-color: #5cb85c;
+        }
+    </style>
 </head>
 
 <body>
@@ -167,7 +225,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
                                             <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
-                                            <a><span class="material-icons-sharp">edit</span>Edit</a>
+                                            <a><span class="material-icons-sharp" onclick="toggleElement()">edit</span>Edit</a>
                                             <a><span class="material-icons-sharp">delete</span>Delete</a>
                                         </div>
                                     </div>
@@ -186,13 +244,14 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             }
                     ?>
                     </tbody>
+                    
                 </table>
-                <!-- <a href="#">Show All</a> -->
+                
             </div>
-            <!-- End of Recent Orders -->
 
         </main>
         <!-- End of Main Content -->
+        
 
         <!-- Right Section -->
         <div class="right-section">
@@ -242,6 +301,43 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <p>When you say, "I have nothing to hide", you're saying, "I don't care about this right". <br>- Edward Snowden</p>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="toggle-container" id="myElement">
+                <div class="heading">
+                    <form class="add_password" action="/vault/enter-password" method="post">
+                        <h2>Edit Password</h2>
+                        <div class="input-box">
+                            <input type="text" placeholder="Website" name="Website" required><br>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" placeholder="Link" name="Link" required><br>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" placeholder="Username" name="Username" required><br>
+                        </div>
+                        <div class="input-box">
+                            <input type="password" placeholder="Password" name="Password" required><br>
+                        </div>
+                        <div class="input-box">
+                            Type:<br>
+                            Password
+                            <input type="radio" name="Type" value="0" required>
+                            Passphrase
+                            <input type="radio" name="Type" value="1" required>
+                        </div>
+                        <div class="input-box">
+                            Reset Reminder:
+                            <input type="checkbox" name="Reset" value="1">
+                            <br>(Every 180 days from new password entry.)
+                        </div>
+                        <div class="input-box message-box">
+                            <textarea placeholder="Description" name="Description" rows="5" cols="40" required></textarea><br>
+                        </div>
+                        <input type="hidden" value=<?php echo $_SESSION['User_ID']; ?> name="User_ID">
+                        <input type="reset" value="Reset Changes" class="button_R" />
+                        <input type="submit" value="Change" class="button_C" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -322,6 +418,16 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             cardInner.classList.toggle('flipped');
             card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
+
+
+        function toggleElement() {
+            var element = document.getElementById("myElement");
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block"; // Open the element
+            } else {
+                element.style.display = "none"; // Close the element
+            }
+        }
     </script>
 
 </body>
