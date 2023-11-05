@@ -166,9 +166,9 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                         <!-- <button class="dropdown-btn">Options</button> -->
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
-                                            <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
+                                            <a href="#" onclick="myview(this)" class="view-button"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             <a><span class="material-icons-sharp">edit</span>Edit</a>
-                                            <a><span class="material-icons-sharp">delete</span>Delete</a>
+                                            <a href="#" onclick="mydelete(this)" class="del-button"><span class="material-icons-sharp">delete</span>Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -288,7 +288,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
         /* When the user clicks on the button, 
            toggle between hiding and showing the dropdown content */
-        function myFunction(elem) {
+        function myview(elem) {
             var dropdownContent = elem.closest('td').parentElement.nextElementSibling;
             if (dropdownContent.style.display === 'table-row') {
                 dropdownContent.style.display = 'none';
@@ -297,21 +297,43 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             }
         }
 
+        function mydelete(elem) {
+            var delContent = elem.closest('tr').firstElementChild.textContent.trim();
+            var result = confirm('Do you want to delete account ' + delContent + ' ?');
+            if (result) {
+                var xhr = new XMLHttpRequest();
+                var url = "/vault/delete";
+
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = xhr.responseText;
+                        alert(response);
+                        location.reload();
+                    }
+                };
+                xhr.send("data=" + delContent);
+            }
+        }
+
         document.getElementById("dashboard-body").addEventListener("click", function(event) {
             var clickedElement = event.target;
-            var clickedparElement = event.target.closest('td').parentElement;
-            var reqelem = document.getElementById('dashboard-body');
-            if (clickedparElement === reqelem.children[reqelem.children.length - 2]) {
-                var table = document.querySelector("main .passwords table");
-                var rows = table.querySelectorAll("tr");
-                var secondToLastRow = rows[rows.length - 2];
-                var tds = secondToLastRow.querySelectorAll("td");
-                if (tds[0].style.borderBottomLeftRadius != "0px") {
-                    tds[0].style.borderBottomLeftRadius = "0px";
-                    tds[tds.length - 1].style.borderBottomRightRadius = "0px";
-                } else {
-                    tds[0].style.borderBottomLeftRadius = "2rem";
-                    tds[tds.length - 1].style.borderBottomRightRadius = "2rem";
+            if (clickedElement.classList.contains("view-button")) {
+                var clickedparElement = event.target.closest('td').parentElement;
+                var reqelem = document.getElementById('dashboard-body');
+                if (clickedparElement === reqelem.children[reqelem.children.length - 2]) {
+                    var table = document.querySelector("main .passwords table");
+                    var rows = table.querySelectorAll("tr");
+                    var secondToLastRow = rows[rows.length - 2];
+                    var tds = secondToLastRow.querySelectorAll("td");
+                    if (tds[0].style.borderBottomLeftRadius != "0px") {
+                        tds[0].style.borderBottomLeftRadius = "0px";
+                        tds[tds.length - 1].style.borderBottomRightRadius = "0px";
+                    } else {
+                        tds[0].style.borderBottomLeftRadius = "2rem";
+                        tds[tds.length - 1].style.borderBottomRightRadius = "2rem";
+                    }
                 }
             }
         });

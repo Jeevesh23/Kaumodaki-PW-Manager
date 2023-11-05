@@ -45,7 +45,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `User_Info` (
     `Description` varchar(512) DEFAULT NULL,
     `Wrd/Phr` tinyint(1) NOT NULL DEFAULT 0,
     `RST` tinyint(1) NOT NULL DEFAULT 0,
-    PRIMARY KEY(`User_ID`,`Link`),
+    PRIMARY KEY(`User_ID`,`Website`),
     FOREIGN KEY(`User_ID`) REFERENCES `Credentials`(`User_ID`)
   )";
 $tbconn = mysqli_query($dbconn, $sql);
@@ -54,11 +54,12 @@ if (!$tbconn) {
 }
 $sql = "CREATE TABLE IF NOT EXISTS `Old_Passwords` (
     `User_ID` int(8) NOT NULL,
+    `Website` varchar(512) NOT NULL,
     `Link` varchar(512) NOT NULL,
     `Old_Hash` varchar(256) DEFAULT NULL,
     `Add_Date` datetime,
-    PRIMARY KEY(`User_ID`,`Link`),
-    FOREIGN KEY(`User_ID`, `Link`) REFERENCES `User_Info`(`User_ID`,`Link`)
+    PRIMARY KEY(`User_ID`,`Website`),
+    FOREIGN KEY(`User_ID`, `Website`) REFERENCES `User_Info`(`User_ID`,`Website`)
   )";
 $tbconn = mysqli_query($dbconn, $sql);
 if (!$tbconn) {

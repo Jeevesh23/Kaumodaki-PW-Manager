@@ -16,7 +16,7 @@ if (isset($_POST['User_ID'])) {
     $_SESSION['link'] = $link = $_POST['Link'];
     $type = $_POST['Type'];
     $reset = isset($_POST['Reset']) ? 1 : 0;
-    $sql = "SELECT * FROM `User_Info` WHERE `Link`='$link'";
+    $sql = "SELECT * FROM `User_Info` WHERE `Website`='$website'";
     $result = mysqli_query($conn, $sql);
     if ($result->num_rows > 0) {
         header("Refresh:3,url=/vault");
@@ -29,6 +29,7 @@ if (isset($_POST['User_ID'])) {
     $secret = $_POST['Password'];
     $encrypted = openssl_encrypt($secret, $method, $key, iv: $iv);
     $addformat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+    $_SESSION['website'] = $website;
     $_SESSION['adddate'] = $adddate = date("Y-m-d H:i:s", $addformat);
     $_SESSION['hash'] = password_hash($_POST['Password'], PASSWORD_DEFAULT);
     $userid = $_POST['User_ID'];

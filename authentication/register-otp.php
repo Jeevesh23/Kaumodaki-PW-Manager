@@ -34,8 +34,9 @@ if ($result === true) {
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
     $secret = $_SESSION['secret'];
     $encrypted = openssl_encrypt($secret, $method, $key, iv: $iv);
+    $encemail = openssl_encrypt($_SESSION['email'], $method, $key);
 
-    $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$hashemail','$password','$salt','$encrypted','$iv')";
+    $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$encemail','$password','$salt','$encrypted','$iv')";
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
         $conn->close();
@@ -43,7 +44,7 @@ if ($result === true) {
         echo "Connection failed!";
         exit();
     } else {
-        $sql2 = "SELECT `User_ID` FROM `Credentials` WHERE `Email`='$hashemail'";
+        $sql2 = "SELECT `User_ID` FROM `Credentials` WHERE `Email`='$encemail'";
         $result2 = mysqli_query($conn, $sql2);
         $conn->close();
         if ($result2->num_rows > 0) {
@@ -53,7 +54,7 @@ if ($result === true) {
         }
         require(__DIR__ . '/../vault/genicon.php');
         createIconAndStoreInDB($username, $_SESSION['User_ID']);
-        $_SESSION['PREMIUM'] = 0;
+        $_SESSION['Premium'] = 0;
         header("Refresh:3,url= /vault");
         echo "User successfully registered! Redirecting to vault!";
         exit();

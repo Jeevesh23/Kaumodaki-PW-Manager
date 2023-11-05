@@ -384,6 +384,11 @@ main .dropdownrow {
     display: none;
 }
 
+main .A_passwords .input-box #passwordSizeSlider,
+#passphraseSizeSlider {
+    display: none;
+}
+
 .right-section {
     margin-top: 1.4rem;
 }

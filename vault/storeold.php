@@ -29,8 +29,9 @@ if ($res1->num_rows === 5) {
 }
 $link = $_SESSION['link'];
 $hash = $_SESSION['hash'];
+$website = $_SESSION['website'];
 $adddate = $_SESSION['adddate'];
-$sql3 = "INSERT INTO `Old_Passwords` VALUES ('$userid','$link','$hash','$adddate')";
+$sql3 = "INSERT INTO `Old_Passwords` VALUES ('$userid','$website','$link','$hash','$adddate')";
 $res3 = mysqli_query($conn, $sql3);
 $conn->close();
 if (!$res3) {
