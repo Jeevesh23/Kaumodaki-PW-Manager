@@ -5,7 +5,8 @@ if (!isset($_SESSION['User_ID'])) {
     die();
 } else if ($_SESSION['Premium']) {
     echo '<script>alert("You are already a premium subscriber! Thanks BTW!");</script>';
-    echo '<script>window.location.href = "/vault";</script>';
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/vault';
+    header("Refresh:0.5,url= $referer");
     die();
 }
 ?>
