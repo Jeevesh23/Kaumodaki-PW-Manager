@@ -206,7 +206,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
                                             <a href="#" onclick="myview(this)" class="view-button"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
-                                            <a><span class="material-icons-sharp">edit</span>Edit</a>
+                                            <a><span class="material-icons-sharp" onclick="toggleElement()">edit</span>Edit</a>
                                             <a href="#" onclick="mydelete(this)" class="del-button"><span class="material-icons-sharp">delete</span>Delete</a>
                                         </div>
                                     </div>
