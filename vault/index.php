@@ -224,18 +224,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                         <!-- <button class="dropdown-btn">Options</button> -->
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
                                             <a href="#" onclick="myview(this)" class="view-button"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             <a><span class="material-icons-sharp">edit</span>Edit</a>
                                             <a href="#" onclick="mydelete(this)" class="del-button"><span class="material-icons-sharp">delete</span>Delete</a>
-=======
->>>>>>> ff037aca1416d6818cb462e77c36ed50d78e9223
-                                            <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
+                                            <!-- <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             <a><span class="material-icons-sharp" onclick="toggleElement()">edit</span>Edit</a>
-                                            <a><span class="material-icons-sharp">delete</span>Delete</a>
->>>>>>> origin/test
+                                            <a><span class="material-icons-sharp">delete</span>Delete</a> -->
                                         </div>
                                     </div>
                                 </td>
