@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$salt = getRandomStringRand();
 	$hasheddata = hash('sha512', $password . $salt);
 
-	$_SESSION['username'] = $username;
+	$_SESSION['Username'] = $username;
 	$_SESSION['email'] = $email;
 	$_SESSION['hashemail'] = $hashemail;
 	$_SESSION['password'] = $hasheddata;
@@ -53,5 +53,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	header("Location: /authentication");
 	exit();
 }
-
-?>

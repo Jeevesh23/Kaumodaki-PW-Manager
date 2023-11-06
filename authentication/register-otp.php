@@ -24,7 +24,7 @@ if ($conn->connect_error) {
 }
 
 if ($result === true) {
-    $username = $_SESSION['username'];
+    $username = $_SESSION['Username'];
     $hashemail = $_SESSION['hashemail'];
     $salt = $_SESSION['salt'];
     $password = $_SESSION['password'];

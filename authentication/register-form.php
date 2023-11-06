@@ -86,7 +86,7 @@ $_SESSION['secret'] = $secret;
         <p>Scan the following image with your authenticator app:</p><br><br>
         <div class="qr-box">
             <img src="<?php
-                        echo $tfa->getQRCodeImageAsDataUri($_SESSION['username'] . '_' . $_SESSION['email'], $secret, 400); ?>">
+                        echo $tfa->getQRCodeImageAsDataUri($_SESSION['Username'] . '_' . $_SESSION['email'], $secret, 400); ?>">
         </div>
 
         <div class="Form">

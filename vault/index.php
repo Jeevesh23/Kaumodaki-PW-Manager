@@ -209,17 +209,20 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                             <a href="#" onclick="myview(this)" class="view-button"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             <a><span class="material-icons-sharp" onclick="toggleElement()">edit</span>Edit</a>
                                             <a href="#" onclick="mydelete(this)" class="del-button"><span class="material-icons-sharp">delete</span>Delete</a>
+                                            <div onclick="mypwstrength(this)" class="strength-button">
+                                                <a><span class="material-icons-sharp"">fitness_center</span>Password Strength</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
                         </tr>
-                        <tr id=<?php echo $row['Link']; ?> class="dropdownrow">
-                            <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span>Link<br></td>
-                            <td><span class="material-icons-sharp">person</span>Username<br></td>
-                            <td><span class="material-icons-sharp">visibility</span>Password<br></td>
-                            <td><span class="material-icons-sharp"></span>Expiry<br></td>
-                            <td></td>
-                            <td></td>
+                        <tr id=<?php echo $row['Link']; ?> class=" dropdownrow">
+                                <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span>Link<br></td>
+                                <td><span class="material-icons-sharp">person</span>Username<br></td>
+                                <td><span class="material-icons-sharp">visibility</span>Password<br></td>
+                                <td><span class="material-icons-sharp"></span>Expiry<br></td>
+                                <td></td>
+                                <td></td>
 
                         </tr>
                     <?php
@@ -355,6 +358,33 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             }
         }
 
+        function mypwstrength(elem) {
+            var dataToSend = elem.closest('tr').firstElementChild.textContent.trim();
+            var formData = new FormData();
+            formData.append("data", dataToSend);
+            var url = "/strength-analysis";
+
+            redirectToPhp(url, formData);
+        }
+
+        function redirectToPhp(url, formData) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", url);
+
+            formData.forEach(function(value, key) {
+                var input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.setAttribute("value", value);
+                form.appendChild(input);
+            });
+
+            document.body.appendChild(form);
+
+            form.submit();
+        }
+
         function mydelete(elem) {
             var delContent = elem.closest('tr').firstElementChild.textContent.trim();
             var result = confirm('Do you want to delete account ' + delContent + ' ?');
@@ -407,9 +437,9 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         function toggleElement() {
             var element = document.getElementById("myElement");
             if (element.style.display === "none" || element.style.display === "") {
-                element.style.display = "block"; // Open the element
+                element.style.display = "block";
             } else {
-                element.style.display = "none"; // Close the element
+                element.style.display = "none";
             }
 
             // document.getElementById('myElement').addEventListener('click', function() {

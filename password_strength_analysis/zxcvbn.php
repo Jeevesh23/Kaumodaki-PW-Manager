@@ -1,20 +1,26 @@
 <?php
+session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
+if (!isset($_SESSION['Premium']) || $_SESSION['Premium'] != 1) {
+    echo '<script>alert("Only available to premium users!");</script>';
+    header("Refresh:0.5,url=/strength-analysis");
+    exit();
+}
 $newIncludePath = '/app/vendor/';
 set_include_path($newIncludePath);
 include_once('autoload.php');
 
 use ZxcvbnPhp\Zxcvbn;
 
-$userData = [
-    'Marco',
-    'marco@example.com'
-];
 //$pass is the password or passphrase.
 //$type indicates whether password(0) or passphrase(1)
 $zxcvbn = new Zxcvbn();
-$pass = 'Grievous-Commodore4-Starlight-Guide-Scoff';
-$type = 1;
-$weak = $zxcvbn->passwordStrength($pass, $userData);
+$pass = $_POST['password'];
+$type = $_POST['type'];
+$weak = $zxcvbn->passwordStrength($pass);
 function display_array($arr)
 {
     foreach ($arr as $key => $val) {

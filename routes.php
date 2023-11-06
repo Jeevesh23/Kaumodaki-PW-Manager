@@ -38,6 +38,8 @@ post('/vault/contact', 'vault/contact.php');
 post('/vault/delete', 'vault/del_entries.php');
 any('/vault/edit', 'vault/edit.php');
 
-get('/advanced-strength', '/password_strength_analysis/zxcvbn.php');
+any('/strength-analysis', 'password_strength_analysis/analysis.php');
+any('/advanced-strength', 'password_strength_analysis/zxcvbn.php');
+any('/strength-analysis/leak', 'password_strength_analysis/leak_lookup.php');
 
 any('/404', '404/404.php');

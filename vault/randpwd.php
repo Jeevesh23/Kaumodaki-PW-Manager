@@ -56,7 +56,7 @@ class passwordGenerator
                 $hasSpecialChar = $hasSpecialChar || (mb_strpos(self::SPECIAL_CHARS, $char) !== false);
             }
 
-            $passwordReady = ($hasLowercase && $hasUppercase && $hasDigit && $hasSpecialChar && ($password != $_SESSION['username']));
+            $passwordReady = ($hasLowercase && $hasUppercase && $hasDigit && $hasSpecialChar && ($password != $_SESSION['Username']));
         }
         return $password;
     }
