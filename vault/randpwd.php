@@ -1,22 +1,24 @@
 <?php
+session_start();
+if (!isset($_SESSION['User_ID'])) {
+    header("Location: /authentication");
+    die();
+}
 class passwordGenerator
 {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
     const DIGITS = '0123456789';
     const SPECIAL_CHARS = '!#$%&*@^';
-    // The maximum similarity percentage
-    const MAX_SIMILARITY_PERC = 5;
     // The password minimum length
     private $minLength;
     // The password maximum length
     private $maxLength;
     // The optional list of strings that must be different from the password
     private $diffStrings;
-    public function __construct(int $minLength = 16, int $maxLength = 32, array $diffStrings = [])
+    public function __construct(int $minLength = 16, int $maxLength = 32)
     {
         $this->minLength = $minLength;
         $this->maxLength = $maxLength;
-        $this->diffStrings = $diffStrings;
     }
     public function generate(): string
     {
@@ -54,18 +56,11 @@ class passwordGenerator
                 $hasSpecialChar = $hasSpecialChar || (mb_strpos(self::SPECIAL_CHARS, $char) !== false);
             }
 
-            $passwordReady = ($hasLowercase && $hasUppercase && $hasDigit && $hasSpecialChar);
-
-            // Checks for password similarity
-            if ($passwordReady) {
-                foreach ($this->diffStrings as $string) {
-                    similar_text($password, $string, $similarityPerc);
-                    $passwordReady = $passwordReady && ($similarityPerc < self::MAX_SIMILARITY_PERC);
-                }
-            }
+            $passwordReady = ($hasLowercase && $hasUppercase && $hasDigit && $hasSpecialChar && ($password != $_SESSION['username']));
         }
         return $password;
     }
 }
-$passwordGenerator = new passwordGenerator($_GET['size'], $_GET['size'], ['old_password', 'myUsername']);
-echo $passwordGenerator->generate();
+$passwordGenerator = new passwordGenerator($_GET['size'], $_GET['size']);
+$pwd = $passwordGenerator->generate();
+echo $pwd;
