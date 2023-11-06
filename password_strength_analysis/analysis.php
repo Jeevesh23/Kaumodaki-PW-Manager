@@ -43,9 +43,9 @@ if (!$result) {
             margin: 10px 20px;
             background-color: #fff;
             min-width: 200px;
+            padding: 10px 20px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
-            border-radius: 5px;
         }
         input[type="submit"] {
             background-color: #0074d9;
@@ -141,8 +141,8 @@ if (!$result) {
                     echo "<p>Do you want to perform a leak lookup analysis to see if your credentials were leaked?</p>";
                     echo "<p>Continue with current email: '" . $_SESSION['email'] . "' or use a enter a different one.<p>";
                     ?>
-                    <form action="/strength-analysis/leak" method="POST">
-                        <input type="email" name="email">
+                    <br><form action="/strength-analysis/leak" method="POST">
+                        <input type="email" name="email" placeholder="Email">
                         <input type="submit" name="submit" value="Leak Lookup Search">
                     </form>
                     <br>
