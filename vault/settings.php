@@ -309,17 +309,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             position: relative;
         }
 
-        .user_container .title::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 3px;
-            width: 30px;
-            border-radius: 5px;
-            background: #0074d9;
-        }
-
         .content form .user-details {
             display: flex;
             flex-wrap: wrap;
@@ -362,7 +351,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
         form .button input {
             height: 100%;
-            width: 40%;
+            width: 20%;
             border-radius: 5px;
             border: none;
             color: #fff;
@@ -426,7 +415,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <!-- <img src="images/profile.jpg"> -->
                     <h2>Password<br><span class="danger">Manager</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -443,12 +431,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <!-- <a href="#">
-                    <span class="material-icons-sharp">
-                        person_outline
-                    </span>
-                    <h3>User</h3>
-                </a> -->
                 <a href="#" class="active">
                     <span class="material-icons-sharp">
                         settings
@@ -516,28 +498,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                 <form action="#">
                                     <div class="user-details">
                                         <div class="input-box">
-                                            <span class="details">Full Name</span>
-                                            <input type="text" placeholder="Enter your name" required>
-                                        </div>
-                                        <div class="input-box">
                                             <span class="details">Username</span>
                                             <input type="text" placeholder="Enter your username" required>
-                                        </div>
+                                        </div><br>
                                         <div class="input-box">
                                             <span class="details">Email</span>
                                             <input type="text" placeholder="Enter your email" required>
-                                        </div>
-                                        <div class="input-box">
-                                            <span class="details">Phone Number</span>
-                                            <input type="text" placeholder="Enter your number" required>
-                                        </div>
-                                        <div class="input-box">
-                                            <span class="details">Country</span>
-                                            <select id="country" name="country" class="form-select">
-                                                <option value="usa">India</option>
-                                                <option value="canada">USA</option>
-                                                <option value="other">Other</option>
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="button">
@@ -584,15 +550,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     <span class="details">Message</span>
                                     <textarea id="message" name="message" rows="4" class="contact-textarea"></textarea>
                                 </div>
-                                <!-- <label for="name" class="contact-label">Name:</label>
-                              <input type="text" id="name" name="name" class="contact-input">
-                              
-                              <label for="email" class="contact-label">Email:</label>
-                              <input type="email" id="email" name="email" class="contact-input">
-                              
-                              <label for="message" class="contact-label">Message:</label>
-                              <textarea id="message" name="message" rows="4" class="contact-textarea"></textarea> -->
-
                                 <button type="submit" class="contact-submit">Submit</button>
                             </form>
                         </div>

@@ -77,8 +77,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             <aside>
                 <div class="toggle">
                     <div class="logo">
-                        <!-- <img src="images/profile.jpg"> -->
-                        <!-- <i class='bx bxl-netlify'></i> -->
                         <h2>Password<br><span class="danger">Manager</span></h2>
                     </div>
                     <div class="close" id="close-btn">
@@ -95,12 +93,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         </span>
                         <h3>Dashboard</h3>
                     </a>
-                    <!-- <a href="#">
-                        <span class="material-icons-sharp">
-                            person_outline
-                        </span>
-                        <h3>User</h3>
-                    </a> -->
                     <a href="/vault/settings">
                         <span class="material-icons-sharp">
                             settings
@@ -232,8 +224,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             <aside>
                 <div class="toggle">
                     <div class="logo">
-                        <!-- <img src="images/profile.jpg"> -->
-                        <!-- <i class='bx bxl-netlify'></i> -->
                         <h2>Password<br><span class="danger">Manager</span></h2>
                     </div>
                     <div class="close" id="close-btn">
@@ -250,12 +240,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         </span>
                         <h3>Dashboard</h3>
                     </a>
-                    <!-- <a href="#">
-                        <span class="material-icons-sharp">
-                            person_outline
-                        </span>
-                        <h3>User</h3>
-                    </a> -->
                     <a href="/vault/settings">
                         <span class="material-icons-sharp">
                             settings
@@ -473,8 +457,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             <aside>
                 <div class="toggle">
                     <div class="logo">
-                        <!-- <img src="images/profile.jpg"> -->
-                        <!-- <i class='bx bxl-netlify'></i> -->
                         <h2>Password<br><span class="danger">Manager</span></h2>
                     </div>
                     <div class="close" id="close-btn">
@@ -491,12 +473,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         </span>
                         <h3>Dashboard</h3>
                     </a>
-                    <!-- <a href="#">
-                        <span class="material-icons-sharp">
-                            person_outline
-                        </span>
-                        <h3>User</h3>
-                    </a> -->
                     <a href="/vault/settings">
                         <span class="material-icons-sharp">
                             settings

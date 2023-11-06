@@ -35,6 +35,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .toggle-container {
             display: none;
@@ -287,7 +288,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
             <div class="toggle-container" id="myElement">
                 <div class="heading">
-                    <form class="add_password" action="/vault/edit-password" method="post">
+                    <form class="add_password" id="edit-password" action="/vault/edit-password" method="post">
                         <h2>Edit Password</h2>
                         <div class="input-box">
                             <input type="text" placeholder="Website" name="Website" id="websiteField" required><br>
@@ -410,6 +411,58 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             } else {
                 element.style.display = "none"; // Close the element
             }
+
+            // document.getElementById('myElement').addEventListener('click', function() {
+            //     fetch('edit.php', {
+            //         method: 'GET',
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.error) {
+            //             console.error('Error: ' + data.error);
+            //         } else {
+            //             document.getElementById('websiteField').value = data.Website;
+            //             document.getElementById('linkField').value = data.Link;
+            //             document.getElementById('usernameField').value = data.Username;
+            //             document.getElementById('passwordField').value = data.Password;
+            //             document.getElementById('descriptionField').value = data.Description;
+            //         }
+            //     })
+            //     .catch(error => {
+            //         console.error('Error fetching data: ' + error);
+            //     });
+            // });
+            $(document).ready(function() {
+                $('#edit-password').click(function() {
+                    $.ajax({
+                        url: '/vault/edit',
+                        method: 'GET',
+                        success: function(data) {
+                            if (data.error) {
+                                console.error('Error: ' + data.error);
+                            } else {
+                                $('#websiteField').val(data.Website);
+                                $('#linkField').val(data.Link);
+                                $('#usernameField').val(data.Username);
+                                $('#passwordField').val(data.Password);
+                                // // Set radio button value based on data.Type
+                                // $('input[name="Type"][value="' + data.Type + '"]').prop('checked', true);
+                                // // Set checkbox value based on data.Reset
+                                // if (data.Reset === '1') {
+                                //     $('input[name="Reset"]').prop('checked', true);
+                                // } else {
+                                //     $('input[name="Reset"]').prop('checked', false);
+                                // }
+                                $('#descriptionField').val(data.Description);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX error: ' + error);
+                        }
+                    });
+                });
+            });
+
         }
     </script>
 
