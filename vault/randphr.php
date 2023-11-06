@@ -24,5 +24,6 @@ function generatePassphrase($wordlistFile = __DIR__ . '/eff_large_wordlist.txt',
     }
     //Capitalize the entire string's words
     $passphrase = ucwords($passphrase, '-');
-    return $passphrase;
+    echo $passphrase;
 }
+generatePassphrase(numWords: $_GET['size']);

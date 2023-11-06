@@ -67,6 +67,5 @@ class passwordGenerator
         return $password;
     }
 }
-$passwordGenerator = new passwordGenerator(16, 16, ['old_password', 'myUsername']);
-echo htmlspecialchars($passwordGenerator->generate());
-echo '<br>';
+$passwordGenerator = new passwordGenerator($_GET['size'], $_GET['size'], ['old_password', 'myUsername']);
+echo $passwordGenerator->generate();

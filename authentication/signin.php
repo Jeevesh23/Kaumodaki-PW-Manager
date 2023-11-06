@@ -9,9 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['email'] = $_POST['email'];
     $hashemail = hash('md5', $_POST['email']);
     $_SESSION['hashemail'] = $hashemail;
+
+    $key = getenv('AES_KEY');
+    $method = "AES-256-CBC";
+    $encemail = openssl_encrypt($_POST['email'], $method, $key);
+
     $password = $_POST['password'];
     $otp = $_POST['otp'];
-    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV`,`User_ID`,`Username` FROM `Credentials` WHERE `Email`='$hashemail'";
+    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV`,`User_ID`,`Username` FROM `Credentials` WHERE `Email`='$encemail'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -23,8 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         while ($row = $result->fetch_assoc()) {
             $hasheddata = hash('sha512', $password . $row["Salt"]);
             if ($row["Password"] == $hasheddata) {
-                $key = getenv('AES_KEY');
-                $method = "AES-256-CBC";
                 $iv = $row["IV"];
                 $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $iv);
                 $_SESSION['secret'] = $encrypted;

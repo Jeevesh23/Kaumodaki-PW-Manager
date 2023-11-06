@@ -110,14 +110,28 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <input type="text" placeholder="Username" name="Username" required><br>
                         </div>
                         <div class="input-box">
-                            <input type="password" placeholder="Password" name="Password" required><br>
+                            <input type="text" placeholder="Password" name="Password" id="Password" required><br>
+                        </div>
+                        <div class="input-box">
+                            <button id="insertbutton"><span class="material-icons-sharp">
+                                    casino
+                                </span></button>
                         </div>
                         <div class="input-box">
                             Type:<br>
                             Password
-                            <input type="radio" name="Type" value="0" required>
+                            <input type="radio" name="Type" value="0" id="passwordRadio" required>
                             Passphrase
-                            <input type="radio" name="Type" value="1" required>
+                            <input type="radio" name="Type" value="1" id="passphraseRadio" required>
+                        </div>
+                        <div class="input-box">
+                            Random Password Character Size: <span id="passwordSizeValue">16</span>
+                            <input type="range" min="16" max="128" value="16" class="slider" id="passwordSizeSlider">
+                        </div>
+
+                        <div class="input-box">
+                            Random Passphrase Word Size: <span id="passphraseSizeValue">5</span>
+                            <input type="range" min="5" max="20" value="5" class="slider" id="passphraseSizeSlider">
                         </div>
                         <div class="input-box">
                             Reset Reminder:
@@ -198,6 +212,58 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             cardInner.classList.toggle('flipped');
             card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
+
+        document.getElementById("insertbutton").addEventListener("click", function() {
+            event.preventDefault();
+
+            const selectedRadio = document.querySelector('input[name="Type"]:checked');
+
+            if (selectedRadio) {
+                const sizeSlider = selectedRadio.value === "0" ? document.getElementById("passwordSizeSlider") : document.getElementById("passphraseSizeSlider");
+                const size = sizeSlider.value;
+
+                const endpoint = selectedRadio.value === "0" ? '/vault/password' : '/vault/passphrase';
+
+                fetch(`${endpoint}?size=${size}`)
+                    .then(response => response.text())
+                    .then(passwordString => {
+                        document.getElementById("Password").value = passwordString;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        });
+
+        const passwordRadio = document.getElementById("passwordRadio");
+        const passphraseRadio = document.getElementById("passphraseRadio");
+        const passwordSizeSlider = document.getElementById("passwordSizeSlider");
+        const passphraseSizeSlider = document.getElementById("passphraseSizeSlider");
+        const passwordSizeValue = document.getElementById("passwordSizeValue");
+        const passphraseSizeValue = document.getElementById("passphraseSizeValue");
+
+        function updateSliderVisibility() {
+            if (passwordRadio.checked) {
+                passwordSizeSlider.style.display = "block";
+                passphraseSizeSlider.style.display = "none";
+            } else if (passphraseRadio.checked) {
+                passwordSizeSlider.style.display = "none";
+                passphraseSizeSlider.style.display = "block";
+            }
+        }
+
+        passwordRadio.addEventListener("change", updateSliderVisibility);
+        passphraseRadio.addEventListener("change", updateSliderVisibility);
+
+        passwordSizeSlider.addEventListener("input", function() {
+            passwordSizeValue.textContent = passwordSizeSlider.value;
+        });
+
+        passphraseSizeSlider.addEventListener("input", function() {
+            passphraseSizeValue.textContent = passphraseSizeSlider.value;
+        });
+
+        updateSliderVisibility();
     </script>
 </body>
 
