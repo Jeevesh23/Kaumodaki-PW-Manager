@@ -149,7 +149,7 @@ if (!$result) {
                     <p>Perform an advanced strength analysis of your password using ZXCVBN (Premium Feature)!</p>
                     <form action="/advanced-strength" method="POST">
                         <input type="hidden" name="type" value=<?php echo $type ?>>
-                        <input type="hidden" name="password" value=<?php echo $password ?>>
+                        <input type="hidden" name="password" value=<?php echo $password ?>><br>
                         <input type="submit" name="submit" value="Advanced Strength Analysis!">
                     </form>
             </main>
