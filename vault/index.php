@@ -369,7 +369,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
         function redirectToPhp(url, formData) {
             var form = document.createElement("form");
-            form.setAttribute("method", "post");
+            form.setAttribute("method", "get");
             form.setAttribute("action", url);
 
             formData.forEach(function(value, key) {

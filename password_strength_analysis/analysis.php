@@ -4,6 +4,17 @@ if (!isset($_SESSION['User_ID'])) {
     header("Location: /authentication");
     die();
 }
+if (isset($_POST['logout']) && $_POST['logout'] == 1) {
+    echo '<script>
+            var confirmLogout = window.confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                window.location.href = "/vault/logout";
+            } else {
+                window.history.back();
+            }
+          </script>';
+    exit();
+}
 require_once(__DIR__ . '/securecheck.php');
 $con = mysqli_connect("db", "root", "MYSQL_ROOT_PASSWORD", "PM_1");
 
@@ -47,6 +58,7 @@ if (!$result) {
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
+
         input[type="submit"] {
             background-color: #0074d9;
             color: #fff;
@@ -115,43 +127,44 @@ if (!$result) {
         <main>
             <h1>Strength Analysis</h1>
             <?php
-                if ($type == 0) {
-                    echo "<p>Password: " . $password . "</p>";
-                    if (passwordlen($password))
-                        echo "<p>Password is safe in length.</p><br>";
-                    else
-                        echo "<p>Password length too less to be secure!</p><br>";
-                    echo "<p>Basic Password Entropy: " . pwd_entropy($password) . " bits.</p>";
-                    if (pwd_entropy($password) >= 60)
-                        echo "<p>Password safe in strength! Check out advanced strength analysis for more info!</p><br>";
-                    else
-                        echo "<p>Password is weak! Check out advanced strength analysis for more info!</p><br>";
-                } else if ($type == 1) {
-                    echo "<p>Passphrase: " . $password . "</p>";
-                    if (phraselen($password))
-                        echo "<p>Passphrase is safe in length.</p><br>";
-                    else
-                        echo "<p>Passphrase is too small!</p><br>";
-                    echo "<p>Basic Passphrase Entropy: " . phr_entropy(phraselen($password)) . " bits.</p>";
-                    if (phr_entropy(phraselen($password)) >= 60)
-                        echo "<p>Passphrase safe in strength! Check out advanced strength analysis for more info!</p><br>";
-                    else
-                        echo "<p>Passphrase is weak! Check out advanced strength analysis for more info!</p><br>";
-                }
-                echo "<p>Do you want to perform a leak lookup analysis to see if your credentials were leaked?</p>";
-                echo "<p>Continue with current email: '" . $_SESSION['email'] . "' or use a enter a different one.<p>";
-                ?>
-                <br><form action="/strength-analysis/leak" method="POST">
-                    <input type="email" name="email" placeholder="Email">
-                    <input type="submit" name="submit" value="Leak Lookup Search">
-                </form>
-                <br>
-                <p>Perform an advanced strength analysis of your password using ZXCVBN (Premium Feature)!</p>
-                <form action="/advanced-strength" method="POST">
-                    <input type="hidden" name="type" value=<?php echo $type ?>>
-                    <input type="hidden" name="password" value=<?php echo $password ?>><br>
-                    <input type="submit" name="submit" value="Advanced Strength Analysis!">
-                </form>
+            if ($type == 0) {
+                echo "<p>Password: " . $password . "</p>";
+                if (passwordlen($password))
+                    echo "<p>Password is safe in length.</p><br>";
+                else
+                    echo "<p>Password length too less to be secure!</p><br>";
+                echo "<p>Basic Password Entropy: " . pwd_entropy($password) . " bits.</p>";
+                if (pwd_entropy($password) >= 60)
+                    echo "<p>Password safe in strength! Check out advanced strength analysis for more info!</p><br>";
+                else
+                    echo "<p>Password is weak! Check out advanced strength analysis for more info!</p><br>";
+            } else if ($type == 1) {
+                echo "<p>Passphrase: " . $password . "</p>";
+                if (phraselen($password))
+                    echo "<p>Passphrase is safe in length.</p><br>";
+                else
+                    echo "<p>Passphrase is too small!</p><br>";
+                echo "<p>Basic Passphrase Entropy: " . phr_entropy(phraselen($password)) . " bits.</p>";
+                if (phr_entropy(phraselen($password)) >= 60)
+                    echo "<p>Passphrase safe in strength! Check out advanced strength analysis for more info!</p><br>";
+                else
+                    echo "<p>Passphrase is weak! Check out advanced strength analysis for more info!</p><br>";
+            }
+            echo "<p>Do you want to perform a leak lookup analysis to see if your credentials were leaked?</p>";
+            echo "<p>Continue with current email: '" . $_SESSION['email'] . "' or use a enter a different one.<p>";
+            ?>
+            <br>
+            <form action="/strength-analysis/leak" method="POST">
+                <input type="email" name="email" placeholder="Email">
+                <input type="submit" name="submit" value="Leak Lookup Search">
+            </form>
+            <br>
+            <p>Perform an advanced strength analysis of your password using ZXCVBN (Premium Feature)!</p>
+            <form action="/advanced-strength" method="POST">
+                <input type="hidden" name="type" value=<?php echo $type ?>>
+                <input type="hidden" name="password" value=<?php echo $password ?>><br>
+                <input type="submit" name="submit" value="Advanced Strength Analysis!">
+            </form>
         </main>
         <!-- End of Main Content -->
 
@@ -178,7 +191,7 @@ if (!$result) {
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b><?php echo $namerow[0] ?></b></p>
+                        <p>Hey, <b><?php echo $_SESSION['Username']; ?></b></p>
                     </div>
                     <div class="profile-photo">
                         <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
@@ -205,58 +218,21 @@ if (!$result) {
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 
-    <!-- <script src="index.js"></script> -->
+    <script src="/password_strength_analysis/index.js"></script>
     <script>
-        const darkMode = document.querySelector('.dark-mode');
+        const card = document.querySelector('.user-profile');
 
-        function enableDarkMode() {
-            localStorage.setItem('darkMode', 'enabled');
-            document.body.classList.toggle('dark-mode-variables');
-            darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
-            darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
-        }
-
-        function disableDarkMode() {
-            localStorage.setItem('darkMode', 'disabled');
-            document.body.classList.toggle('dark-mode-variables');
-            darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
-            darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
-        }
-
-        function toggleDarkMode() {
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                disableDarkMode();
-            } else {
-                enableDarkMode();
-            }
-        }
-
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            enableDarkMode();
-        }
-        darkMode.addEventListener('click', toggleDarkMode);
-
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            enableDarkMode();
-        }
-
-        const sideMenu = document.querySelector('aside');
-        const menuBtn = document.getElementById('menu-btn');
-        const closeBtn = document.getElementById('close-btn');
-
-        menuBtn.addEventListener('click', () => {
-            sideMenu.style.display = 'block';
-        });
-
-        closeBtn.addEventListener('click', () => {
-            sideMenu.style.display = 'none';
+        card.addEventListener('click', () => {
+            const cardInner = document.querySelector('.flip-card-inner');
+            cardInner.classList.toggle('flipped');
+            card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
     </script>
-    
+
 </body>
 
 </html>
