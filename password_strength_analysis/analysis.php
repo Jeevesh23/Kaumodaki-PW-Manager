@@ -31,47 +31,184 @@ if (!$result) {
 
 <head>
     <title>Password Strength Analysis</title>
+    <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="/vault/style.css">
+    <style>
+        /* .input-box {
+            margin: 10px 0;
+        } */
+
+        input[type="email"] {
+            /* background-color: var(--color-white); */
+            margin: 10px 20px;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #0074d9;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <?php
-    if ($type == 0) {
-        echo "<p>Password: " . $password . "</p>";
-        if (passwordlen($password))
-            echo "<p>Password is safe in length.</p><br>";
-        else
-            echo "<p>Password length too less to be secure!</p><br>";
-        echo "<p>Basic Password Entropy: " . pwd_entropy($password) . " bits.</p>";
-        if (pwd_entropy($password) >= 60)
-            echo "<p>Password safe in strength! Check out advanced strength analysis for more info!</p><br>";
-        else
-            echo "<p>Password is weak! Check out advanced strength analysis for more info!</p><br>";
-    } else if ($type == 1) {
-        echo "<p>Passphrase: " . $password . "</p>";
-        if (phraselen($password))
-            echo "<p>Passphrase is safe in length.</p><br>";
-        else
-            echo "<p>Passphrase is too small!</p><br>";
-        echo "<p>Basic Passphrase Entropy: " . phr_entropy(phraselen($password)) . " bits.</p>";
-        if (phr_entropy(phraselen($password)) >= 60)
-            echo "<p>Passphrase safe in strength! Check out advanced strength analysis for more info!</p><br>";
-        else
-            echo "<p>Passphrase is weak! Check out advanced strength analysis for more info!</p><br>";
-    }
-    echo "<p>Do you want to perform a leak lookup analysis to see if your credentials were leaked?</p>";
-    echo "<p>Continue with current email: '" . $_SESSION['email'] . "' or use a enter a different one.<p>";
-    ?>
-    <form action="/strength-analysis/leak" method="POST">
-        <input type="email" name="email">
-        <input type="submit" name="submit" value="Leak Lookup Search">
-    </form>
-    <br>
-    <p>Perform an advanced strength analysis of your password using ZXCVBN (Premium Feature)!</p>
-    <form action="/advanced-strength" method="POST">
-        <input type="hidden" name="type" value=<?php echo $type ?>>
-        <input type="hidden" name="password" value=<?php echo $password ?>>
-        <input type="submit" name="submit" value="Advanced Strength Analysis!">
-    </form>
+    <div class="container">
+            <!-- Sidebar Section -->
+            <aside>
+                <div class="toggle">
+                    <div class="logo">
+                        <h2>Password<br><span class="danger">Manager</span></h2>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <a href="/vault">
+                        <span class="material-icons-sharp">
+                            dashboard
+                        </span>
+                        <h3>Dashboard</h3>
+                    </a>
+                    <a href="/vault/settings">
+                        <span class="material-icons-sharp">
+                            settings
+                        </span>
+                        <h3>Settings</h3>
+                    </a>
+                    <a href="/vault/add-password">
+                        <span class="material-icons-sharp">
+                            add
+                        </span>
+                        <h3>Add Password</h3>
+                    </a>
+                    <a href="/vault/uploads">
+                        <span class="material-icons-sharp">
+                            upload
+                        </span>
+                        <h3>Upload</h3>
+                    </a>
+                    <form method="post">
+                        <input type="hidden" name="logout" value="1">
+                        <button type="submit">
+                            <span class="material-icons-sharp">
+                                logout
+                            </span>
+                            <h3>Logout</h3>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+            <!-- End of Sidebar Section -->
+
+            <!-- Main Content -->
+            <main>
+                <h1>Strength Analysis</h1>
+                <?php
+                    if ($type == 0) {
+                        echo "<p>Password: " . $password . "</p>";
+                        if (passwordlen($password))
+                            echo "<p>Password is safe in length.</p><br>";
+                        else
+                            echo "<p>Password length too less to be secure!</p><br>";
+                        echo "<p>Basic Password Entropy: " . pwd_entropy($password) . " bits.</p>";
+                        if (pwd_entropy($password) >= 60)
+                            echo "<p>Password safe in strength! Check out advanced strength analysis for more info!</p><br>";
+                        else
+                            echo "<p>Password is weak! Check out advanced strength analysis for more info!</p><br>";
+                    } else if ($type == 1) {
+                        echo "<p>Passphrase: " . $password . "</p>";
+                        if (phraselen($password))
+                            echo "<p>Passphrase is safe in length.</p><br>";
+                        else
+                            echo "<p>Passphrase is too small!</p><br>";
+                        echo "<p>Basic Passphrase Entropy: " . phr_entropy(phraselen($password)) . " bits.</p>";
+                        if (phr_entropy(phraselen($password)) >= 60)
+                            echo "<p>Passphrase safe in strength! Check out advanced strength analysis for more info!</p><br>";
+                        else
+                            echo "<p>Passphrase is weak! Check out advanced strength analysis for more info!</p><br>";
+                    }
+                    echo "<p>Do you want to perform a leak lookup analysis to see if your credentials were leaked?</p>";
+                    echo "<p>Continue with current email: '" . $_SESSION['email'] . "' or use a enter a different one.<p>";
+                    ?>
+                    <form action="/strength-analysis/leak" method="POST">
+                        <input type="email" name="email">
+                        <input type="submit" name="submit" value="Leak Lookup Search">
+                    </form>
+                    <br>
+                    <p>Perform an advanced strength analysis of your password using ZXCVBN (Premium Feature)!</p>
+                    <form action="/advanced-strength" method="POST">
+                        <input type="hidden" name="type" value=<?php echo $type ?>>
+                        <input type="hidden" name="password" value=<?php echo $password ?>>
+                        <input type="submit" name="submit" value="Advanced Strength Analysis!">
+                    </form>
+            </main>
+            <!-- End of Main Content -->
+
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="nav">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">
+                            menu
+                        </span>
+                    </button>
+                    <div class="premium-buy">
+                        <a href="/payment" class="material-icons-sharp">monetization_on</span></a>
+                    </div>
+                    <div class="dark-mode">
+                        <span class="material-icons-sharp active">
+                            light_mode
+                        </span>
+                        <span class="material-icons-sharp">
+                            dark_mode
+                        </span>
+                    </div>
+
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b><?php echo $namerow[0] ?></b></p>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="user-profile" id="user-profile-card">
+                    <div class="flip-card" id="myFlipCard">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="logo" id="logo">
+                                    <?php
+                                    if ($_SESSION['Premium'])
+                                        echo "<img src=/logos/password_manager_premium.jpg>";
+                                    else
+                                        echo "<img src=/logos/password_manager.jpg>";
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="flip-card-back" id="text">
+                                <p>When you say, "I have nothing to hide", you're saying, "I don't care about this right". <br>- Edward Snowden</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    
 </body>
 
 </html>
