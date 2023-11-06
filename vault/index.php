@@ -101,8 +101,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <!-- <img src="images/profile.jpg"> -->
-                    <!-- <i class='bx bxl-netlify'></i> -->
                     <h2>Password<br><span class="danger">Manager</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -119,12 +117,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <!-- <a href="#">
-                    <span class="material-icons-sharp">
-                        person_outline
-                    </span>
-                    <h3>User</h3>
-                </a> -->
                 <a href="/vault/settings">
                     <span class="material-icons-sharp">
                         settings
@@ -208,29 +200,13 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     </span>';
                                     ?>
                                 </td>
-                                <!-- <td><span class="material-icons-sharp" onclick="myFunction()" id="dropbtn">arrow_drop_down</span><td>
-                                <td><span class="material-icons-sharp" onclick="myFunction()" id="dropbtn">edit</span></td>
-                                <td><span class="material-icons-sharp" >delete</span></td>
-                                <div id="myDropdown" class="dropdown-content">
-                                    <br>
-                                    <h2>Password</h2>
-                                    <span class="material-icons-sharp" >link</span>Link<br>
-                                    <span class="material-icons-sharp" >person</span>Username<br>
-                                    <span class="material-icons-sharp" >visibility</span>Password<br>
-                                    <span class="material-icons-sharp" ></span>Expiry<br>
-                                </div> -->
                                 <td>
                                     <div class="dropdown">
-                                        <!-- <button class="dropdown-btn">Options</button> -->
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
                                             <a href="#" onclick="myview(this)" class="view-button"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
-                                            <a><span class="material-icons-sharp">edit</span>Edit</a>
-                                            <a href="#" onclick="mydelete(this)" class="del-button"><span class="material-icons-sharp">delete</span>Delete</a>
-                                            <!-- <a href="#"><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             <a><span class="material-icons-sharp" onclick="toggleElement()">edit</span>Edit</a>
-                                            <a><span class="material-icons-sharp">delete</span>Delete</a> -->
-                                        </div>
+                                            <a href="#" onclick="mydelete(this)" class="del-button"><span class="material-icons-sharp">delete</span>Delete</a>
                                     </div>
                                 </td>
                         </tr>
@@ -247,11 +223,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             }
                     ?>
                     </tbody>
-                    
                 </table>
-                
             </div>
-
         </main>
         <!-- End of Main Content -->
         
@@ -286,7 +259,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                 </div>
 
             </div>
-            <!-- End of Nav -->
+            
             <div class="user-profile" id="user-profile-card">
                 <div class="flip-card" id="myFlipCard">
                     <div class="flip-card-inner">
@@ -306,6 +279,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                     </div>
                 </div>
             </div>
+
             <div class="toggle-container" id="myElement">
                 <div class="heading">
                     <form class="add_password" action="/vault/enter-password" method="post">
@@ -347,29 +321,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
 
     </div>
-    <!-- <script src="orders.js"></script> -->
     <script src="index.js"></script>
-    <!-- <script>
-        /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function(event) {
-        if (!event.target.matches('#dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-            }
-        }
-        }
-    </script> -->
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const dropdownBtns = document.querySelectorAll(".dropdown-btn");
