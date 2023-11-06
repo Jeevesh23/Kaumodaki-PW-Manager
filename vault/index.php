@@ -282,19 +282,19 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
             <div class="toggle-container" id="myElement">
                 <div class="heading">
-                    <form class="add_password" action="/vault/enter-password" method="post">
+                    <form class="add_password" action="/vault/edit-password" method="post">
                         <h2>Edit Password</h2>
                         <div class="input-box">
-                            <input type="text" placeholder="Website" name="Website" required><br>
+                            <input type="text" placeholder="Website" name="Website" id="websiteField" required><br>
                         </div>
                         <div class="input-box">
-                            <input type="text" placeholder="Link" name="Link" required><br>
+                            <input type="text" placeholder="Link" name="Link" id="linkField" required><br>
                         </div>
                         <div class="input-box">
-                            <input type="text" placeholder="Username" name="Username" required><br>
+                            <input type="text" placeholder="Username" name="Username" id="usernameField" required><br>
                         </div>
                         <div class="input-box">
-                            <input type="password" placeholder="Password" name="Password" required><br>
+                            <input type="password" placeholder="Password" name="Password" id="passwordField" required><br>
                         </div>
                         <div class="input-box">
                             Type:<br>
@@ -309,7 +309,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <br>(Every 180 days from new password entry.)
                         </div>
                         <div class="input-box message-box">
-                            <textarea placeholder="Description" name="Description" rows="5" cols="40" required></textarea><br>
+                            <textarea placeholder="Description" name="Description" id="descriptionField" rows="5" cols="40" required></textarea><br>
                         </div>
                         <input type="hidden" value=<?php echo $_SESSION['User_ID']; ?> name="User_ID">
                         <input type="reset" value="Reset Changes" class="button_R" />
@@ -322,7 +322,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
     </div>
     <script src="index.js"></script>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const dropdownBtns = document.querySelectorAll(".dropdown-btn");
