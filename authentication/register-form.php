@@ -92,11 +92,38 @@ $_SESSION['secret'] = $secret;
         <div class="Form">
             <form method="post" action="/authentication/register-otp">
                 <label for="otp"><br>Enter OTP: </label>
-                <input type="text" placeholder=" Your OTP" name="otp" id="otp" required><br>
+                <input type="text" id="otpInput" placeholder=" Your OTP" name="otp" id="otp" required><br>
                 <button type="submit" class="btn">Submit</button>
             </form>
         </div>
     </div>
+
+    <script>
+        // otp validation
+        var otpInput = document.getElementById('otpInput');
+        var otpValidationMessage = document.getElementById('otpValidationMessage');
+        var typingTimer; // Timer identifier
+        var doneTypingInterval = 1000; // Delay in milliseconds (1 second)
+
+        otpInput.addEventListener('input', function () {
+            clearTimeout(typingTimer); // Clear the previous timer
+
+            // Start a new timer to delay the validation
+            typingTimer = setTimeout(validateOTP, doneTypingInterval);
+        });
+
+        function validateOTP() {
+            var otp = otpInput.value;
+            var otpRegex = /^\d{6}$/;
+
+            if (otpRegex.test(otp)) {
+                otpValidationMessage.textContent = '';
+            } else {
+                alert('Please enter a 6-digit OTP.');
+                otpInput.value = '';
+            }
+        }
+    </script>
 </body>
 
 </html>

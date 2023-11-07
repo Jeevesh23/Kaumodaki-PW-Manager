@@ -521,6 +521,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             <input type="file" name="file" id="file" class="btn"><br>
                             <input type="submit" name="submit" value="Upload" class="btn">
                         </form>
+                        <div id="uploadedFilesDisplay" class="uploaded-files"></div>
                     </div><br>
                     <div class="delete_retrive">
                         <form id="fileList">
@@ -595,9 +596,9 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     </body>
 
     <script>
-        const dropArea = document.getElementById('upload');
-        const fileList = document.getElementById('fileList');
+         const dropArea = document.getElementById('upload');
         const fileInput = document.getElementById('file');
+        const uploadedFilesDisplay = document.getElementById('uploadedFilesDisplay');
 
         dropArea.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -640,6 +641,24 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
             return true;
         }
+
+        function handleFiles(files) {
+            const fileNames = [];
+
+            for (const file of files) {
+                fileNames.push(file.name);
+            }
+
+            // Display the uploaded files above the "fileList" form
+            const uploadedFilesDisplay = document.getElementById('uploadedFilesDisplay');
+
+            for (const fileName of fileNames) {
+                const p = document.createElement('p');
+                p.textContent = fileName;
+                uploadedFilesDisplay.insertBefore(p, uploadedFilesDisplay.firstChild);
+            }
+        }
+
         const card = document.querySelector('.user-profile');
 
         card.addEventListener('click', () => {

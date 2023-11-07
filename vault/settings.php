@@ -206,6 +206,18 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             height: 5rem;
             border-radius: 50%;
             overflow: hidden;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        main .form-heading {
+            text-decoration: underline;
+            text-decoration-color: #9b59b6;
+            text-underline-offset: 2px;
+        }
+
+        main .material-icons-sharp {
+            width: 30px;
+            padding-top: 10px;
         }
 
         /* reset password */
@@ -345,8 +357,9 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         }
 
         form .button {
-            height: 45px;
-            margin: 35px 0
+            height: 40px;
+            margin: 35px 0;
+            gap: 10px;
         }
 
         form .button input {
@@ -360,6 +373,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             cursor: pointer;
             transition: all 0.3s ease;
             background: #0074d9;
+        }
+
+        form .button input:hover {
+            background-color:#002ead;
+            transition: 0.7s;
+            transform: scale(1.1); 
         }
 
         @media(max-width: 584px) {

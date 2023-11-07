@@ -14,9 +14,7 @@
         <a href="#" class="logo"><i class='bx bxl-netlify'></i>Password Manager</a>
         <nav class="nav">
             <a href="#">About</a>
-            <a href="#">Services</a>
             <a href="./../authentication/contact">Contact</a>
-            <a href="#">Reviews</a>
             <a href="./../authentication/">Login</a>
         </nav>
     </header>
