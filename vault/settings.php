@@ -495,15 +495,15 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                 <img src=<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>>
                             </div>
                             <div class="content">
-                                <form action="#">
+                                <form action="/vault/update-details">
                                     <div class="user-details">
                                         <div class="input-box">
                                             <span class="details">Username</span>
-                                            <input type="text" placeholder="Enter your username" required>
+                                            <input type="text" name="username" placeholder=<?php echo $_SESSION['Username']; ?>>
                                         </div><br>
                                         <div class="input-box">
                                             <span class="details">Email</span>
-                                            <input type="text" placeholder="Enter your email" required>
+                                            <input type="email" name="email" placeholder=<?php echo $_SESSION['email']; ?>>
                                         </div>
                                     </div>
                                     <div class="button">

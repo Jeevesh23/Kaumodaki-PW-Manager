@@ -37,6 +37,7 @@ any('/vault/settings', 'vault/settings.php');
 post('/vault/contact', 'vault/contact.php');
 post('/vault/delete', 'vault/del_entries.php');
 any('/vault/edit', 'vault/edit.php');
+get('/vault/update-details', 'vault/details_update.php');
 
 any('/strength-analysis', 'password_strength_analysis/analysis.php');
 any('/advanced-strength', 'password_strength_analysis/zxcvbn.php');

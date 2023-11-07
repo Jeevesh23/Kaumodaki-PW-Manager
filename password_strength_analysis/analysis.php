@@ -22,7 +22,7 @@ if (!$con) {
     die("Connection Error");
 }
 
-$sql = "SELECT `Password`,`IV`,`Wrd/Phr` FROM `User_Info` WHERE `Website`= '" . $_POST['data'] . "' AND `User_ID`= " . $_SESSION['User_ID'];
+$sql = "SELECT `Password`,`IV`,`Wrd/Phr` FROM `User_Info` WHERE `Website`= '" . $_GET['data'] . "' AND `User_ID`= " . $_SESSION['User_ID'];
 $result = mysqli_query($con, $sql);
 if (!$result) {
     echo "Error in retrieving from database!";

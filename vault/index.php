@@ -206,9 +206,15 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     <div class="dropdown">
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
-                                            <a href="#" onclick="myview(this)" class="view-button"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
-                                            <a><span class="material-icons-sharp" onclick="toggleElement()">edit</span>Edit</a>
-                                            <a href="#" onclick="mydelete(this)" class="del-button"><span class="material-icons-sharp">delete</span>Delete</a>
+                                            <div onclick="myview(this)" class="view-button">
+                                                <a href="#"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
+                                            </div>
+                                            <div onclick="toggleElement()">
+                                                <a><span class="material-icons-sharp">edit</span>Edit</a>
+                                            </div>
+                                            <div onclick="mydelete(this)" class="del-button">
+                                                <a href="#"><span class="material-icons-sharp">delete</span>Delete</a>
+                                            </div>
                                             <div onclick="mypwstrength(this)" class="strength-button">
                                                 <a><span class="material-icons-sharp"">fitness_center</span>Password Strength</a>
                                             </div>
@@ -407,7 +413,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
         document.getElementById("dashboard-body").addEventListener("click", function(event) {
             var clickedElement = event.target;
-            if (clickedElement.classList.contains("view-button")) {
+            if (clickedElement.parentElement.classList.contains("view-button") || clickedElement.parentElement.parentElement.classList.contains("view-button")) {
                 var clickedparElement = event.target.closest('td').parentElement;
                 var reqelem = document.getElementById('dashboard-body');
                 if (clickedparElement === reqelem.children[reqelem.children.length - 2]) {

@@ -5,6 +5,12 @@ if (!isset($_SESSION['User_ID'])) {
     header("Location: /authentication");
     die();
 }
+if (!$_SESSION['Premium']) {
+    echo "<script>alert('Only available to premium users!');</script>";
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/vault';
+    header("Refresh:0.5,url= $referer");
+    die();
+}
 if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     echo '<script>
             var confirmLogout = window.confirm("Are you sure you want to log out?");
