@@ -464,9 +464,17 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             // });
             $(document).ready(function() {
                 $('#edit-password').click(function() {
+                    var editContent = elem.closest('tr').firstElementChild.textContent.trim();
+                    
+                    // Create a data object to send to the server
+                    var dataToSend = {
+                        editContent: editContent
+                    };
+
                     $.ajax({
                         url: '/vault/edit',
-                        method: 'GET',
+                        method: 'POST',
+                        data: dataToSend, // Include the dataToSend object
                         success: function(data) {
                             if (data.error) {
                                 console.error('Error: ' + data.error);

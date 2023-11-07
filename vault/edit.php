@@ -5,8 +5,8 @@
         die();
     }
 
-    $userId = $_SESSION['User_ID']; 
-    $website = $_SESSION['Website']; 
+    $website = $_POST["editContent"];
+    $userid=$_SESSION['User_ID'];
     
     $db_host = "db";
     $db_username = "root";
@@ -19,7 +19,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
     
-    $sql = "SELECT * FROM User_Info WHERE User_ID = $userId AND Website = $website";
+    $sql = "SELECT * FROM `User_Info` WHERE `User_ID` = $userid AND `Website` = '$website'";
     $result = $conn->query($sql);
     
     if ($result->num_rows == 1) {
