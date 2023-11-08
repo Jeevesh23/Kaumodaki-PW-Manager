@@ -206,7 +206,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     <div class="dropdown">
                                         <span class="material-icons-sharp">more_vert</span>
                                         <div class="dropdown-content">
-                                            <div onclick="myview(this)" class="view-button">
+                                            <div class="view-button">
                                                 <a href="#"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             </div>
                                             <div class="edit-button">
@@ -223,12 +223,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                 </td>
                         </tr>
                         <tr id=<?php echo $row['Link']; ?> class="dropdownrow" id="view-details">
-                                <!-- <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span><input type="text" placeholder="Link"><br></td> -->
-                                <td><span class="material-icons-sharp">person</span><input type="text" placeholder="username" id="namefield"></td>
-                                <td><span class="material-icons-sharp">visibility</span><input type="test" placeholder="Password" id="passwordfield"></td>
-                                <td><span class="material-icons-sharp">update</span><input type="test" placeholder="Expiry" id="datefield"></td>
-                                <td></td>
-                                <td></td>
+                            <!-- <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span><input type="text" placeholder="Link"><br></td> -->
+                            <td><span class="material-icons-sharp">person</span><input type="text" placeholder="username" id="namefield"></td>
+                            <td><span class="material-icons-sharp">visibility</span><input type="test" placeholder="Password" id="passwordfield"></td>
+                            <td><span class="material-icons-sharp">update</span><input type="test" placeholder="Expiry" id="datefield"></td>
+                            <td></td>
+                            <td></td>
 
                         </tr>
                     <?php
@@ -367,17 +367,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             });
         });
 
-        /* When the user clicks on the button, 
-           toggle between hiding and showing the dropdown content */
-        function myview(elem) {
-            var dropdownContent = elem.closest('td').parentElement.nextElementSibling;
-            if (dropdownContent.style.display === 'table-row') {
-                dropdownContent.style.display = 'none';
-            } else {
-                dropdownContent.style.display = 'table-row';
-            }
-        }
-
         function mypwstrength(elem) {
             var dataToSend = elem.closest('tr').firstElementChild.textContent.trim();
             var formData = new FormData();
@@ -500,11 +489,11 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
         $(document).ready(function() {
             $('.view-button').click(function() {
-                var element = document.getElementById("view-details");
-                if (element.style.display === "none" || element.style.display === "") {
-                    element.style.display = "block";
+                var dropdownContent = this.closest('td').parentElement.nextElementSibling;
+                if (dropdownContent.style.display === 'table-row') {
+                    dropdownContent.style.display = 'none';
                 } else {
-                    element.style.display = "none";
+                    dropdownContent.style.display = 'table-row';
                 }
                 var viewContent = this.closest('tr').firstElementChild.textContent.trim();
                 // Create a data object to send to the server
@@ -513,7 +502,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                 };
 
                 $.ajax({
-                    url: '/vault/view_password',
+                    url: '/vault/view-password',
                     method: 'POST',
                     data: dataToSend,
                     success: function(data) {
@@ -522,8 +511,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         } else {
                             var responseData = JSON.parse(data);
                             $('#namefield').val(responseData.Username);
-                            $('#passwordield').val(responseData.DecPwd);
-                            $('#dateField').val(responseData.Add_Date);
+                            $('#passwordfield').val(responseData.DecPwd);
+                            $('#datefield').val(responseData.Add_Date);
                         }
                     },
                     error: function(xhr, status, error) {
