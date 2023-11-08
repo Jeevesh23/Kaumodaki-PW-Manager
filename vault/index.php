@@ -65,7 +65,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         textarea {
             /* background-color: var(--color-white); */
             background-color: #fff;
-            min-width: 160px;
+            max-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
             border-radius: 10px;
@@ -156,7 +156,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             <!-- passwords -->
             <div class="passwords">
                 <h2>Your Passwords</h2>
-                <table>
+                <table style="width:100%;">
                     <thead>
                         <tr>
                             <th>Website</th>
@@ -224,9 +224,9 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         </tr>
                         <tr id=<?php echo $row['Link']; ?> class="dropdownrow" id="view-details">
                             <!-- <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span><input type="text" placeholder="Link"><br></td> -->
-                            <td><span class="material-icons-sharp">person</span><input type="text" placeholder="username" id="namefield"></td>
-                            <td><span class="material-icons-sharp">visibility</span><input type="test" placeholder="Password" id="passwordfield"></td>
-                            <td><span class="material-icons-sharp">update</span><input type="test" placeholder="Expiry" id="datefield"></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">person</span><input type="text" placeholder="username" id="namefield" style="max-width: 150px"></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">visibility</span><input type="text" placeholder="Password" id="passwordfield" style="max-width: 100px"></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">update</span><input type="text" placeholder="Expiry" id="datefield" style="max-width: 100px"></td>
                             <td></td>
                             <td></td>
 
@@ -252,8 +252,11 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         menu
                     </span>
                 </button>
+                <div class="import-data">
+                    <a href="/import-data" class="material-icons-sharp">download</a>
+                </div>
                 <div class="premium-buy">
-                    <a href="/payment" class="material-icons-sharp">monetization_on</span></a>
+                    <a href="/payment" class="material-icons-sharp">monetization_on</a>
                 </div>
                 <div class="dark-mode">
                     <span class="material-icons-sharp active">
@@ -269,7 +272,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         <p>Hey, <b><?php echo $namerow[0] ?></b></p>
                     </div>
                     <div class="profile-photo">
-                        <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                        <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>" height="45px">
                     </div>
                 </div>
 

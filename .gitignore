@@ -64,3 +64,4 @@ dkms.conf
 vendor/**
 vault/Files/
 vault/Icons/
+password_maintenance/sql/

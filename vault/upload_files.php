@@ -193,6 +193,12 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             menu
                         </span>
                     </button>
+                    <div class="import-data">
+                        <a href="/import-data" class="material-icons-sharp">download</a>
+                    </div>
+                    <div class="premium-buy">
+                        <a href="/payment" class="material-icons-sharp">monetization_on</a>
+                    </div>
                     <div class="dark-mode">
                         <span class="material-icons-sharp active">
                             light_mode
@@ -207,7 +213,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             <p>Hey, <b><?php echo $namerow[0] ?></b></p>
                         </div>
                         <div class="profile-photo">
-                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>" height="45px">
                         </div>
                     </div>
 
@@ -357,6 +363,12 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             menu
                         </span>
                     </button>
+                    <div class="import-data">
+                        <a href="/import-data" class="material-icons-sharp">download</a>
+                    </div>
+                    <div class="premium-buy">
+                        <a href="/payment" class="material-icons-sharp">monetization_on</a>
+                    </div>
                     <div class="dark-mode">
                         <span class="material-icons-sharp active">
                             light_mode
@@ -371,7 +383,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             <p>Hey, <b><?php echo $namerow[0] ?></b></p>
                         </div>
                         <div class="profile-photo">
-                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>" height="45px">
                         </div>
                     </div>
 
@@ -566,9 +578,13 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         <span class="material-icons-sharp">
                             menu
                         </span>
+
                     </button>
+                    <div class="import-data">
+                        <a href="/import-data" class="material-icons-sharp">download</a>
+                    </div>
                     <div class="premium-buy">
-                        <a href="/payment" class="material-icons-sharp">monetization_on</span></a>
+                        <a href="/payment" class="material-icons-sharp">monetization_on</a>
                     </div>
                     <div class="dark-mode">
                         <span class="material-icons-sharp active">
@@ -584,7 +600,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             <p>Hey, <b><?php echo $namerow[0] ?></b></p>
                         </div>
                         <div class="profile-photo">
-                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>">
+                            <img src="<?php echo '/vault/Icons/' . $_SESSION['User_ID'] . '_user_icon.png' ?>" height="45px">
                         </div>
                     </div>
 
