@@ -376,9 +376,9 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         }
 
         form .button input:hover {
-            background-color:#002ead;
+            background-color: #002ead;
             transition: 0.7s;
-            transform: scale(1.1); 
+            transform: scale(1.1);
         }
 
         @media(max-width: 584px) {
@@ -537,14 +537,14 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                     <li class="tab-content tab-content-2 typography">
                         <h2 class="form-heading">Reset Master-Password</h2>
                         <div class="reset_password">
-                            <form action="#" method="post">
+                            <form action="/vault/change-master" method="post" onsubmit="return validateForm()">
                                 <div class="input-box">
                                     <span class="details">Password</span>
-                                    <input type="text" placeholder="Enter your password" required>
+                                    <input type="text" name="reset-password" placeholder="Enter your password" id="reset-master-pwd" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Confirm Password</span>
-                                    <input type="text" placeholder="Confirm your password" required>
+                                    <input type="text" name="confirm-reset-password" placeholder="Confirm your password" id="confirm-reset-master-pwd" required>
                                 </div>
                                 <br>
                                 <input class="reset" type="reset" value="Reset Changes">
@@ -645,6 +645,17 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             cardInner.classList.toggle('flipped');
             card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
+
+        function validateForm() {
+            var password = document.getElementById("reset-master-pwd").value;
+            var confirmPassword = document.getElementById("confirm-reset-master-pwd").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 

@@ -40,6 +40,7 @@ any('/vault/edit', 'vault/edit.php');
 post('/vault/edit-entry', 'vault/edit_entry.php');
 get('/vault/update-details', 'vault/details_update.php');
 any('/vault/view-password', 'vault/view_password.php');
+post('/vault/change-master', 'vault/change_masterpwd.php');
 
 any('/strength-analysis', 'password_strength_analysis/analysis.php');
 any('/advanced-strength', 'password_strength_analysis/zxcvbn.php');
