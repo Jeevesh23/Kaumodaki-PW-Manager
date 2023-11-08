@@ -101,82 +101,99 @@
 
 
 
-        // email validation
-        var emailInput = document.getElementById('emailInput');
-        var emailValidationMessage = document.getElementById('emailValidationMessage');
-        var typingTimer; // Timer identifier
-        var doneTypingInterval = 2000; // Delay in milliseconds (1 second)
+        // // email validation
+        // var emailInput = document.getElementById('emailInput');
+        // var emailValidationMessage = document.getElementById('emailValidationMessage');
+        // var typingTimer; // Timer identifier
+        // var doneTypingInterval = 2000; // Delay in milliseconds (1 second)
 
-        emailInput.addEventListener('input', function () {
-            clearTimeout(typingTimer); // Clear the previous timer
+        // emailInput.addEventListener('input', function () {
+        //     clearTimeout(typingTimer); // Clear the previous timer
 
-            // Start a new timer to delay the validation
-            typingTimer = setTimeout(validateEmail, doneTypingInterval);
-        });
+        //     // Start a new timer to delay the validation
+        //     typingTimer = setTimeout(validateEmail, doneTypingInterval);
+        // });
 
-        function validateEmail() {
-            var email = emailInput.value;
-            var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/;
+        // function validateEmail() {
+        //     var email = emailInput.value;
+        //     var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/;
 
-            if (emailRegex.test(email)) {
-                emailValidationMessage.textContent = '';
-            } else {
-                alert('Please enter a valid email address.');
-                emailInput.value = '';
-            }
-        }
-
-
-        // otp validation
-        var otpInput = document.getElementById('otpInput');
-        var otpValidationMessage = document.getElementById('otpValidationMessage');
-        var typingTimer; // Timer identifier
-        var doneTypingInterval = 1000; // Delay in milliseconds (1 second)
-
-        otpInput.addEventListener('input', function () {
-            clearTimeout(typingTimer); // Clear the previous timer
-
-            // Start a new timer to delay the validation
-            typingTimer = setTimeout(validateOTP, doneTypingInterval);
-        });
-
-        function validateOTP() {
-            var otp = otpInput.value;
-            var otpRegex = /^\d{6}$/;
-
-            if (otpRegex.test(otp)) {
-                otpValidationMessage.textContent = '';
-            } else {
-                alert('Please enter a 6-digit OTP.');
-                otpInput.value = '';
-            }
-        }
+        //     if (emailRegex.test(email)) {
+        //         emailValidationMessage.textContent = '';
+        //     } else {
+        //         alert('Please enter a valid email address.');
+        //         emailInput.value = '';
+        //     }
+        // }
 
 
-        //username validation
-        var usernameInput = document.getElementById('usernameInput');
-        var usernameValidationMessage = document.getElementById('usernameValidationMessage');
-        var typingTimer; // Timer identifier
-        var doneTypingInterval = 2000; // Delay in milliseconds (1 second)
+        // // otp validation
+        // var otpInput = document.getElementById('otpInput');
+        // var otpValidationMessage = document.getElementById('otpValidationMessage');
+        // var typingTimer; // Timer identifier
+        // var doneTypingInterval = 1000; // Delay in milliseconds (1 second)
 
-        usernameInput.addEventListener('input', function () {
-            clearTimeout(typingTimer); // Clear the previous timer
+        // otpInput.addEventListener('input', function () {
+        //     clearTimeout(typingTimer); // Clear the previous timer
 
-            // Start a new timer to delay the validation
-            typingTimer = setTimeout(validateUsername, doneTypingInterval);
-        });
+        //     // Start a new timer to delay the validation
+        //     typingTimer = setTimeout(validateOTP, doneTypingInterval);
+        // });
 
-        function validateUsername() {
-            var username = usernameInput.value;
-            var usernameRegex = /^[a-zA-Z0-9]+$/;
+        // function validateOTP() {
+        //     var otp = otpInput.value;
+        //     var otpRegex = /^\d{6}$/;
 
-            if (usernameRegex.test(username)) {
-                usernameValidationMessage.textContent = '';
-            } else {
+        //     if (otpRegex.test(otp)) {
+        //         otpValidationMessage.textContent = '';
+        //     } else {
+        //         alert('Please enter a 6-digit OTP.');
+        //         otpInput.value = '';
+        //     }
+        // }
+
+
+        // //username validation
+        // var usernameInput = document.getElementById('usernameInput');
+        // var usernameValidationMessage = document.getElementById('usernameValidationMessage');
+        // var typingTimer; // Timer identifier
+        // var doneTypingInterval = 2000; // Delay in milliseconds (1 second)
+
+        // usernameInput.addEventListener('input', function () {
+        //     clearTimeout(typingTimer); // Clear the previous timer
+
+        //     // Start a new timer to delay the validation
+        //     typingTimer = setTimeout(validateUsername, doneTypingInterval);
+        // });
+
+        // function validateUsername() {
+        //     var username = usernameInput.value;
+        //     var usernameRegex = /^[a-zA-Z0-9]+$/;
+
+        //     if (usernameRegex.test(username)) {
+        //         usernameValidationMessage.textContent = '';
+        //     } else {
+        //         alert('Username should only contain alphanumeric characters.');
+        //         usernameInput.value = '';
+        //     }
+        // }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+            const usernameInput = document.getElementById("usernameInput");
+
+            form.addEventListener("submit", function(event) {
+            const usernameValue = usernameInput.value;
+            const alphanumericPattern = /^[a-zA-Z0-9]+$/;
+
+            if (!alphanumericPattern.test(usernameValue)) {
+                event.preventDefault(); 
                 alert('Username should only contain alphanumeric characters.');
                 usernameInput.value = '';
             }
-        }
+            });
+        });
     </script>
 
 
