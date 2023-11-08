@@ -389,6 +389,10 @@ main .A_passwords .input-box #passwordSizeSlider,
     display: none;
 }
 
+.right-section #edit-password {
+    color: #000000;
+}
+
 .right-section {
     margin-top: 1.4rem;
 }

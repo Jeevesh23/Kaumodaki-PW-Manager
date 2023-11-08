@@ -53,12 +53,12 @@ if (!$tbconn) {
   die("Table could not be created! " . $dbconn->connect_error);
 }
 $sql = "CREATE TABLE IF NOT EXISTS `Old_Passwords` (
+    `Entry_ID` int(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `User_ID` int(8) NOT NULL,
     `Website` varchar(512) NOT NULL,
     `Link` varchar(512) NOT NULL,
     `Old_Hash` varchar(256) DEFAULT NULL,
     `Add_Date` datetime,
-    PRIMARY KEY(`User_ID`,`Website`),
     FOREIGN KEY(`User_ID`, `Website`) REFERENCES `User_Info`(`User_ID`,`Website`)
   )";
 $tbconn = mysqli_query($dbconn, $sql);

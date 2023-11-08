@@ -35,7 +35,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vault</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         .toggle-container {
             display: none;
@@ -209,7 +209,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                             <div onclick="myview(this)" class="view-button">
                                                 <a href="#"><span class="material-icons-sharp" id=<?php echo "expbtn" . $row['Link']; ?>>expand_more</span>View</a>
                                             </div>
-                                            <div onclick="toggleElement()">
+                                            <div class="edit-button">
                                                 <a><span class="material-icons-sharp">edit</span>Edit</a>
                                             </div>
                                             <div onclick="mydelete(this)" class="del-button">
@@ -297,10 +297,10 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
             <div class="toggle-container" id="myElement">
                 <div class="heading">
-                    <form class="add_password" id="edit-password" action="/vault/edit-password" method="post">
+                    <form class="add_password" id="edit-password" action="/vault/edit-entry" method="post">
                         <h2>Edit Password</h2>
                         <div class="input-box">
-                            <input type="text" placeholder="Website" name="Website" id="websiteField" required><br>
+                            <input type="text" placeholder="Website" name="Website" id="websiteField" readonly><br>
                         </div>
                         <div class="input-box">
                             <input type="text" placeholder="Link" name="Link" id="linkField" required><br>
@@ -309,14 +309,28 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <input type="text" placeholder="Username" name="Username" id="usernameField" required><br>
                         </div>
                         <div class="input-box">
-                            <input type="password" placeholder="Password" name="Password" id="passwordField" required><br>
+                            <input type="text" placeholder="Password" name="Password" id="passwordField" required><br>
+                        </div>
+                        <div class="input-box">
+                            <button id="insertbutton"><span class="material-icons-sharp">
+                                    casino
+                                </span></button>
                         </div>
                         <div class="input-box">
                             Type:<br>
                             Password
-                            <input type="radio" name="Type" value="0" required>
+                            <input type="radio" name="Type" value="0" id="passwordRadio" required>
                             Passphrase
-                            <input type="radio" name="Type" value="1" required>
+                            <input type="radio" name="Type" value="1" id="passphraseRadio" required>
+                        </div>
+                        <div class="input-box">
+                            Random Password Character Size: <span id="passwordSizeValue">16</span>
+                            <input type="range" min="16" max="128" value="16" class="slider" id="passwordSizeSlider">
+                        </div>
+
+                        <div class="input-box">
+                            Random Passphrase Word Size: <span id="passphraseSizeValue">5</span>
+                            <input type="range" min="5" max="20" value="5" class="slider" id="passphraseSizeSlider">
                         </div>
                         <div class="input-box">
                             Reset Reminder:
@@ -327,8 +341,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <textarea placeholder="Description" name="Description" id="descriptionField" rows="5" cols="40" required></textarea><br>
                         </div>
                         <input type="hidden" value=<?php echo $_SESSION['User_ID']; ?> name="User_ID">
-                        <input type="reset" value="Reset Changes" class="button_R" />
-                        <input type="submit" value="Change" class="button_C" />
+                        <input type="reset" value="Reset Changes" class="button_R" id="button_R" />
+                        <input type="submit" value="Change" class="button_C" id="button_R" />
                     </form>
                 </div>
             </div>
@@ -439,75 +453,117 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
 
+        $(document).ready(function() {
+            $('.edit-button').click(function() {
+                var element = document.getElementById("myElement");
+                if (element.style.display === "none" || element.style.display === "") {
+                    element.style.display = "block";
+                } else {
+                    element.style.display = "none";
+                }
+                var editContent = this.closest('tr').firstElementChild.textContent.trim();
+                // Create a data object to send to the server
+                var dataToSend = {
+                    edit: editContent
+                };
 
-        function toggleElement() {
-            var element = document.getElementById("myElement");
-            if (element.style.display === "none" || element.style.display === "") {
-                element.style.display = "block";
-            } else {
-                element.style.display = "none";
-            }
-
-            // document.getElementById('myElement').addEventListener('click', function() {
-            //     fetch('edit.php', {
-            //         method: 'GET',
-            //     })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         if (data.error) {
-            //             console.error('Error: ' + data.error);
-            //         } else {
-            //             document.getElementById('websiteField').value = data.Website;
-            //             document.getElementById('linkField').value = data.Link;
-            //             document.getElementById('usernameField').value = data.Username;
-            //             document.getElementById('passwordField').value = data.Password;
-            //             document.getElementById('descriptionField').value = data.Description;
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error('Error fetching data: ' + error);
-            //     });
-            // });
-            $(document).ready(function() {
-                $('#edit-password').click(function() {
-                    var editContent = elem.closest('tr').firstElementChild.textContent.trim();
-                    
-                    // Create a data object to send to the server
-                    var dataToSend = {
-                        editContent: editContent
-                    };
-
-                    $.ajax({
-                        url: '/vault/edit',
-                        method: 'POST',
-                        data: dataToSend, // Include the dataToSend object
-                        success: function(data) {
-                            if (data.error) {
-                                console.error('Error: ' + data.error);
+                $.ajax({
+                    url: '/vault/edit',
+                    method: 'POST',
+                    data: dataToSend,
+                    success: function(data) {
+                        if (data.error) {
+                            console.error('Error: ' + data.error);
+                        } else {
+                            var responseData = JSON.parse(data);
+                            $('#websiteField').val(responseData.Website);
+                            $('#linkField').val(responseData.Link);
+                            $('#usernameField').val(responseData.Username);
+                            $('#passwordField').val(responseData.DecPwd);
+                            $('input[name="Type"][value="' + responseData['Wrd/Phr'] + '"]').prop('checked', true);
+                            if (responseData.RST === '1') {
+                                $('input[name="Reset"]').prop('checked', true);
                             } else {
-                                $('#websiteField').val(data.Website);
-                                $('#linkField').val(data.Link);
-                                $('#usernameField').val(data.Username);
-                                $('#passwordField').val(data.Password);
-                                // // Set radio button value based on data.Type
-                                // $('input[name="Type"][value="' + data.Type + '"]').prop('checked', true);
-                                // // Set checkbox value based on data.Reset
-                                // if (data.Reset === '1') {
-                                //     $('input[name="Reset"]').prop('checked', true);
-                                // } else {
-                                //     $('input[name="Reset"]').prop('checked', false);
-                                // }
-                                $('#descriptionField').val(data.Description);
+                                $('input[name="Reset"]').prop('checked', false);
                             }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('AJAX error: ' + error);
+                            $('#descriptionField').val(responseData.Description);
                         }
-                    });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error: ' + error);
+                    }
                 });
             });
+        });
 
+        document.getElementById("insertbutton").addEventListener("click", function() {
+            event.preventDefault();
+
+            const selectedRadio = document.querySelector('input[name="Type"]:checked');
+
+            if (selectedRadio) {
+                const sizeSlider = selectedRadio.value === "0" ? document.getElementById("passwordSizeSlider") : document.getElementById("passphraseSizeSlider");
+                const size = sizeSlider.value;
+
+                const endpoint = selectedRadio.value === "0" ? '/vault/password' : '/vault/passphrase';
+
+                fetch(`${endpoint}?size=${size}`)
+                    .then(response => response.text())
+                    .then(passwordString => {
+                        document.getElementById("passwordField").value = passwordString;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        });
+        const passwordRadio = document.getElementById("passwordRadio");
+        const passphraseRadio = document.getElementById("passphraseRadio");
+        const passwordSizeSlider = document.getElementById("passwordSizeSlider");
+        const passphraseSizeSlider = document.getElementById("passphraseSizeSlider");
+        const passwordSizeValue = document.getElementById("passwordSizeValue");
+        const passphraseSizeValue = document.getElementById("passphraseSizeValue");
+
+        function updateSliderVisibility() {
+            if (passwordRadio.checked) {
+                passwordSizeSlider.style.display = "block";
+                passphraseSizeSlider.style.display = "none";
+            } else if (passphraseRadio.checked) {
+                passwordSizeSlider.style.display = "none";
+                passphraseSizeSlider.style.display = "block";
+            }
         }
+
+        passwordRadio.addEventListener("change", updateSliderVisibility);
+        passphraseRadio.addEventListener("change", updateSliderVisibility);
+
+        passwordSizeSlider.addEventListener("input", function() {
+            passwordSizeValue.textContent = passwordSizeSlider.value;
+        });
+
+        passphraseSizeSlider.addEventListener("input", function() {
+            passphraseSizeValue.textContent = passphraseSizeSlider.value;
+        });
+
+        updateSliderVisibility();
+        const resetButton = document.getElementById("button_R");
+
+        document.getElementById("button_R").addEventListener("click", function(event) {
+            event.preventDefault();
+            var inputFieldsToReset = document.querySelectorAll('.add_password .input-box input:not([name="Website"])');
+            inputFieldsToReset.forEach(function(input) {
+                if (input.type === "radio" || input.type === "checkbox") {
+                    input.checked = false;
+                } else {
+                    input.value = '';
+                }
+                passwordSizeSlider.value = 16;
+                passphraseSizeSlider.value = 5;
+                passwordSizeValue.textContent = 16;
+                passphraseSizeValue.textContent = 5;
+                document.getElementById("descriptionField").value = '';
+            });
+        });
     </script>
 
 </body>

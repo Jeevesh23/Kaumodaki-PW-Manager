@@ -135,8 +135,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <textarea placeholder="Description" name="Description" rows="5" cols="40" required></textarea><br>
                         </div>
                         <input type="hidden" value=<?php echo $_SESSION['User_ID']; ?> name="User_ID">
-                        <input type="reset" value="Reset Changes" class="button_R" />
-                        <input type="submit" value="Create" class="button_C" />
+                        <input type="reset" value="Reset Changes" class="button_R" id="button_R" />
+                        <input type="submit" value="Create" class="button_C" id="button_C" />
                     </form>
                 </div>
             </div>
@@ -234,6 +234,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         const passphraseSizeSlider = document.getElementById("passphraseSizeSlider");
         const passwordSizeValue = document.getElementById("passwordSizeValue");
         const passphraseSizeValue = document.getElementById("passphraseSizeValue");
+        const resetbutton = document.getElementById("button_R");
 
         function updateSliderVisibility() {
             if (passwordRadio.checked) {
@@ -254,6 +255,13 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
         passphraseSizeSlider.addEventListener("input", function() {
             passphraseSizeValue.textContent = passphraseSizeSlider.value;
+        });
+
+        resetbutton.addEventListener("click", function() {
+            passwordSizeSlider.value = 16;
+            passphraseSizeSlider.value = 5;
+            passwordSizeValue.textContent = 16;
+            passphraseSizeValue.textContent = 5;
         });
 
         updateSliderVisibility();
