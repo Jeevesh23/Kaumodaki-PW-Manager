@@ -39,6 +39,7 @@ post('/vault/delete', 'vault/del_entries.php');
 any('/vault/edit', 'vault/edit.php');
 post('/vault/edit-entry', 'vault/edit_entry.php');
 get('/vault/update-details', 'vault/details_update.php');
+any('/vault/view_password', 'vault/view_password.php');
 
 any('/strength-analysis', 'password_strength_analysis/analysis.php');
 any('/advanced-strength', 'password_strength_analysis/zxcvbn.php');

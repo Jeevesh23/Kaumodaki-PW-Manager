@@ -216,17 +216,17 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                                 <a href="#"><span class="material-icons-sharp">delete</span>Delete</a>
                                             </div>
                                             <div onclick="mypwstrength(this)" class="strength-button">
-                                                <a><span class="material-icons-sharp"">fitness_center</span>Password Strength</a>
+                                                <a><span class="material-icons-sharp">fitness_center</span>Password Strength</a>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                         </tr>
-                        <tr id=<?php echo $row['Link']; ?> class=" dropdownrow">
-                                <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span>Link<br></td>
-                                <td><span class="material-icons-sharp">person</span>Username<br></td>
-                                <td><span class="material-icons-sharp">visibility</span>Password<br></td>
-                                <td><span class="material-icons-sharp"></span>Expiry<br></td>
+                        <tr id=<?php echo $row['Link']; ?> class="dropdownrow" id="view-details">
+                                <!-- <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span><input type="text" placeholder="Link"><br></td> -->
+                                <td><span class="material-icons-sharp">person</span><input type="text" placeholder="username" id="namefield"></td>
+                                <td><span class="material-icons-sharp">visibility</span><input type="test" placeholder="Password" id="passwordfield"></td>
+                                <td><span class="material-icons-sharp">update</span><input type="test" placeholder="Expiry" id="datefield"></td>
                                 <td></td>
                                 <td></td>
 
@@ -487,6 +487,43 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                 $('input[name="Reset"]').prop('checked', false);
                             }
                             $('#descriptionField').val(responseData.Description);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error: ' + error);
+                    }
+                });
+            });
+        });
+
+
+
+        $(document).ready(function() {
+            $('.view-button').click(function() {
+                var element = document.getElementById("view-details");
+                if (element.style.display === "none" || element.style.display === "") {
+                    element.style.display = "block";
+                } else {
+                    element.style.display = "none";
+                }
+                var viewContent = this.closest('tr').firstElementChild.textContent.trim();
+                // Create a data object to send to the server
+                var dataToSend = {
+                    view: viewContent
+                };
+
+                $.ajax({
+                    url: '/vault/view_password',
+                    method: 'POST',
+                    data: dataToSend,
+                    success: function(data) {
+                        if (data.error) {
+                            console.error('Error: ' + data.error);
+                        } else {
+                            var responseData = JSON.parse(data);
+                            $('#namefield').val(responseData.Username);
+                            $('#passwordield').val(responseData.DecPwd);
+                            $('#dateField').val(responseData.Add_Date);
                         }
                     },
                     error: function(xhr, status, error) {
