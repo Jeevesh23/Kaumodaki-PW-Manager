@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "db";
 $username = "root";
 $password = "MYSQL_ROOT_PASSWORD";
@@ -10,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$query = "SELECT * FROM Files WHERE User_ID=9";
+$query = "SELECT * FROM Files WHERE User_ID=" . $_SESSION['User_ID'];
 
 $result = $conn->query($query);
 

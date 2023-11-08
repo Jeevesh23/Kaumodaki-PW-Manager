@@ -66,7 +66,10 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     } else {
         $statusMsg = 'Please select a file to upload.';
     }
-    echo $statusMsg;
+    echo "<script>alert('" . $statusMsg . "');</script>";
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/vault/uploads';
+    header("Refresh:0.5,url= $referer");
+    die();
 } else if (isset($_GET["submit"]) && $_GET["submit"] === "Retrieve") { ?>
     <!DOCTYPE html>
     <html>
@@ -140,7 +143,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                 $avail = 16700000 - $sum;
                 ?>
                 <h3>Available space:<?php echo $avail / 1000000; ?> MB</h3>
-                <ul>
+                <ol>
                     <?php
                     $folderPath = SITE_ROOT . '/Files/';
                     $sql = "SELECT `File_Name`, `User_ID` FROM `Files`";
@@ -156,23 +159,29 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                         }
                     }
                     if (is_dir($folderPath)) {
+                        $filesInDir = array();
+
                         if ($handle = opendir($folderPath)) {
                             while (false !== ($file = readdir($handle))) {
                                 if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
-                                    // To remove trivial file pointers
                                     if ($file != "." && $file != "..") {
-                                        $fileParam = urlencode($file);
-                                        echo "<li><a href='/vault/filecontrol?file=$fileParam'>$file</a></li>";
+                                        $filesInDir[] = $file;
                                     }
                                 }
                             }
                             closedir($handle);
+
+                            natcasesort($filesInDir);
+                            foreach ($filesInDir as $file) {
+                                $fileParam = urlencode($file);
+                                echo "<li><a href='/vault/filecontrol?file=$fileParam' style='color: blue; font-size: 15px;'>$file</a></li>";
+                            }
                         }
                     } else {
                         echo "The folder does not exist.";
                     }
                     ?>
-                </ul>
+                </ol>
             </main>
             <!-- End of Main Content -->
 
@@ -308,13 +317,24 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             echo '<form method="post" action="/vault/uploads">';
                             echo "<table>";
                             echo "<tr><th>File Name</th><th>File Size (KB)</th></tr>";
+                            $fileList = array();
+
                             while (false !== ($file = readdir($handle))) {
                                 if ($file && isset($allowedFiles[$file]) && $allowedFiles[$file] == $_SESSION['User_ID']) {
-                                    // To remove trivial file pointers
                                     if ($file != "." && $file != "..") {
-                                        echo "<tr><td><input type='checkbox' name='files[]' value='$file'>$file</td><td>" . (filesize($folderPath . $file) / 1000) . "</td></tr>";
+                                        $filePath = $folderPath . $file;
+                                        $fileSizeKB = filesize($filePath) / 1000;
+                                        $fileList[] = array('name' => $file, 'size' => $fileSizeKB);
                                     }
                                 }
+                            }
+                            usort($fileList, function ($a, $b) {
+                                return strcasecmp($a['name'], $b['name']);
+                            });
+                            foreach ($fileList as $fileInfo) {
+                                $file = $fileInfo['name'];
+                                $fileSizeKB = $fileInfo['size'];
+                                echo "<tr><td><input type='checkbox' name='files[]' value='$file'>$file</td><td>$fileSizeKB</td></tr>";
                             }
                             echo "</table>";
                             closedir($handle);
@@ -386,18 +406,20 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
 
                 if (file_exists($fileLocation)) {
                     unlink($fileLocation); // Delete file function in PHP
-                    echo "File '$file' has been deleted.<br>";
+                    echo "<script>alert('File \'$file\' has been deleted.');</script>";
                 } else {
-                    echo "File '$file' not found in the folder.<br>";
+                    echo "<script>alert('File \'$file\' not found in the folder.');</script>";
                 }
             } else {
-                echo "Error deleting record for file '$file': " . $conn->error . "<br>";
+                echo "<script>alert('Error deleting record for file \'$file\': " . $conn->error . "');</script>";
             }
         } else {
-            echo "You are not authorized to delete file '$file'.<br>";
+            echo "<script>alert('You are not authorized to delete file \'$file\'.');</script>";
         }
-        header('Refresh:3, url=/vault/uploads');
     }
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/vault/uploads';
+    header("Refresh:0.5,url= $referer");
+    die();
 } else { ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -596,7 +618,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
     </body>
 
     <script>
-         const dropArea = document.getElementById('upload');
+        const dropArea = document.getElementById('upload');
         const fileInput = document.getElementById('file');
         const uploadedFilesDisplay = document.getElementById('uploadedFilesDisplay');
 

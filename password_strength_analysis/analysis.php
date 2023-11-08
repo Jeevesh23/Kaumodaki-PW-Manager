@@ -51,12 +51,16 @@ if (!$result) {
 
         input[type="email"] {
             /* background-color: var(--color-white); */
-            margin: 10px 20px;
+            margin: 10px 0px;
             background-color: #fff;
             min-width: 200px;
             padding: 10px 20px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
+        }
+
+        #leak-search {
+            margin: 10px;
         }
 
         input[type="submit"] {
@@ -156,7 +160,7 @@ if (!$result) {
             <br>
             <form action="/strength-analysis/leak" method="POST">
                 <input type="email" name="email" placeholder="Email">
-                <input type="submit" name="submit" value="Leak Lookup Search">
+                <input type="submit" name="submit" id="leak-search" value="Leak Lookup Search">
             </form>
             <br>
             <p>Perform an advanced strength analysis of your password using ZXCVBN (Premium Feature)!</p>
