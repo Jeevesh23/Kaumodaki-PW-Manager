@@ -88,7 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
         ob_clean();
         flush();
         readfile($filePath);
-        exit();
+        unlink($filePath);
+        unlink($filename);
     }
     header("Refresh:0.5,url=/vault");
     die();
