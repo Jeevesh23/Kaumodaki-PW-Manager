@@ -94,6 +94,16 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         .button_C {
             background-color: #5cb85c;
         }
+
+        main .dropdownrow input {
+            background-color: var(--color-white);
+            border: 0px;
+            width: 110px;
+            border-radius: 20px;
+            text-align: center;
+            display: inline-block;
+            height: 20px;
+        }
     </style>
 </head>
 
@@ -224,12 +234,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         </tr>
                         <tr id=<?php echo $row['Link']; ?> class="dropdownrow" id="view-details">
                             <!-- <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span><input type="text" placeholder="Link"><br></td> -->
-                            <td style="max-width: 20px"><span class="material-icons-sharp">person</span><input type="text" placeholder="username" id="namefield" style="max-width: 150px"></td>
-                            <td style="max-width: 20px"><span class="material-icons-sharp">visibility</span><input type="text" placeholder="Password" id="passwordfield" style="max-width: 100px"></td>
-                            <td style="max-width: 20px"><span class="material-icons-sharp">update</span><input type="text" placeholder="Expiry" id="datefield" style="max-width: 100px"></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">person <br><input type="text" placeholder="username" id="namefield" readonly></span></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">visibility <br><input type="text" placeholder="Password" id="passwordfield" readonly></span></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">update <br><input type="text" placeholder="Expiry" id="datefield" readonly></span></td>
+                            <!-- <td></td>
                             <td></td>
-                            <td></td>
-
+                            <tr></tr> -->
                         </tr>
                     <?php
                             }
