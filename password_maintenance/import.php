@@ -113,8 +113,19 @@
                     $filename = "/var/www/html/password_maintenance/sql/User_Table.sql";
                     $file = fopen($filename, "w");
 
+                    $sqlData = "CREATE DATABASE `User_Passwords`;\nUSE `User_Passwords`;\n";
+                    fwrite($file, $sqlData);
+                    $sqlData = "CREATE TABLE `User_Table` (
+                    `Website` varchar(512) DEFAULT NULL,
+                    `Username` varchar(512) DEFAULT NULL,
+                    `Link` varchar(512) NOT NULL,
+                    `Password` varchar(256) DEFAULT NULL,
+                    `Add_Date` datetime,
+                    `Description` varchar(512) DEFAULT NULL,
+                    `Wrd/Phr` tinyint(1) NOT NULL DEFAULT 0 );\n";
+                    fwrite($file, $sqlData);
                     while ($row = $result->fetch_assoc()) {
-                        $sqlData = "INSERT INTO `User_Table` (`Website`, `Username`, `Link`, `Password`, `Add_Date`, `Description`, `Wrd/Phr`) VALUES ('" . $row["Website"] . "', '" . $row["Username"] . "', '" . $row["Link"] . "','" . openssl_decrypt($row["Password"], "AES-256-CBC", $dec_key, iv: $row["IV"]) . "', '" . $row["Add_Date"] . "', '" . $row["Description"] . "', '" . $row["Wrd/Phr"] . "');";
+                        $sqlData = "INSERT INTO `User_Table` (`Website`, `Username`, `Link`, `Password`, `Add_Date`, `Description`, `Wrd/Phr`) VALUES ('" . $row["Website"] . "', '" . $row["Username"] . "', '" . $row["Link"] . "','" . openssl_decrypt($row["Password"], "AES-256-CBC", $dec_key, iv: $row["IV"]) . "', '" . $row["Add_Date"] . "', '" . $row["Description"] . "', '" . $row["Wrd/Phr"] . "');\n";
                         fwrite($file, $sqlData);
                     }
 
