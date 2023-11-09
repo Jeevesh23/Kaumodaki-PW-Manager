@@ -307,7 +307,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                     </div>
                 </div>
             </div>
-
+            <br>
             <div class="toggle-container" id="myElement">
                 <div class="heading">
                     <form class="add_password" id="edit-password" action="/vault/edit-entry" method="post">
