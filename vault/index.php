@@ -234,9 +234,9 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                         </tr>
                         <tr id=<?php echo $row['Link']; ?> class="dropdownrow" id="view-details">
                             <!-- <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span><input type="text" placeholder="Link"><br></td> -->
-                            <td style="max-width: 20px"><span class="material-icons-sharp">person <br><input type="text" placeholder="username" id="namefield" readonly></span></td>
-                            <td style="max-width: 20px"><span class="material-icons-sharp">visibility <br><input type="text" placeholder="Password" id="passwordfield" readonly></span></td>
-                            <td style="max-width: 20px"><span class="material-icons-sharp">update <br><input type="text" placeholder="Expiry" id="datefield" readonly></span></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">person <br><input type="text" placeholder="username" id="namefield_<?php echo $row['Website']; ?>" readonly></span></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">visibility <br><input type="text" placeholder="Password" id="passwordfield_<?php echo $row['Website']; ?>" readonly></span></td>
+                            <td style="max-width: 20px"><span class="material-icons-sharp">update <br><input type="text" placeholder="Expiry" id="datefield_<?php echo $row['Website']; ?>" readonly></span></td>
                             <!-- <td></td>
                             <td></td>
                             <tr></tr> -->
@@ -523,9 +523,20 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             console.error('Error: ' + data.error);
                         } else {
                             var responseData = JSON.parse(data);
-                            $('#namefield').val(responseData.Username);
-                            $('#passwordfield').val(responseData.DecPwd);
-                            $('#datefield').val(responseData.Add_Date);
+                            var website = responseData.Website;
+                            $('#namefield_' + website).val(responseData.Username);
+                            $('#passwordfield_' + website).val(responseData.DecPwd);
+                            var reset = responseData.RST;
+                            if (reset == 1) {
+                                var dateOnly = responseData.Add_Date.split(' ')[0];
+                                var originalDate = new Date(dateOnly);
+                                var newDate = new Date(originalDate);
+                                newDate.setDate(originalDate.getDate() + 180);
+                                var formattedNewDate = newDate.toISOString().split('T')[0];
+                                $('#datefield_' + website).val(formattedNewDate);
+                            } else {
+                                $('#datefield_' + website).val('-');
+                            }
                         }
                     },
                     error: function(xhr, status, error) {

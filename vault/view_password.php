@@ -19,7 +19,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $dec_key = getenv("AES_KEY");
-$sql = "SELECT `Username`,`Password`,`Description`,`Add_Date`,`IV` FROM `User_Info` WHERE `User_ID` = $userid AND `Website` = '$website'";
+$sql = "SELECT `Website`,`Username`,`Password`,`Description`,`Add_Date`,`IV`,`RST` FROM `User_Info` WHERE `User_ID` = $userid AND `Website` = '$website'";
 $result = $conn->query($sql);
 $data = array();
 
