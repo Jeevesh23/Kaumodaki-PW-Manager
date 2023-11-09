@@ -41,43 +41,42 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             display: none;
         }
 
-        .dropdown-content {
+        .toggle-container .dropdown-content {
             cursor: pointer;
         }
 
         /* Styling for the heading */
-        .heading {
+        .toggle-container .heading {
             text-align: center;
         }
 
         /* Styling for the form and its elements */
-        .add_password {
+        .toggle-container .add_password {
             max-width: 400px;
             margin: 0 auto;
         }
 
-        .input-box {
+        .toggle-container .input-box {
             margin: 10px 0;
         }
 
-        input[type="text"],
+        .toggle-container input[type="text"],
         input[type="password"],
         textarea {
             /* background-color: var(--color-white); */
             background-color: #fff;
-            max-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
             border-radius: 10px;
         }
 
-        input[type="radio"],
+        .toggle-container input[type="radio"],
         input[type="checkbox"] {
             margin-right: 5px;
         }
 
         /* Styling for buttons */
-        .button_R,
+        .toggle-container .button_R,
         .button_C {
             background-color: #0074d9;
             color: #fff;
@@ -87,11 +86,11 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             cursor: pointer;
         }
 
-        .button_R {
+        .toggle-container .button_R {
             background-color: #d9534f;
         }
 
-        .button_C {
+        .toggle-container .button_C {
             background-color: #5cb85c;
         }
 
