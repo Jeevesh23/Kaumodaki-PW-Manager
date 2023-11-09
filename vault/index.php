@@ -103,6 +103,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             text-align: center;
             display: inline-block;
             height: 20px;
+            color: var(--color-dark-variant);
         }
     </style>
 </head>
