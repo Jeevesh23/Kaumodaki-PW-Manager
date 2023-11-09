@@ -22,20 +22,6 @@ if (!$con) {
     die("Connection Error");
 }
 
-$sql = "SELECT `Password`,`IV`,`Wrd/Phr` FROM `User_Info` WHERE `Website`= '" . $_POST['data'] . "' AND `User_ID`= " . $_SESSION['User_ID'];
-$result = mysqli_query($con, $sql);
-if (!$result) {
-    echo "Error in retrieving from database!";
-    die();
-} else if ($result->num_rows == 1) {
-    while ($row = $result->fetch_assoc()) {
-        $encpwd = $row['Password'];
-        $type = $row['Wrd/Phr'];
-        $iv = $row['IV'];
-        $key = getenv('AES_KEY');
-        $password = openssl_decrypt($encpwd, "AES-256-CBC", $key, iv: $iv);
-    }
-}
 ?>
 <!DOCTYPE html>
 <html>

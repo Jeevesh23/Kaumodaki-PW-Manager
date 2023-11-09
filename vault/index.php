@@ -61,8 +61,8 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         }
 
         .toggle-container input[type="text"],
-        input[type="password"],
-        textarea {
+        .toggle-container input[type="password"],
+        .toggle-container textarea {
             /* background-color: var(--color-white); */
             background-color: #fff;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -97,12 +97,19 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         main .dropdownrow input {
             background-color: var(--color-white);
             border: 0px;
-            width: 110px;
+            width: 100%;
             border-radius: 20px;
             text-align: center;
             display: inline-block;
             height: 20px;
             color: var(--color-dark-variant);
+        }
+
+        main .dropdownrow button {
+            background-color: var(--color-white);
+            height: 20px;
+            color: var(--color-dark-variant);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -232,14 +239,13 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                                     </div>
                                 </td>
                         </tr>
-                        <tr id=<?php echo $row['Link']; ?> class="dropdownrow" id="view-details">
-                            <!-- <td><span class="material-icons-sharp" onclick="myFunction(this)" id=<?php echo "expbtn" . $row['Link']; ?>>link</span><input type="text" placeholder="Link"><br></td> -->
+                        <tr id=<?php echo $row['Link']; ?> class="dropdownrow" id="view-details" data-website="<?php echo $row['Website']; ?>">
                             <td style="max-width: 20px"><span class="material-icons-sharp">person <br><input type="text" placeholder="username" id="namefield_<?php echo $row['Website']; ?>" readonly></span></td>
-                            <td style="max-width: 20px"><span class="material-icons-sharp">visibility <br><input type="text" placeholder="Password" id="passwordfield_<?php echo $row['Website']; ?>" readonly></span></td>
+                            <td style="max-width: 20px"><button class="material-icons-sharp" onclick="viewPwd(this)" style="margin-right: 24px;color:#d9534f">visibility_off</button><button onclick="copyPwd(this)" class="material-icons-sharp" style="color:chocolate;">content_paste</button><br><input type="password" placeholder="Password" id="passwordfield_<?php echo $row['Website']; ?>" readonly></td>
                             <td style="max-width: 20px"><span class="material-icons-sharp">update <br><input type="text" placeholder="Expiry" id="datefield_<?php echo $row['Website']; ?>" readonly></span></td>
-                            <!-- <td></td>
+                            <td style="max-width: 20px"><input type="hidden" id="hiddenpwd_<?php echo $row['Website']; ?>" readonly></td>
                             <td></td>
-                            <tr></tr> -->
+                            <td></td>
                         </tr>
                     <?php
                             }
@@ -499,7 +505,6 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         });
 
 
-
         $(document).ready(function() {
             $('.view-button').click(function() {
                 var dropdownContent = this.closest('td').parentElement.nextElementSibling;
@@ -525,7 +530,13 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             var responseData = JSON.parse(data);
                             var website = responseData.Website;
                             $('#namefield_' + website).val(responseData.Username);
-                            $('#passwordfield_' + website).val(responseData.DecPwd);
+                            $('#hiddenpwd_' + website).val(responseData.DecPwd);
+
+                            var displayedPassword = responseData.DecPwd.length > 10 ?
+                                responseData.DecPwd.substring(0, 10) + '...' :
+                                responseData.DecPwd;
+                            $('#passwordfield_' + website).val(displayedPassword);
+
                             var reset = responseData.RST;
                             if (reset == 1) {
                                 var dateOnly = responseData.Add_Date.split(' ')[0];
@@ -545,6 +556,45 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                 });
             });
         });
+
+        function viewPwd(button) {
+            var row = button.closest('tr');
+            var website = row.getAttribute('data-website');
+
+            var passwordField = $('#passwordfield_' + website);
+            var hiddenPwdField = $('#hiddenpwd_' + website);
+            var visibilityButton = $(button);
+
+            var isVisible = passwordField.attr('type') === 'text';
+
+            if (isVisible) {
+                passwordField.attr('type', 'password');
+                visibilityButton.html('visibility_off');
+                visibilityButton.css('color', '#d9534f');
+            } else {
+                passwordField.attr('type', 'text');
+                visibilityButton.html('visibility');
+                visibilityButton.css('color', '#5cb85c');
+            }
+
+        }
+
+        function copyPwd(button) {
+            var row = button.closest('tr');
+            var website = row.getAttribute('data-website');
+            var hiddenPwd = $('#hiddenpwd_' + website).val();
+
+            var tempInput = document.createElement('input');
+            tempInput.value = hiddenPwd;
+            document.body.appendChild(tempInput);
+
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            alert('Password copied to clipboard!');
+        }
 
         document.getElementById("insertbutton").addEventListener("click", function() {
             event.preventDefault();
