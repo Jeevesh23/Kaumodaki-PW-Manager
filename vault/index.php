@@ -37,8 +37,54 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
     <title>Vault</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
+        body.blur {
+            overflow: hidden;
+        }
+
+        body.blur::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('');
+            backdrop-filter: blur(5px);
+            pointer-events: none;
+            z-index: 9998;
+        }
+
         .toggle-container {
             display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            max-height: 80vh;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            overflow-y: auto;
+            border-radius: 30px;
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
+        }
+
+        .toggle-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .toggle-container::-webkit-scrollbar-thumb {
+            background-color: transparent;
+        }
+
+        body.blur * {
+            user-select: none;
+            pointer-events: none;
+        }
+
+        body.blur .toggle-container * {
+            pointer-events: auto;
         }
 
         .toggle-container .dropdown-content {
@@ -50,6 +96,16 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             text-align: center;
         }
 
+        .toggle-container .head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toggle-container #closeButton {
+            cursor: pointer;
+        }
+
         /* Styling for the form and its elements */
         .toggle-container .add_password {
             max-width: 400px;
@@ -58,6 +114,10 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
 
         .toggle-container .input-box {
             margin: 10px 0;
+        }
+
+        .toggle-container #insertbutton {
+            cursor: pointer;
         }
 
         .toggle-container input[type="text"],
@@ -317,7 +377,12 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             <div class="toggle-container" id="myElement">
                 <div class="heading">
                     <form class="add_password" id="edit-password" action="/vault/edit-entry" method="post">
-                        <h2>Edit Password</h2>
+                        <div class="head">
+                            <h2>Edit Password</h2>
+                            <button id="closeButton" type="button" onclick="closeEdit()">
+                                <span class="material-icons-sharp">close</span>
+                            </button>
+                        </div>
                         <div class="input-box">
                             <input type="text" placeholder="Website" name="Website" id="websiteField" readonly><br>
                         </div>
@@ -464,6 +529,7 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
         $(document).ready(function() {
             $('.edit-button').click(function() {
                 var element = document.getElementById("myElement");
+                document.body.classList.toggle('blur');
                 if (element.style.display === "none" || element.style.display === "") {
                     element.style.display = "block";
                 } else {
@@ -504,6 +570,11 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
             });
         });
 
+        function closeEdit() {
+            var element = document.getElementById("myElement");
+            document.body.classList.remove('blur');
+            element.style.display = "none";
+        }
 
         $(document).ready(function() {
             $('.view-button').click(function() {

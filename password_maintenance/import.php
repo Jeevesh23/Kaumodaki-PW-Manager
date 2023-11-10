@@ -134,11 +134,11 @@
                     <html>
 
                     <head>
-                        <title>Password Details Export</title>
+                        <title>Password Details Import</title>
                     </head>
 
                     <body>
-                        <h1>Details Export </h1>
+                        <h1>Details Import </h1>
                         <p>We understand that you may no longer be interested in using our product, or may just want to perform a regular local backup of your details.</p>
                         <p>Do not worry, we offer an "easy" way of doing so!</p>
                         <ol>
