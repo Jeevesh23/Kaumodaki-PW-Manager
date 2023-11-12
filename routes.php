@@ -19,6 +19,7 @@ any('/authentication/reset-mail', 'authentication/reset-mail.php');
 any('/authentication/reset-password', 'authentication/reset-password.php');
 any('/authentication/contact', 'authentication/contact.php');
 get('/authentication/kill-session', 'authentication/kill-session.php');
+get('/authentication/terms-and-conditions', 'authentication/tnc.php');
 
 get('/payment', 'payment/checkout_form.php');
 post('/payment/checkout', 'payment/checkout.php');

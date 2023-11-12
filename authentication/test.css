@@ -253,6 +253,23 @@ p {
     animation: show 0.6s;
 }
 
+#container .tnc {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+#container .tnc input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.tnc a {
+    white-space: nowrap;
+    font-size: 14px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #eee;
+}
+
 @keyframes show {
 
     0%,

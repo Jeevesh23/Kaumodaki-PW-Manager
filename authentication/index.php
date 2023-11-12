@@ -37,6 +37,9 @@
                     <input type="password" name='password' placeholder="Password" required>
                     <label></label>
                 </div>
+                <div class="tnc">
+                    <input type="checkbox" name="tnc" required><a href="/authentication/terms-and-conditions">Terms and Conditions</a>
+                </div>
                 <button>Sign Up</button>
             </form>
         </div>
@@ -184,14 +187,14 @@
             const usernameInput = document.getElementById("usernameInput");
 
             form.addEventListener("submit", function(event) {
-            const usernameValue = usernameInput.value;
-            const alphanumericPattern = /^[a-zA-Z0-9]+$/;
+                const usernameValue = usernameInput.value;
+                const alphanumericPattern = /^[a-zA-Z0-9]+$/;
 
-            if (!alphanumericPattern.test(usernameValue)) {
-                event.preventDefault(); 
-                alert('Username should only contain alphanumeric characters.');
-                usernameInput.value = '';
-            }
+                if (!alphanumericPattern.test(usernameValue)) {
+                    event.preventDefault();
+                    alert('Username should only contain alphanumeric characters.');
+                    usernameInput.value = '';
+                }
             });
         });
     </script>

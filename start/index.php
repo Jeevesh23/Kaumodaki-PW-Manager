@@ -11,7 +11,7 @@
 
 <body>
     <header class="header">
-        <a href="#" class="logo"><i class='bx bxl-netlify'></i>Password Manager</a>
+        <a href="#" class="logo"><img src="/logos/password_manager_white.png" height="24px"></i> Kaumodaki PW Manager</a>
         <nav class="nav">
             <a href="#">About</a>
             <a href="./../authentication/contact">Contact</a>
@@ -21,7 +21,7 @@
 
     <section class="home">
         <div class="content">
-            <h2>Welcome to Password Manager</h2>
+            <h2>Welcome to Kaumodaki!</h2>
             <p>A password manager made with user's security in mind.
             </p>
             <a href="./../authentication/">Get Started</a>

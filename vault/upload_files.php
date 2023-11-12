@@ -86,7 +86,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             <aside>
                 <div class="toggle">
                     <div class="logo">
-                        <h2>Password<br><span class="danger">Manager</span></h2>
+                        <h2>Kaumodaki<br><span class="danger">PW Manager</span></h2>
                     </div>
                     <div class="close" id="close-btn">
                         <span class="material-icons-sharp">
@@ -245,7 +245,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             <aside>
                 <div class="toggle">
                     <div class="logo">
-                        <h2>Password<br><span class="danger">Manager</span></h2>
+                        <h2>Kaumodaki<br><span class="danger">PW Manager</span></h2>
                     </div>
                     <div class="close" id="close-btn">
                         <span class="material-icons-sharp">
@@ -497,7 +497,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             <aside>
                 <div class="toggle">
                     <div class="logo">
-                        <h2>Password<br><span class="danger">Manager</span></h2>
+                        <h2>Kaumodaki<br><span class="danger">PW Manager</span></h2>
                     </div>
                     <div class="close" id="close-btn">
                         <span class="material-icons-sharp">
