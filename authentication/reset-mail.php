@@ -19,18 +19,19 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     $email = $_POST["email"];
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $key = getenv('AES_KEY');
     $hashemail = hash('md5', $email);
+    $encemail = openssl_encrypt($email, "AES-256-CBC", $key);
     $username = $_POST["username"];
     if (!$email) {
         $error .= "<p>Invalid email address!</p>";
     } else {
-        $sql = "SELECT * FROM `Credentials` WHERE `Username`='$username' AND `Email`='$hashemail'";
+        $sql = "SELECT * FROM `Credentials` WHERE `Username`='$username' AND `Email`='$encemail'";
         $results = mysqli_query($conn, $sql);
         $row = mysqli_num_rows($results);
         if ($row === 0) {
             $error .= "<p>No user is registered with this username!</p>";
         } else if ($results->num_rows > 0) {
-            $key = getenv('AES_KEY');
             $method = "AES-256-CBC";
             while ($row = $results->fetch_assoc()) {
                 $tfa = new TwoFactorAuth(qrcodeprovider: new EndroidQrCodeProvider());
@@ -99,7 +100,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         } else {
             header("Refresh:3,url=/authentication");
             echo
-                "
+            "
                 <!DOCTYPE html>
                 <html lang='en'>
                 <head>
@@ -113,13 +114,12 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                     <h3>An email has been sent to you with instructions on how to reset your password.</h3>
                     </div>
                 </body>
-                </html>"
-            ;
+                </html>";
             exit();
         }
     }
 } else {
-    ?>
+?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -134,95 +134,113 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
             .forgotpassword-page {
-            width: 360px;
-            padding: 8% 0 0;
-            margin: auto;
+                width: 360px;
+                padding: 8% 0 0;
+                margin: auto;
             }
+
             .form {
-            position: relative;
-            z-index: 1;
-            background: #FFFFFF;
-            max-width: 360px;
-            margin: 0 auto 100px;
-            padding: 45px;
-            text-align: center;
-            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-            border-radius: 25px;
+                position: relative;
+                z-index: 1;
+                background: #FFFFFF;
+                max-width: 360px;
+                margin: 0 auto 100px;
+                padding: 45px;
+                text-align: center;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+                border-radius: 25px;
             }
+
             .form input {
-            outline: 0;
-            background: #f2f2f2;
-            width: 100%;
-            border: 0;
-            margin: 0 0 15px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 14px;
-            border-radius: 10px;
+                outline: 0;
+                background: #f2f2f2;
+                width: 100%;
+                border: 0;
+                margin: 0 0 15px;
+                padding: 15px;
+                box-sizing: border-box;
+                font-size: 14px;
+                border-radius: 10px;
             }
+
             .form .button {
-            text-transform: uppercase;
-            outline: 0;
-            background: #259c8d;
-            width: 100%;
-            border: 0;
-            padding: 15px;
-            color: #FFFFFF;
-            font-size: 14px;
-            -webkit-transition: all 0.3 ease;
-            transition: all 0.3 ease;
-            cursor: pointer;
+                text-transform: uppercase;
+                outline: 0;
+                background: #259c8d;
+                width: 100%;
+                border: 0;
+                padding: 15px;
+                color: #FFFFFF;
+                font-size: 14px;
+                -webkit-transition: all 0.3 ease;
+                transition: all 0.3 ease;
+                cursor: pointer;
             }
-            .form .button:hover,.form button:active,.form .button:focus {
-            background: #2CD0BC;
+
+            .form .button:hover,
+            .form button:active,
+            .form .button:focus {
+                background: #2CD0BC;
             }
+
             .form .message {
-            margin: 15px 0 0;
-            color: #b3b3b3;
-            font-size: 12px;
+                margin: 15px 0 0;
+                color: #b3b3b3;
+                font-size: 12px;
             }
+
             .form .message a {
-            color: #2CD0BC;
-            text-decoration: none;
+                color: #2CD0BC;
+                text-decoration: none;
             }
+
             .form .register-form {
-            display: none;
+                display: none;
             }
+
             .container {
-            position: relative;
-            z-index: 1;
-            max-width: 300px;
-            margin: 0 auto;
+                position: relative;
+                z-index: 1;
+                max-width: 300px;
+                margin: 0 auto;
             }
-            .container:before, .container:after {
-            content: "";
-            display: block;
-            clear: both;
+
+            .container:before,
+            .container:after {
+                content: "";
+                display: block;
+                clear: both;
             }
+
             .container .info {
-            margin: 50px auto;
-            text-align: center;
+                margin: 50px auto;
+                text-align: center;
             }
+
             .container .info h1 {
-            margin: 0 0 15px;
-            padding: 0;
-            font-size: 36px;
-            font-weight: 300;
-            color: #1a1a1a;
+                margin: 0 0 15px;
+                padding: 0;
+                font-size: 36px;
+                font-weight: 300;
+                color: #1a1a1a;
             }
+
             .container .info span {
-            color: #4d4d4d;
-            font-size: 12px;
+                color: #4d4d4d;
+                font-size: 12px;
             }
+
             .container .info span a {
-            color: #000000;
-            text-decoration: none;
+                color: #000000;
+                text-decoration: none;
             }
+
             .container .info span .fa {
-            color: #EF3B3A;
+                color: #EF3B3A;
             }
+
             body {
-            background: #259c8d;
+                background: #259c8d;
             }
         </style>
     </head>
@@ -231,12 +249,12 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         <div class="forgotpassword-page">
             <div class="form">
                 <h1>Forgot Password?</h2>
-                <form class="login-form" method="post" name="reset">
-                    <input type="text" name="username" placeholder="Enter username" required>
-                    <input type="email" name="email" placeholder="Enter email" required>
-                    <input type="OTP" name="otp" placeholder="Enter OTP" required>
-                    <input class="button" type="submit" value="Submit">
-                </form>
+                    <form class="login-form" method="post" name="reset">
+                        <input type="text" name="username" placeholder="Enter username" required>
+                        <input type="email" name="email" placeholder="Enter email" required>
+                        <input type="OTP" name="otp" placeholder="Enter OTP" required>
+                        <input class="button" type="submit" value="Submit">
+                    </form>
             </div>
         </div>
     </body>
