@@ -23,11 +23,11 @@ if (isset($_POST['User_ID'])) {
         echo '<script>alert("Website account already exists!")</script>';
         exit();
     }
-    $key = getenv('AES_KEY');
+    $pwdkey = $_SESSION['pwdkey'];
     $method = "aes-256-cbc";
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
     $secret = $_POST['Password'];
-    $encrypted = openssl_encrypt($secret, $method, $key, iv: $iv);
+    $encrypted = openssl_encrypt($secret, $method, $pwdkey, iv: $iv);
     $hexiv = bin2hex($iv);
     $addformat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
     $_SESSION['website'] = $website;

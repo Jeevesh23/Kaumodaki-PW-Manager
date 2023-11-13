@@ -4,6 +4,7 @@ if (!isset($_COOKIE[$_SESSION['hashemail']]) || $_COOKIE[$_SESSION['hashemail']]
     header("Location:/authentication");
     exit();
 }
+include_once(__DIR__ . '/func.php');
 include_once('/app/vendor/autoload.php');
 $newIncludePath = '/app/vendor';
 set_include_path($newIncludePath);
@@ -27,6 +28,7 @@ if ($result === true) {
     $username = $_SESSION['Username'];
     $hashemail = $_SESSION['hashemail'];
     $salt = $_SESSION['salt'];
+    $salt2 = $_SESSION['salt2'];
     $password = $_SESSION['password'];
 
     $key = getenv('AES_KEY');
@@ -37,7 +39,7 @@ if ($result === true) {
     $encemail = openssl_encrypt($_SESSION['email'], $method, $key);
     $hexiv = bin2hex($iv);
 
-    $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$encemail','$password','$salt','$encrypted','$hexiv')";
+    $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Salt2`,`Secret_Key`, `IV`) VALUES ('$username','$encemail','$password','$salt','$salt2','$encrypted','$hexiv')";
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
         $conn->close();

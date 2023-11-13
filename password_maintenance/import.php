@@ -104,7 +104,7 @@
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                $dec_key = getenv('AES_KEY');
+                $pwdkey = $_SESSION['pwdkey'];
                 $query = "SELECT * FROM `User_Info` WHERE `User_ID`=" . $_SESSION['User_ID'];
 
                 $result = $conn->query($query);
@@ -125,7 +125,7 @@
                     `Wrd/Phr` tinyint(1) NOT NULL DEFAULT 0 );\n";
                     fwrite($file, $sqlData);
                     while ($row = $result->fetch_assoc()) {
-                        $sqlData = "INSERT INTO `User_Table` (`Website`, `Username`, `Link`, `Password`, `Add_Date`, `Description`, `Wrd/Phr`) VALUES ('" . $row["Website"] . "', '" . $row["Username"] . "', '" . $row["Link"] . "','" . openssl_decrypt($row["Password"], "AES-256-CBC", $dec_key, iv: hex2bin($row["IV"])) . "', '" . $row["Add_Date"] . "', '" . $row["Description"] . "', '" . $row["Wrd/Phr"] . "');\n";
+                        $sqlData = "INSERT INTO `User_Table` (`Website`, `Username`, `Link`, `Password`, `Add_Date`, `Description`, `Wrd/Phr`) VALUES ('" . $row["Website"] . "', '" . $row["Username"] . "', '" . $row["Link"] . "','" . openssl_decrypt($row["Password"], "AES-256-CBC", $pwdkey, iv: hex2bin($row["IV"])) . "', '" . $row["Add_Date"] . "', '" . $row["Description"] . "', '" . $row["Wrd/Phr"] . "');\n";
                         fwrite($file, $sqlData);
                     }
 

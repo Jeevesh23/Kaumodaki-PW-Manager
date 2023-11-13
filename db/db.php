@@ -14,6 +14,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `Credentials`(
     `Email` varchar(256),
     `Password` varchar(1024),
     `Salt` varchar(256),
+    `Salt2` varchar(256),
     `Secret_Key` varchar(64),
     `IV` varchar(64),
     `Order_ID` varchar(32) DEFAULT '0'

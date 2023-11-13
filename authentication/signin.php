@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $password = $_POST['password'];
     $otp = $_POST['otp'];
-    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV`,`User_ID`,`Username` FROM `Credentials` WHERE `Email`='$encemail'";
+    $sql = "SELECT `Salt`,`Password`,`Secret_Key`,`IV`,`User_ID`,`Salt2`,`Username` FROM `Credentials` WHERE `Email`='$encemail'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -34,6 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['otp'] = $otp;
                 $_SESSION['User_ID'] = $row['User_ID'];
                 $_SESSION['Username'] = $row['Username'];
+                $salt2 = $_SESSION['salt2'] = $row['Salt2'];
+                $_SESSION['pwdkey'] = $pwdkey = hash_pbkdf2("sha512", $password, $salt2, 500000, 64);
                 setcookie($_SESSION['hashemail'], 'signin', time() + 360, path: '/');
                 $conn->close();
                 header("Location:/authentication/verify-otp");

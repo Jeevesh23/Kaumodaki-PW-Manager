@@ -39,12 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		require_once(__DIR__ . '/func.php');
 		$salt = getRandomStringRand();
 		$hasheddata = hash('sha512', $password . $salt);
+		$salt2 = getRandomStringRand();
+		$pwdkey = hash_pbkdf2("sha512", $password, $salt2, 500000, 64);
 
 		$_SESSION['Username'] = $username;
 		$_SESSION['email'] = $email;
 		$_SESSION['hashemail'] = $hashemail;
 		$_SESSION['password'] = $hasheddata;
 		$_SESSION['salt'] = $salt;
+		$_SESSION['salt2'] = $salt2;
+		$_SESSION['pwdkey'] = $pwdkey;
 
 		$conn->close();
 		setcookie($_SESSION['hashemail'], 'register', time() + 360, path: '/');

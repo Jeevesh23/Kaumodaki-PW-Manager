@@ -18,7 +18,7 @@ $conn = new mysqli($db_host, $db_username, $db_password, $db_name);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$dec_key = getenv("AES_KEY");
+$pwdkey = $_SESSION['pwdkey'];
 $sql = "SELECT `Website`,`Username`,`Password`,`Description`,`Add_Date`,`IV`,`RST` FROM `User_Info` WHERE `User_ID` = $userid AND `Website` = '$website'";
 $result = $conn->query($sql);
 $data = array();
@@ -30,7 +30,7 @@ if ($result->num_rows == 1) {
                 $data[$key] = $value;
             }
         }
-        $data['DecPwd'] = openssl_decrypt($row['Password'], "AES-256-CBC", $dec_key, iv: hex2bin($row['IV']));
+        $data['DecPwd'] = openssl_decrypt($row['Password'], "AES-256-CBC", $pwdkey, iv: hex2bin($row['IV']));
     }
     echo json_encode($data, JSON_THROW_ON_ERROR);
 } else {

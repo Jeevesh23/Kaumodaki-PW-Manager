@@ -32,8 +32,8 @@ if (!$result) {
         $encpwd = $row['Password'];
         $type = $row['Wrd/Phr'];
         $iv = $row['IV'];
-        $key = getenv('AES_KEY');
-        $password = openssl_decrypt($encpwd, "AES-256-CBC", $key, iv: hex2bin($iv));
+        $pwdkey = $_SESSION['pwdkey'];
+        $password = openssl_decrypt($encpwd, "AES-256-CBC", $pwdkey, iv: hex2bin($iv));
     }
 }
 ?>
