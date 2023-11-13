@@ -178,7 +178,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             }
                         }
                     } else {
-                        echo "The folder does not exist.";
+                        echo '<script>alert("The folder does not exist.")</script>';
                     }
                     ?>
                 </ol>
@@ -346,7 +346,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                             closedir($handle);
                         }
                     } else {
-                        echo "The folder does not exist.";
+                        echo '<script>alert("The folder does not exist.")</script>';
                     }
                     echo '<input type="submit" name="submit" value="Delete Selected Files">';
                     echo '</form>';

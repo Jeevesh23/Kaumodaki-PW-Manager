@@ -13,7 +13,7 @@ $sql1 = "SELECT * FROM `Old_Passwords` WHERE `User_ID`='$userid' AND `Website`='
 $res1 = mysqli_query($conn, $sql1);
 if (!$res1) {
     header("Refresh:3, url=/vault");
-    echo "Connection error!";
+    echo '<script>alert("Connection error!")</script>';
     $conn->close();
     exit();
 }
@@ -22,7 +22,7 @@ if ($res1->num_rows === 5) {
     $res2 = mysqli_query($conn, $sql2);
     if (!$res2) {
         header("Refresh:3, url=/vault");
-        echo "Connection error!";
+        echo '<script>alert("Connection error!")</script>';
         $conn->close();
         exit();
     }
@@ -36,7 +36,7 @@ $res3 = mysqli_query($conn, $sql3);
 $conn->close();
 if (!$res3) {
     header("Refresh:3, url=/vault");
-    echo "Connection error!";
+    echo '<script>alert("Connection error!")</script>';
     exit();
 } else {
     header("Location:/vault");

@@ -15,6 +15,6 @@ if ($file) {
         readfile($fileLocation);
         exit;
     } else {
-        echo 'File not found.';
+        echo '<script>alert("File not found.")</script>';
     }
 }

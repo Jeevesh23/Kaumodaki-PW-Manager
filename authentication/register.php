@@ -18,21 +18,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 		if (!$result) {
 			header("Refresh:3, url= /authentication");
-			echo "Connection failed";
+			echo '<script>alert("Connection failed")</script>';
 			$conn->close();
 			exit();
 		} else if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$hasheddata = hash('sha512', $password . $row["Salt"]);
 				if ($row["Password"] == $hasheddata) {
-					echo "User exists! Sign in instead.";
+					echo '<script>alert("User exists! Sign in instead.")</script>';
 					header("Refresh:3,url=/authentication");
 					$conn->close();
 					exit();
 				}
 			}
 			header("Refresh:3,url=/authentication");
-			echo "Email already taken! Use another one.";
+			echo '<script>alert("Email already taken! Use another one.")</script>';
 			$conn->close();
 			exit();
 		}

@@ -72,6 +72,6 @@ if ($result === true) {
 <?php exit();
 } else {
     header("Refresh:3, url= /authentication");
-    echo "Error! 2FA problems.";
+    echo '<script> alert("Error! 2FA problems.") </script>';
     exit();
 }

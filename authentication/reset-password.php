@@ -206,7 +206,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             echo '<div><p>Congratulations! Your password has been updated successfully.</p>';
             exit();
         } else {
-            echo "2FA failed. Re-enter the link or try requesting a new reset link.";
+            echo '<script>alert("2FA failed. Re-enter the link or try requesting a new reset link.")</script>';
             $conn->close();
             exit();
         }

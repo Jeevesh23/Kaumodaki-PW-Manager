@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql2 = "DELETE FROM `User_Info` WHERE `Website`='$website'";
         $req2 = mysqli_query($con, $sql2);
         if ($req2) {
-            echo "Successfully deleted entry!";
+            echo '<script>alert("Successfully deleted entry!")</script>';
         } else if (!$req2)
-            echo "Error in deletion of entry!";
+            echo '<script>alert("Error in deletion of entry!")</script>';
     } else if (!$req1)
-        echo "Error in deletion of entry!";
+        echo '<script>alert("Error in deletion of entry!")</script>';
 }

@@ -41,7 +41,7 @@ if ($result === true) {
     if (!$result1) {
         $conn->close();
         header("Refresh:3, url= /authentication");
-        echo "Connection failed!";
+        echo '<script>alert("Connection failed!")</script>';
         exit();
     } else {
         $sql2 = "SELECT `User_ID` FROM `Credentials` WHERE `Email`='$encemail'";
@@ -56,11 +56,11 @@ if ($result === true) {
         createIconAndStoreInDB($username, $_SESSION['User_ID']);
         $_SESSION['Premium'] = 0;
         header("Refresh:3,url= /vault");
-        echo "User successfully registered! Redirecting to vault!";
+        echo '<script>alert("User successfully registered! Redirecting to vault!")</script>';
         exit();
     }
 } else {
     header("Refresh:3, url= /authentication");
-    echo "Error! 2FA problems.";
+    echo '<script>alert("Error! 2FA problems.")</script>';
     exit();
 }

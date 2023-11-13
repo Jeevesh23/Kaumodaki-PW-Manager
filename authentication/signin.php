@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (!$result) {
         header("Refresh:3, url= /authentication");
-        echo "Connection failed";
+        echo '<script>alert("Connection failed")</script>';
         $conn->close();
         exit();
     } else if ($result->num_rows > 0) {
@@ -40,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 exit();
             }
         }
-        echo "Wrong credentials!";
+        echo '<script>alert("Wrong credentials!")</script>';
     } else {
-        echo "No account! Register now.";
+        echo '<script>alert("No account! Register now.")</script>';
     }
 
     $conn->close();

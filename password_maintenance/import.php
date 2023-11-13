@@ -165,7 +165,7 @@
                     </html>
             <?php
                 } else {
-                    echo "No results found.";
+                    echo '<script>alert("No results found.")</script>';
                     $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/vault';
                     header("Refresh:0.5,url= $referer");
                     die();

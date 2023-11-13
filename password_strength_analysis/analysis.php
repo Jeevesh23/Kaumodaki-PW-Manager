@@ -25,7 +25,7 @@ if (!$con) {
 $sql = "SELECT `Password`,`IV`,`Wrd/Phr` FROM `User_Info` WHERE `Website`= '" . $_GET['data'] . "' AND `User_ID`= " . $_SESSION['User_ID'];
 $result = mysqli_query($con, $sql);
 if (!$result) {
-    echo "Error in retrieving from database!";
+    echo '<script>alert("Error in retrieving from database!")</script>';
     die();
 } else if ($result->num_rows == 1) {
     while ($row = $result->fetch_assoc()) {
