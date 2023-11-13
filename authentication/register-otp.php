@@ -35,8 +35,9 @@ if ($result === true) {
     $secret = $_SESSION['secret'];
     $encrypted = openssl_encrypt($secret, $method, $key, iv: $iv);
     $encemail = openssl_encrypt($_SESSION['email'], $method, $key);
+    $hexiv = bin2hex($iv);
 
-    $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$encemail','$password','$salt','$encrypted','$iv')";
+    $sql1 = "INSERT INTO `Credentials` (`Username`, `Email`,`Password`, `Salt`, `Secret_Key`, `IV`) VALUES ('$username','$encemail','$password','$salt','$encrypted','$hexiv')";
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
         $conn->close();

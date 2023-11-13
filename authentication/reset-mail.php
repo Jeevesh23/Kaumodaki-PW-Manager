@@ -35,7 +35,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
             $method = "AES-256-CBC";
             while ($row = $results->fetch_assoc()) {
                 $tfa = new TwoFactorAuth(qrcodeprovider: new EndroidQrCodeProvider());
-                $key = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $row["IV"]);
+                $key = openssl_decrypt($row["Secret_Key"], $method, $key, iv: hex2bin($row["IV"]));
                 $userid = $row["User_ID"];
                 $tfa_result = $tfa->verifyCode($key, $_POST['otp']);
                 if ($tfa_result === true)

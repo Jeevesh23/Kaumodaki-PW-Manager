@@ -10,7 +10,7 @@ $sql = "SELECT `Password`,`IV` FROM `User_Info` WHERE `User_ID`=" . $_SESSION['U
 $req = mysqli_query($con, $sql);
 if ($req->num_rows > 0) {
     while ($row = $req->fetch_assoc()) {
-        $decpwd = openssl_decrypt($row['Password'], 'AES-256-CBC', $key, iv: $row['IV']);
+        $decpwd = openssl_decrypt($row['Password'], 'AES-256-CBC', $key, iv: hex2bin($row['IV']));
     }
 }
 
@@ -39,6 +39,7 @@ if ($new_secret !== $decpwd) {
     }
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length("AES-256-CBC"));
     $encrypted = openssl_encrypt($new_secret, "AES-256-CBC", $key, iv: $iv);
+    $hexiv = bin2hex($iv);
     $addformat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
     $_SESSION['website'] = $website;
     $_SESSION['adddate'] = $adddate = date("Y-m-d H:i:s", $addformat);
@@ -47,7 +48,7 @@ if ($new_secret !== $decpwd) {
     $req = mysqli_query($con, $sql);
     if (!$req)
         die("Error in updating database!");
-    $sql = "UPDATE `User_Info` SET `Password`='" . $encrypted . "', `IV`='$iv', `Add_Date`= CONVERT_TZ(NOW(), 'UTC',  'Asia/Kolkata') WHERE `User_ID`=" . $_SESSION['User_ID'] . " AND `Website`='" . $_POST['Website'] . "'";
+    $sql = "UPDATE `User_Info` SET `Password`='" . $encrypted . "', `IV`='$hexiv', `Add_Date`= CONVERT_TZ(NOW(), 'UTC',  'Asia/Kolkata') WHERE `User_ID`=" . $_SESSION['User_ID'] . " AND `Website`='" . $_POST['Website'] . "'";
     $req = mysqli_query($con, $sql);
     if (!$req)
         die("Error in updating database!");

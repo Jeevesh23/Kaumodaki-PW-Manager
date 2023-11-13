@@ -30,7 +30,7 @@ if ($result->num_rows == 1) {
                 $data[$key] = $value;
             }
         }
-        $data['DecPwd'] = openssl_decrypt($row['Password'], "AES-256-CBC", $dec_key, iv: $row['IV']);
+        $data['DecPwd'] = openssl_decrypt($row['Password'], "AES-256-CBC", $dec_key, iv: hex2bin($row['IV']));
     }
     echo json_encode($data, JSON_THROW_ON_ERROR);
 } else {

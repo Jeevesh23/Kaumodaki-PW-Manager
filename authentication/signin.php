@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $hasheddata = hash('sha512', $password . $row["Salt"]);
             if ($row["Password"] == $hasheddata) {
                 $iv = $row["IV"];
-                $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: $iv);
+                $encrypted = openssl_decrypt($row["Secret_Key"], $method, $key, iv: hex2bin($iv));
                 $_SESSION['secret'] = $encrypted;
                 $_SESSION['otp'] = $otp;
                 $_SESSION['User_ID'] = $row['User_ID'];

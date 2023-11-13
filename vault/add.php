@@ -28,12 +28,13 @@ if (isset($_POST['User_ID'])) {
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
     $secret = $_POST['Password'];
     $encrypted = openssl_encrypt($secret, $method, $key, iv: $iv);
+    $hexiv = bin2hex($iv);
     $addformat = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
     $_SESSION['website'] = $website;
     $_SESSION['adddate'] = $adddate = date("Y-m-d H:i:s", $addformat);
     $_SESSION['hash'] = password_hash($_POST['Password'], PASSWORD_DEFAULT);
     $userid = $_POST['User_ID'];
-    $sql1 = "INSERT INTO `User_Info`(`User_ID`, `Website`, `Description`, `Username`, `Link`, `Password`, `IV`, `Add_Date`, `Wrd/Phr`, `RST`) VALUES('$userid','$website', '$desc','$user','$link','$encrypted','$iv','$adddate','$type','$reset')";
+    $sql1 = "INSERT INTO `User_Info`(`User_ID`, `Website`, `Description`, `Username`, `Link`, `Password`, `IV`, `Add_Date`, `Wrd/Phr`, `RST`) VALUES('$userid','$website', '$desc','$user','$link','$encrypted','$hexiv','$adddate','$type','$reset')";
     try {
         $result1 = mysqli_query($conn, $sql1);
         if (!$result1) {

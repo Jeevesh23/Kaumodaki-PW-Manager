@@ -15,7 +15,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `Credentials`(
     `Password` varchar(1024),
     `Salt` varchar(256),
     `Secret_Key` varchar(64),
-    `IV` binary(16),
+    `IV` varchar(64),
     `Order_ID` varchar(32) DEFAULT '0'
   )";
 $tbconn = mysqli_query($dbconn, $sql);
@@ -40,7 +40,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `User_Info` (
     `Username` varchar(512) DEFAULT NULL,
     `Link` varchar(512) NOT NULL,
     `Password` varchar(256) DEFAULT NULL,
-    `IV` binary(16) DEFAULT NULL,
+    `IV` varchar(64) DEFAULT NULL,
     `Add_Date` datetime,
     `Description` varchar(512) DEFAULT NULL,
     `Wrd/Phr` tinyint(1) NOT NULL DEFAULT 0,

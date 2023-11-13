@@ -33,7 +33,7 @@ if (!$result) {
         $type = $row['Wrd/Phr'];
         $iv = $row['IV'];
         $key = getenv('AES_KEY');
-        $password = openssl_decrypt($encpwd, "AES-256-CBC", $key, iv: $iv);
+        $password = openssl_decrypt($encpwd, "AES-256-CBC", $key, iv: hex2bin($iv));
     }
 }
 ?>
