@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 $sql1 = "SELECT * FROM `Old_Passwords` WHERE `User_ID`='$userid' AND `Website`='" . $_SESSION['website'] . "'";
 $res1 = mysqli_query($conn, $sql1);
 if (!$res1) {
-    header("Refresh:3, url=/vault");
+    header("Refresh:0.5, url=/vault");
     echo '<script>alert("Connection error!")</script>';
     $conn->close();
     exit();
@@ -21,7 +21,7 @@ if ($res1->num_rows === 5) {
     $sql2 = "DELETE FROM `Old_Passwords` WHERE `User_ID`='$userid' AND `Website`='" . $_SESSION['website'] . "' AND `Add_Date` IS NOT NULL ORDER BY `Add_Date` DESC LIMIT 1";
     $res2 = mysqli_query($conn, $sql2);
     if (!$res2) {
-        header("Refresh:3, url=/vault");
+        header("Refresh:0.5, url=/vault");
         echo '<script>alert("Connection error!")</script>';
         $conn->close();
         exit();
@@ -35,7 +35,7 @@ $sql3 = "INSERT INTO `Old_Passwords`(`User_ID`,`Website`,`Link`,`Old_Hash`,`Add_
 $res3 = mysqli_query($conn, $sql3);
 $conn->close();
 if (!$res3) {
-    header("Refresh:3, url=/vault");
+    header("Refresh:0.5, url=/vault");
     echo '<script>alert("Connection error!")</script>';
     exit();
 } else {

@@ -185,7 +185,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             }
         }
         if ($error) {
-            header("Refresh:3, url=/authentication");
+            header("Refresh:0.5, url=/authentication");
             echo "<div class='error'>" . $error . "</div><br>";
             exit();
         }
@@ -220,7 +220,7 @@ if (isset($_GET["action"]) || isset($_POST["action"])) {
             );
             mysqli_query($conn, "DELETE FROM `Password_Reset` WHERE `User_ID`='$userid'");
             $conn->close();
-            header("Refresh:3,url= /vault");
+            header("Refresh:0.5,url= /vault");
             echo '<script>alert("Congratulations! Your password has been updated successfully.")</script>';
             exit();
         } else {

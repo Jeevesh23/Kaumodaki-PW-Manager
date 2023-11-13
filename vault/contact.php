@@ -15,7 +15,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
     $name = $_POST["name"];
     $message = $_POST["message"];
     if (!$email) {
-        header("Refresh:3,url=/authentication/contact");
+        header("Refresh:0.5,url=/authentication/contact");
         echo '<script>alert("Invalid email address!")</script>';
         exit();
     } else {

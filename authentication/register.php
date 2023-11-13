@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$result = mysqli_query($conn, $sql);
 
 		if (!$result) {
-			header("Refresh:3, url= /authentication");
+			header("Refresh:0.5, url= /authentication");
 			echo '<script>alert("Connection failed")</script>';
 			$conn->close();
 			exit();
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 					exit();
 				}
 			}
-			header("Refresh:3,url=/authentication");
+			header("Refresh:0.5,url=/authentication");
 			echo '<script>alert("Email already taken! Use another one.")</script>';
 			$conn->close();
 			exit();

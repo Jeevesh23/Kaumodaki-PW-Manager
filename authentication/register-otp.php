@@ -43,7 +43,7 @@ if ($result === true) {
     $result1 = mysqli_query($conn, $sql1);
     if (!$result1) {
         $conn->close();
-        header("Refresh:3, url= /authentication");
+        header("Refresh:0.5, url= /authentication");
         echo '<script>alert("Connection failed!")</script>';
         exit();
     } else {
@@ -58,12 +58,12 @@ if ($result === true) {
         require(__DIR__ . '/../vault/genicon.php');
         createIconAndStoreInDB($username, $_SESSION['User_ID']);
         $_SESSION['Premium'] = 0;
-        header("Refresh:3,url= /vault");
+        header("Refresh:0.5,url= /vault");
         echo '<script>alert("User successfully registered! Redirecting to vault!")</script>';
         exit();
     }
 } else {
-    header("Refresh:3, url= /authentication");
+    header("Refresh:0.5, url= /authentication");
     echo '<script>alert("Error! 2FA problems.")</script>';
     exit();
 }

@@ -197,6 +197,26 @@
                 }
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.querySelector('input[name="password"]');
+            let typingTimer;
+            const doneTypingInterval = 1000;  // 1 second delay
+
+            function validatePassword() {
+                const password = passwordInput.value;
+
+                if (password.length < 8) {
+                    alert('Password must be at least 8 characters long');
+                    passwordInput.value = ''; // Reset the password field
+                }
+            }
+
+            passwordInput.addEventListener('input', function () {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(validatePassword, doneTypingInterval);
+            });
+        });
     </script>
 
 

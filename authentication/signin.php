@@ -48,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $conn->close();
+    header("Refresh:1, url= /authentication");
 } else {
     header("Location: /authentication");
     exit();
