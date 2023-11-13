@@ -559,11 +559,11 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <form action="#" method="post">
                                 <div class="input-box">
                                     <span class="details">Name</span>
-                                    <input type="text" placeholder="Enter your password" required>
+                                    <input type="text" placeholder="Enter your Name" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Email</span>
-                                    <input type="text" placeholder="Enter your password" required>
+                                    <input type="text" placeholder="Enter your Email-Id" required>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Message</span>

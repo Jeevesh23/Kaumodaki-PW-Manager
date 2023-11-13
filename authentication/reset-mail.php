@@ -49,7 +49,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
         exit();
     } else if ($tfa_result != true) {
         header("Refresh:3, url=/authentication/reset-mail");
-        echo '<script>alert("2FA authentication problems!")</script';
+        echo '<script>alert("2FA authentication problems!")</script>';
         exit();
     } else {
         $expformat = mktime(date("H"), date("i") + 10, date("s"), date("m"), date("d"), date("Y"));

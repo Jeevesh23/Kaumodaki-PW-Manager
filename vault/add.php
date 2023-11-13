@@ -39,12 +39,12 @@ if (isset($_POST['User_ID'])) {
         $result1 = mysqli_query($conn, $sql1);
         if (!$result1) {
             header("Refresh:3, url= /vault");
-            echo '<script>alert"Connection failed!"</script>';
+            echo '<script>alert("Connection failed!")</script>';
             exit();
         } else {
             header("Refresh:3,url= /vault/store-old");
             $conn->close();
-            echo '<script>alert"Account successfully registered! Redirecting to vault!"</script>';
+            echo '<script>alert("Account successfully registered! Redirecting to vault!")</script>';
             exit();
         }
     } catch (mysqli_sql_exception $e) {
