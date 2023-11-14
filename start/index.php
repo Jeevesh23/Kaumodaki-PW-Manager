@@ -13,7 +13,7 @@
     <header class="header">
         <a href="#" class="logo"><img src="/logos/password_manager_white.png" height="24px"></i> Kaumodaki PW Manager</a>
         <nav class="nav">
-            <a href="#">About</a>
+            <a href="https://github.com/SorcierMaheP/Kaumodaki-PW-Manager">Github</a>
             <a href="./../authentication/contact">Contact</a>
             <a href="./../authentication/">Login</a>
         </nav>
@@ -22,7 +22,7 @@
     <section class="home">
         <div class="content">
             <h2>Welcome to Kaumodaki!</h2>
-            <p>A password manager made with user's security in mind.
+            <p>A self-hosted password manager made with user's security in mind.
             </p>
             <a href="./../authentication/">Get Started</a>
         </div>
