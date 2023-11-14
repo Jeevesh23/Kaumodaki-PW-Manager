@@ -1,5 +1,15 @@
+<div align="center">
+    
 # Kaumodaki PW Manager
 
+<img src="logos/password_manager.jpg" alt="Kaumodaki PW Manager Logo" width="256"/>
+    
+<a href="">![GitHub repo size](https://img.shields.io/github/repo-size/SorcierMaheP/Kaumodaki-PW-Manager)</a>
+<a href="">![GitHub top language](https://img.shields.io/github/languages/top/SorcierMaheP/Kaumodaki-PW-Manager?color=%238892bf)</a>
+<a href="">![GitHub License](https://img.shields.io/github/license/SorcierMaheP/Kaumodaki-PW-Manager)</a>  
+
+</div>
+    
 ## About
 This is a project made by me(Mahendra) and Jeevesh, as an attempt to improve our skills in Web Technologies and PHP.  
 I've always been interested in password managers(Bitwarden and KeepassXC) and the role they play in securing environments.  
