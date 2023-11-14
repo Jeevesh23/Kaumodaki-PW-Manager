@@ -252,7 +252,7 @@ if (isset($_POST["email"]) && (!empty($_POST["email"]))) {
                     <form class="login-form" method="post" name="reset">
                         <input type="text" name="username" placeholder="Enter username" required>
                         <input type="email" name="email" placeholder="Enter email" required>
-                        <input type="OTP" name="otp" placeholder="Enter OTP" required>
+                        <input type="text" name="otp" placeholder="Enter OTP" required>
                         <input class="button" type="submit" value="Submit">
                     </form>
             </div>

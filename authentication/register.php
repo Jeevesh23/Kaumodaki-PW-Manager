@@ -26,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				$hasheddata = hash('sha512', $password . $row["Salt"]);
 				if ($row["Password"] == $hasheddata) {
 					echo '<script>alert("User exists! Sign in instead.")</script>';
-					header("Refresh:3,url=/authentication");
+					header("Refresh:0.5,url=/authentication");
 					$conn->close();
 					exit();
 				}
 			}
-			header("Refresh:0.5,url=/authentication");
 			echo '<script>alert("Email already taken! Use another one.")</script>';
+			header("Refresh:0.5,url=/authentication");
 			$conn->close();
 			exit();
 		}

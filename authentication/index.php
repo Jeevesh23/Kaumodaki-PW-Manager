@@ -34,7 +34,7 @@
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="password" name='password' placeholder="Password" required>
+                    <input type="password" name='password' placeholder="Password" minlength="8" required>
                     <label></label>
                 </div>
                 <div class="tnc">
@@ -57,11 +57,11 @@
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="password" name='password' placeholder="Password" />
+                    <input type="password" name='password' placeholder="Password" minlength="8" />
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="otp" name='otp' id="otpInput" placeholder="OTP" />
+                    <input type="text" name='otp' id="otpInput" placeholder="OTP" maxlength="6" minlength="6" />
                     <label></label>
                 </div>
                 <a href="reset-mail" class="forgot">Forgot your password?</a>
@@ -198,23 +198,24 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const passwordInput = document.querySelector('input[name="password"]');
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInputs = document.querySelectorAll('input[type="password"]');
             let typingTimer;
-            const doneTypingInterval = 1000;  // 1 second delay
+            const doneTypingInterval = 1000;
 
-            function validatePassword() {
-                const password = passwordInput.value;
-
+            function validatePassword(password) {
                 if (password.length < 8) {
-                    alert('Password must be at least 8 characters long');
-                    passwordInput.value = ''; // Reset the password field
+                    alert('Password must be at least 8 characters long.');
                 }
             }
 
-            passwordInput.addEventListener('input', function () {
-                clearTimeout(typingTimer);
-                typingTimer = setTimeout(validatePassword, doneTypingInterval);
+            passwordInputs.forEach(function(passwordInput) {
+                passwordInput.addEventListener('input', function() {
+                    clearTimeout(typingTimer);
+                    typingTimer = setTimeout(function() {
+                        validatePassword(passwordInput.value);
+                    }, doneTypingInterval);
+                });
             });
         });
     </script>

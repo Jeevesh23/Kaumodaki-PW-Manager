@@ -540,11 +540,11 @@ if (isset($_POST['logout']) && $_POST['logout'] == 1) {
                             <form action="/vault/change-master" method="post" onsubmit="return validateForm()">
                                 <div class="input-box">
                                     <span class="details">Password</span>
-                                    <input type="text" name="reset-password" placeholder="Enter your password" id="reset-master-pwd" required>
+                                    <input type="text" name="reset-password" placeholder="Enter your password" id="reset-master-pwd" required minlength="8">
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Confirm Password</span>
-                                    <input type="text" name="confirm-reset-password" placeholder="Confirm your password" id="confirm-reset-master-pwd" required>
+                                    <input type="text" name="confirm-reset-password" placeholder="Confirm your password" id="confirm-reset-master-pwd" required minlength="8">
                                 </div>
                                 <br>
                                 <input class="reset" type="reset" value="Reset Changes">

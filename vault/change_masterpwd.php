@@ -15,6 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!$req) {
         echo "<script>alert('Updating master password failed!');</script>";
     } else {
+        $pwdkey = hash_pbkdf2("sha512", $n_master_pwd, $_SESSION['salt2'], 500000, 64);
+        $req = mysqli_query($con, "SELECT `Password`,`IV` FROM `User_Info` WHERE `User_ID`=" . $_SESSION['User_ID']);
+        while ($row = $req->fetch_assoc()) {
+            $pwd = openssl_decrypt($row['Password'], "AES-256-CBC", $_SESSION['pwdkey'], iv: hex2bin($row['IV']));
+            $iv = openssl_random_pseudo_bytes(16);
+            $newenc = openssl_encrypt($pwd, "AES-256-CBC", $pwdkey, iv: $iv);
+            mysqli_query($con, "UPDATE `User_Info` SET `Password`='" . $newenc . "', `IV`='" . bin2hex($iv) . "' WHERE `User_ID`=" . $_SESSION['User_ID'] . " AND `Password`='" . $row['Password'] . "'");
+        }
+        $_SESSION['pwdkey'] = $pwdkey;
         echo "<script>alert('Master Password updated successfully!');</script>";
     }
     $con->close();
