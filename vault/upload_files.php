@@ -45,7 +45,10 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             if (in_array($fileType, $allowTypes)) {
                 $fileSize = $_FILES["file"]["size"];
                 if ($sum + $fileSize < 16700000) {
-                    if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
+                    $tempFilePath = $_FILES["file"]["tmp_name"];
+                    $fileContent = file_get_contents($tempFilePath);
+                    $encryptedContent = openssl_encrypt($fileContent, 'AES-256-CBC', $_SESSION['pwdkey']);
+                    if (file_put_contents($targetFilePath, $encryptedContent) !== false) {
                         $insert = $con->query("INSERT INTO `Files` (`User_ID`,`File_Name`, `Upload_Date`,`Size`) VALUES ('" . $_SESSION['User_ID'] . "','" . $fileName . "', CONVERT_TZ(NOW(), 'UTC',  'Asia/Kolkata'), $fileSize)");
                         if ($insert) {
                             $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
