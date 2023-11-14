@@ -240,6 +240,16 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         <title>Delete Files</title>
         <link href=" https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
+        <style>
+            input[type="submit"] {
+                background-color: #0074d9;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
     </head>
 
     <body>
