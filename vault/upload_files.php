@@ -491,6 +491,10 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
                 color: #fff;
                 background: #454cad;
             }
+
+            #dropArea input[type="submit"] {
+                cursor: pointer;
+            }
         </style>
     </head>
 
@@ -641,33 +645,33 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
         const fileInput = document.getElementById('file');
         const uploadedFilesDisplay = document.getElementById('uploadedFilesDisplay');
 
-        dropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropArea.classList.add('active');
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropArea = document.getElementById('dropArea');
 
-        dropArea.addEventListener('dragleave', () => {
-            dropArea.classList.remove('active');
-        });
+            dropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropArea.classList.add('drag-over');
+            });
 
-        dropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropArea.classList.remove('active');
-            const files = e.dataTransfer.files;
-            handleFiles(files);
-        });
+            dropArea.addEventListener('dragleave', function() {
+                dropArea.classList.remove('drag-over');
+            });
 
-        fileInput.addEventListener('change', () => {
-            const files = fileInput.files;
-            handleFiles(files);
-        });
+            dropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropArea.classList.remove('drag-over');
+                handleFiles(e.dataTransfer.files);
+            });
 
-        function handleFiles(files) {
-            fileList.innerHTML = '';
-            for (const file of files) {
-                fileList.innerHTML += `<p>${file.name}</p>`;
+            dropArea.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+
+            function handleFiles(files) {
+                const fileInput = document.getElementById('file');
+                fileInput.files = files;
             }
-        }
+        });
 
         function checkFileSize() {
             var fileInput = document.getElementById('file');
@@ -681,23 +685,6 @@ if (isset($_POST["submit"]) && $_POST["submit"] === "Upload") {
             }
 
             return true;
-        }
-
-        function handleFiles(files) {
-            const fileNames = [];
-
-            for (const file of files) {
-                fileNames.push(file.name);
-            }
-
-            // Display the uploaded files above the "fileList" form
-            const uploadedFilesDisplay = document.getElementById('uploadedFilesDisplay');
-
-            for (const fileName of fileNames) {
-                const p = document.createElement('p');
-                p.textContent = fileName;
-                uploadedFilesDisplay.insertBefore(p, uploadedFilesDisplay.firstChild);
-            }
         }
 
         const card = document.querySelector('.user-profile');
