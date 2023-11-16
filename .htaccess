@@ -1,0 +1,9 @@
+php_value memory_limit 64M
+php_value upload_max_filesize 16M
+php_value post_max_size 16M
+php_value max_execution_time 60
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !(\.png|\.jpg|\.webp|\.gif|\.jpeg|\.zip|\.css|\.svg|\.js|\.pdf)$
+RewriteRule (.*) routes.php [QSA,L]
+RewriteRule ^vault/Files/.*$ - [F,L]
+RewriteRule ^password_maintenance/sql/.*$ - [F,L]

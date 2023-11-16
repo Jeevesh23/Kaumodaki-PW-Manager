@@ -60,3 +60,8 @@ dkms.conf
 
 #Environment files
 *.env
+
+vendor/**
+vault/Files/
+vault/Icons/
+password_maintenance/sql/
