@@ -11,7 +11,7 @@
 </div>
     
 ## About
-This is a project made by me(Mahendra) and Jeevesh, as an attempt to improve our skills in Web Technologies (primarily HTML, CSS, JS and PHP).  
+This is a project made by me(Jeevesh) and Mahendra, as an attempt to improve our skills in Web Technologies (primarily HTML, CSS, JS and PHP).  
 I've always been interested in password managers(Bitwarden and KeepassXC) and the role they play in securing environments.  
 Implementing it was challenging (that is also because I do not really understand security in depth YET).  
 We DO NOT take any RESPONSIBILITY for our SHITTY coding practices and your LOSS of DATA.
